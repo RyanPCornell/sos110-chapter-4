@@ -1,0 +1,275 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" width="1600" height="800"
+     font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" role="img"
+     aria-label="Cross-section of Earth from space down to the interior, showing the atmosphere, biosphere, hydrosphere and geosphere.">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#0A1730"/><stop offset=".16" stop-color="#173F73"/>
+    <stop offset=".40" stop-color="#3D80BE"/><stop offset=".68" stop-color="#8AC6E9"/>
+    <stop offset="1" stop-color="#D9EFFA"/>
+  </linearGradient>
+  <linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#3E9AD1"/><stop offset=".45" stop-color="#1E6FA8"/>
+    <stop offset="1" stop-color="#0C3A60"/>
+  </linearGradient>
+  <linearGradient id="rockG" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#8A6B4C"/><stop offset=".30" stop-color="#7C4E2E"/>
+    <stop offset=".68" stop-color="#9A4526"/><stop offset="1" stop-color="#C9541F"/>
+  </linearGradient>
+  <!-- ── conifer: layered, drooping boughs with a shaded side ── -->
+  <g id="conifer">
+    <path d="M-6 0 L-4 -26 L4 -26 L6 0 Z" fill="#5A3E24" stroke="#33261A" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M0 -108 C 5 -93, 9 -89, 13 -85 C 8 -87, 4 -86, 2 -85
+             C 9 -71, 15 -65, 21 -61 C 13 -64, 7 -63, 4 -62
+             C 13 -45, 21 -37, 29 -31 C 17 -34, 7 -33, 0 -33
+             C -7 -33, -17 -34, -29 -31 C -21 -37, -13 -45, -4 -62
+             C -7 -63, -13 -64, -21 -61 C -15 -65, -9 -71, -2 -85
+             C -4 -86, -8 -87, -13 -85 C -9 -89, -5 -93, 0 -108 Z"
+          fill="#31743F" stroke="#163C25" stroke-width="3.4" stroke-linejoin="round"/>
+    <path d="M0 -108 C 5 -93, 9 -89, 13 -85 C 8 -87, 4 -86, 2 -85
+             C 9 -71, 15 -65, 21 -61 C 13 -64, 7 -63, 4 -62
+             C 13 -45, 21 -37, 29 -31 C 17 -34, 7 -33, 0 -33 Z"
+          fill="#245630" opacity=".45" stroke="none"/>
+  </g>
+  <!-- ── broadleaf: lobed crown, visible branching, highlight ── -->
+  <g id="broadleaf">
+    <path d="M-5 0 L-3 -30 L3 -30 L5 0 Z" fill="#5A3E24" stroke="#33261A" stroke-width="3" stroke-linejoin="round"/>
+    <g fill="none" stroke="#33261A" stroke-width="3" stroke-linecap="round">
+      <path d="M0 -30 L-13 -46 M0 -36 L12 -50 M0 -44 L-6 -58"/>
+    </g>
+    <path d="M0 -94 C 19 -96, 35 -85, 38 -69 C 49 -60, 46 -43, 31 -38
+             C 20 -28, 2 -30, -7 -37 C -23 -35, -37 -45, -34 -60
+             C -45 -72, -30 -90, -12 -91 C -8 -93, -4 -94, 0 -94 Z"
+          fill="#43914A" stroke="#1B4630" stroke-width="3.4" stroke-linejoin="round"/>
+    <path d="M8 -92 C 25 -91, 37 -82, 38 -69 C 49 -60, 46 -43, 31 -38
+             C 24 -32, 14 -31, 7 -33 Z" fill="#2F7038" opacity=".55" stroke="none"/>
+    <path d="M-22 -78 C -13 -85, -2 -86, 6 -83" fill="none" stroke="#6DBB6F"
+          stroke-width="4" stroke-linecap="round" opacity=".6"/>
+  </g>
+  <!-- ── fish: dorsal, pelvic, pectoral fins + forked tail ── -->
+  <g id="fish">
+    <path d="M-20 0 C -14 -11, 0 -15, 12 -11 C 20 -8, 25 -4, 28 0
+             C 25 4, 20 8, 12 11 C 0 15, -14 11, -20 0 Z"
+          fill="#EFA02A" stroke="#8A4E10" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M-20 0 L-36 -12 C -33 -6, -32 -3, -32 0 C -32 3, -33 6, -36 12 Z"
+          fill="#DE8C18" stroke="#8A4E10" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M-2 -13 C 0 -22, 6 -24, 11 -21 C 7 -17, 3 -14, 0 -12 Z"
+          fill="#DE8C18" stroke="#8A4E10" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M0 12 C 2 19, 6 21, 9 19 C 6 16, 3 14, 1 12 Z"
+          fill="#DE8C18" stroke="#8A4E10" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M6 2 C 12 6, 15 10, 13 12 C 9 10, 6 6, 5 2 Z"
+          fill="#D07F12" stroke="#8A4E10" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M10 -9 C 7 -3, 7 3, 10 9" fill="none" stroke="#8A4E10" stroke-width="2.2" opacity=".65"/>
+    <circle cx="19" cy="-3" r="2.9" fill="#F7F3E4"/><circle cx="19.4" cy="-3" r="1.5" fill="#12354C"/>
+  </g>
+  <!-- ── kelp: stipe with alternating blades ── -->
+  <g id="kelp">
+    <path d="M0 0 C -10 -28, 6 -48, -3 -76" fill="none" stroke="#256B44" stroke-width="4.5" stroke-linecap="round"/>
+    <g fill="#3E9B5F" stroke="#1D5636" stroke-width="2" stroke-linejoin="round">
+      <path d="M-4 -14 C -20 -21, -27 -14, -22 -8 C -14 -8, -7 -11, -4 -14 Z"/>
+      <path d="M-2 -30 C 14 -37, 21 -30, 16 -24 C 8 -24, 1 -27, -2 -30 Z"/>
+      <path d="M2 -46 C -14 -53, -21 -46, -16 -40 C -8 -40, -1 -43, 2 -46 Z"/>
+      <path d="M0 -62 C 16 -69, 23 -62, 18 -56 C 10 -56, 3 -59, 0 -62 Z"/>
+    </g>
+  </g>
+  <clipPath id="rockClip">
+    <path d="M0 462 C 140 444, 280 454, 400 438 C 500 425, 590 442, 680 448
+             C 740 452, 790 456, 810 440 C 826 462, 926 492, 1006 552
+             C 1106 586, 1256 628, 1426 616 L1600 608 L1600 800 L0 800 Z"/>
+  </clipPath>
+</defs>
+
+<!-- ═══════ SKY / SPACE ═══════ -->
+<rect x="0" y="0" width="1600" height="470" fill="url(#skyG)"/>
+<g fill="#FFFFFF">
+  <circle cx="120" cy="46" r="2.6" opacity=".9"/><circle cx="300" cy="28" r="1.9" opacity=".7"/>
+  <circle cx="470" cy="62" r="2.2" opacity=".8"/><circle cx="640" cy="34" r="1.7" opacity=".6"/>
+  <circle cx="810" cy="54" r="2.5" opacity=".85"/><circle cx="980" cy="26" r="1.8" opacity=".65"/>
+  <circle cx="1150" cy="60" r="2.3" opacity=".8"/><circle cx="1320" cy="32" r="2" opacity=".7"/>
+  <circle cx="1480" cy="52" r="2.6" opacity=".9"/><circle cx="215" cy="96" r="1.6" opacity=".5"/>
+  <circle cx="1050" cy="104" r="1.7" opacity=".55"/><circle cx="720" cy="112" r="1.5" opacity=".45"/>
+  <circle cx="1400" cy="118" r="1.6" opacity=".5"/><circle cx="390" cy="130" r="1.4" opacity=".4"/>
+</g>
+
+<!-- clouds -->
+<g fill="#FFFFFF">
+  <g opacity=".92">
+    <ellipse cx="300" cy="352" rx="66" ry="24"/><ellipse cx="352" cy="340" rx="48" ry="26"/>
+    <ellipse cx="252" cy="342" rx="44" ry="21"/>
+  </g>
+  <g opacity=".8">
+    <ellipse cx="1180" cy="322" rx="72" ry="25"/><ellipse cx="1238" cy="310" rx="50" ry="27"/>
+    <ellipse cx="1126" cy="312" rx="46" ry="22"/>
+  </g>
+  <g opacity=".7">
+    <ellipse cx="760" cy="378" rx="54" ry="19"/><ellipse cx="802" cy="368" rx="38" ry="21"/>
+  </g>
+</g>
+<!-- birds (soaring gull silhouettes) -->
+<g fill="#33454F" opacity=".8">
+  <g transform="translate(570,296) scale(1.15)">
+    <path d="M-24 0 C -15 -10, -7 -12, 0 -5 C 7 -12, 15 -10, 24 0
+             C 14 -3, 7 -1, 0 4 C -7 -1, -14 -3, -24 0 Z"/>
+  </g>
+  <g transform="translate(648,266) scale(.8)">
+    <path d="M-24 0 C -15 -10, -7 -12, 0 -5 C 7 -12, 15 -10, 24 0
+             C 14 -3, 7 -1, 0 4 C -7 -1, -14 -3, -24 0 Z"/>
+  </g>
+</g>
+
+<!-- ═══════ MOUNTAINS ═══════ -->
+<g stroke="#3F4E5A" stroke-width="4" stroke-linejoin="round">
+  <path d="M40 452 L150 306 L232 400 L286 344 L400 452 Z" fill="#6E8494"/>
+  <path d="M150 306 L186 353 L150 372 L118 350 Z" fill="#F2F7FA" stroke="none"/>
+  <path d="M286 344 L310 376 L286 388 L262 372 Z" fill="#F2F7FA" stroke="none"/>
+  <path d="M40 452 L150 306 L232 400 L286 344 L400 452 Z" fill="none"/>
+</g>
+
+<!-- ═══════ GEOSPHERE (rock) ═══════ -->
+<path d="M0 462 C 140 444, 280 454, 400 438 C 500 425, 590 442, 680 448
+         C 740 452, 790 456, 810 440 C 826 462, 926 492, 1006 552
+         C 1106 586, 1256 628, 1426 616 L1600 608 L1600 800 L0 800 Z" fill="url(#rockG)"/>
+<g clip-path="url(#rockClip)">
+  <!-- soil / crust cap -->
+  <path d="M0 462 C 140 444, 280 454, 400 438 C 500 425, 590 442, 680 448
+           C 740 452, 790 456, 810 440 C 826 462, 926 492, 1006 552
+           C 1106 586, 1256 628, 1426 616 L1600 608 L1600 638 L0 494 Z" fill="#5E4326" opacity=".55"/>
+  <!-- strata -->
+  <g fill="none" stroke="#5B3A22" stroke-width="4" opacity=".45">
+    <path d="M-20 552 C 140 534, 280 544, 400 528 C 500 515, 590 532, 680 538 C 800 546, 950 596, 1080 642 C 1250 700, 1420 690, 1620 682"/>
+    <path d="M-20 636 C 140 618, 280 628, 400 612 C 500 599, 590 616, 680 622 C 800 630, 950 680, 1080 726 C 1250 784, 1420 774, 1620 766"/>
+  </g>
+  <!-- deep heat -->
+  <g fill="none" stroke="#F0913C" stroke-width="5" stroke-linecap="round" opacity=".5">
+    <path d="M120 770 q60 -18 120 0 M420 782 q60 -18 120 0 M760 776 q60 -18 120 0 M1140 786 q60 -18 120 0"/>
+  </g>
+</g>
+
+<!-- ═══════ HYDROSPHERE (ocean) ═══════ -->
+<path d="M810 440 L1600 440 L1600 608 C 1426 616, 1256 628, 1106 586
+         C 1006 552, 926 492, 826 462 C 818 454, 812 448, 810 440 Z" fill="url(#seaG)"/>
+<g fill="none" stroke="#BFE4F5" stroke-width="4" stroke-linecap="round" opacity=".55">
+  <path d="M900 462 q22 -10 44 0 M1010 452 q22 -10 44 0 M1150 464 q22 -10 44 0 M1320 452 q22 -10 44 0 M1460 466 q22 -10 44 0"/>
+</g>
+<!-- whale (tapered body, fluke, pectoral + dorsal fins, ventral pleats) -->
+<g transform="translate(1148,548)">
+  <path d="M-88 -2 C -80 -18, -56 -27, -26 -27 C 6 -27, 40 -19, 60 -10
+           C 68 -8, 74 -8, 80 -10 L94 -28 C 99 -33, 104 -28, 101 -20
+           C 98 -12, 93 -6, 89 -2 C 93 2, 98 8, 101 16 C 104 24, 99 29, 94 24
+           L80 6 C 74 4, 68 4, 60 6 C 40 15, 6 23, -26 23 C -56 23, -80 14, -88 -2 Z"
+        fill="#2A5771" stroke="#12354C" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M-84 5 C -60 17, -24 21, 4 18 C 26 16, 46 10, 58 6
+           C 40 14, 6 22, -26 22 C -54 22, -76 13, -84 5 Z"
+        fill="#A9C9D8" stroke="none" opacity=".85"/>
+  <g fill="none" stroke="#12354C" stroke-width="1.8" opacity=".4">
+    <path d="M-70 8 C -66 14, -62 18, -58 20 M-56 12 C -52 17, -49 20, -46 22
+             M-42 14 C -39 19, -36 21, -33 23 M-28 15 C -25 19, -23 21, -20 22"/>
+  </g>
+  <path d="M34 -22 C 40 -35, 51 -39, 57 -35 C 50 -30, 44 -26, 40 -21 Z"
+        fill="#2A5771" stroke="#12354C" stroke-width="3.2" stroke-linejoin="round"/>
+  <path d="M-30 6 C -20 20, -4 32, 8 35 C 0 24, -10 12, -18 4 Z"
+        fill="#1F455C" stroke="#12354C" stroke-width="3.2" stroke-linejoin="round"/>
+  <path d="M-88 -2 C -78 4, -66 8, -54 10" fill="none" stroke="#12354C" stroke-width="2.6" opacity=".6"/>
+  <circle cx="-66" cy="-7" r="3.2" fill="#0B2A3D"/>
+  <circle cx="-65" cy="-8" r="1.1" fill="#F2F7FA"/>
+</g>
+<!-- fish + kelp -->
+<use href="#fish" transform="translate(1402,498) scale(1.05)"/>
+<use href="#fish" transform="translate(982,520) scale(.78)"/>
+<use href="#fish" transform="translate(1330,566) scale(.62)"/>
+<use href="#kelp" transform="translate(1218,620) scale(1.05)"/>
+<use href="#kelp" transform="translate(1272,624) scale(.82)"/>
+<use href="#kelp" transform="translate(1504,606) scale(.95)"/>
+
+<!-- ═══════ LAND + TREES ═══════ -->
+<path d="M0 462 C 140 444, 280 454, 400 438 C 500 425, 590 442, 680 448
+         C 740 452, 790 456, 810 440 L810 470 L0 500 Z" fill="#3E7B3A" opacity=".9"/>
+<g>
+  <use href="#conifer" transform="translate(96,452)"/>
+  <use href="#broadleaf" transform="translate(188,450) scale(.95)"/>
+  <use href="#conifer" transform="translate(330,446) scale(.9)"/>
+  <use href="#broadleaf" transform="translate(464,430) scale(1.05)"/>
+  <use href="#conifer" transform="translate(570,438) scale(.85)"/>
+  <use href="#broadleaf" transform="translate(674,448) scale(.9)"/>
+</g>
+<!-- deer (jointed legs, chest and haunch, tined antlers) -->
+<g transform="translate(754,459) scale(0.88)">
+  <g fill="none" stroke="#7A5330" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-14 -19 L-16 -10 L-12 -1"/><path d="M13 -19 L15 -10 L11 -1"/>
+  </g>
+  <path d="M-24 -23 C -28 -34, -18 -42, -4 -42 C 8 -43, 17 -40, 23 -34
+           C 28 -30, 27 -23, 21 -20 C 8 -17, -13 -17, -24 -23 Z"
+        fill="#A9713D" stroke="#6B4A28" stroke-width="3.2" stroke-linejoin="round"/>
+  <ellipse cx="-19" cy="-28" rx="5.5" ry="7.5" fill="#EBDCC0" opacity=".7"/>
+  <path d="M-25 -33 C -31 -32, -32 -27, -29 -23" fill="none" stroke="#6B4A28" stroke-width="3.2" stroke-linecap="round"/>
+  <g fill="none" stroke="#8A5A2E" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-19 -19 L-22 -10 L-18 0"/><path d="M17 -19 L20 -10 L16 0"/>
+  </g>
+  <path d="M18 -38 C 23 -47, 27 -55, 29 -62 L38 -61 C 37 -53, 32 -43, 25 -35 Z"
+        fill="#A9713D" stroke="#6B4A28" stroke-width="3.2" stroke-linejoin="round"/>
+  <path d="M28 -62 C 27 -68, 31 -73, 37 -73 C 44 -73, 50 -69, 54 -64
+           C 50 -61, 44 -60, 38 -60.5 C 33 -61, 29 -60, 28 -62 Z"
+        fill="#B57F49" stroke="#6B4A28" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M32 -72 C 30 -79, 33 -83, 38 -81 C 39 -76, 36 -73, 34 -72 Z"
+        fill="#8A5A2E" stroke="#6B4A28" stroke-width="2.4" stroke-linejoin="round"/>
+  <g fill="none" stroke="#6B4A28" stroke-linecap="round">
+    <g stroke-width="2.6">
+      <path d="M35 -76 C 34 -86, 38 -93, 45 -98"/>
+      <path d="M37 -84 C 32 -88, 28 -90, 23 -90"/>
+      <path d="M41 -91 C 38 -96, 35 -99, 31 -101"/>
+      <path d="M45 -98 C 49 -101, 54 -102, 58 -100"/>
+    </g>
+    <g stroke="#7E5930" stroke-width="2.2">
+      <path d="M41 -75 C 43 -85, 48 -91, 54 -95"/>
+      <path d="M54 -95 C 58 -97, 62 -97, 65 -95"/>
+    </g>
+  </g>
+  <circle cx="42" cy="-68" r="2.3" fill="#2B1B0C"/>
+  <circle cx="53" cy="-63.5" r="1.9" fill="#3A2510"/>
+</g>
+<g fill="none" stroke="#2E6B3F" stroke-width="4" stroke-linecap="round" opacity=".85">
+  <path d="M250 460 q-4 -14 -12 -22 M254 460 q1 -16 -1 -26 M258 460 q5 -13 13 -21"/>
+  <path d="M612 452 q-4 -14 -12 -22 M616 452 q1 -16 -1 -26 M620 452 q5 -13 13 -21"/>
+</g>
+
+<!-- ═══════ BIOSPHERE RIBBON ═══════ -->
+<path d="M0 296 C 300 284, 600 292, 810 298 C 1100 306, 1350 298, 1600 304
+         L1600 668 C 1350 680, 1100 668, 810 660 C 600 654, 300 662, 0 670 Z"
+      fill="#3FBF6A" fill-opacity=".13" stroke="#1F7A45" stroke-width="4"
+      stroke-dasharray="16 12" stroke-linejoin="round"/>
+
+<!-- ═══════ LABELS ═══════ -->
+<g stroke-linecap="round">
+  <path d="M1236 168 L1130 236" stroke="#FFFFFF" stroke-width="3.5" opacity=".85"/>
+  <path d="M1330 482 L1264 524" stroke="#FFFFFF" stroke-width="3.5" opacity=".9"/>
+  <path d="M390 706 L482 672" stroke="#FFE0C4" stroke-width="3.5" opacity=".9"/>
+</g>
+
+<g font-size="27" font-weight="700">
+  <!-- ATMOSPHERE -->
+  <g transform="translate(1092,130)">
+    <rect x="0" y="0" width="288" height="56" rx="28" fill="#FFFFFF" fill-opacity=".95" stroke="#2E6B8F" stroke-width="3.5"/>
+    <circle cx="34" cy="28" r="12" fill="#7EC8F0" stroke="#2E6B8F" stroke-width="3"/>
+    <text x="58" y="37" fill="#15384F">ATMOSPHERE</text>
+  </g>
+  <!-- BIOSPHERE (label carries the takeaway so nothing overlaps the scene) -->
+  <g transform="translate(40,324)">
+    <rect x="0" y="0" width="586" height="56" rx="28" fill="#FFFFFF" fill-opacity=".95" stroke="#1F7A45" stroke-width="3.5"/>
+    <circle cx="34" cy="28" r="12" fill="#3FBF6A" stroke="#1F7A45" stroke-width="3"/>
+    <text x="58" y="37" fill="#12432A">BIOSPHERE</text>
+    <text x="250" y="37" font-size="22" font-weight="600" font-style="italic" fill="#3A6B4E">Life reaches into all three.</text>
+  </g>
+  <!-- HYDROSPHERE -->
+  <g transform="translate(1272,424)">
+    <rect x="0" y="0" width="298" height="56" rx="28" fill="#FFFFFF" fill-opacity=".95" stroke="#17618F" stroke-width="3.5"/>
+    <circle cx="34" cy="28" r="12" fill="#2E86C1" stroke="#17618F" stroke-width="3"/>
+    <text x="58" y="37" fill="#0D3A5A">HYDROSPHERE</text>
+  </g>
+  <!-- GEOSPHERE -->
+  <g transform="translate(120,678)">
+    <rect x="0" y="0" width="262" height="56" rx="28" fill="#FFFFFF" fill-opacity=".95" stroke="#8C5426" stroke-width="3.5"/>
+    <circle cx="34" cy="28" r="12" fill="#B7703C" stroke="#8C5426" stroke-width="3"/>
+    <text x="58" y="37" fill="#4E2C12">GEOSPHERE</text>
+  </g>
+</g>
+
+</svg>

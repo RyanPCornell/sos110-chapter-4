@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 820" width="1600" height="820"
+     font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" role="img"
+     aria-label="Whittaker diagram plotting Earth's major biomes by mean annual temperature and mean annual precipitation.">
+<defs>
+  <pattern id="imposs" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#B9C4C9" stroke-width="2.5" opacity=".55"/>
+  </pattern>
+</defs>
+
+<rect x="0" y="0" width="1600" height="820" fill="#FFFFFF"/>
+
+<!-- ═══════ TITLE ═══════ -->
+<text x="150" y="52" font-size="30" font-weight="700" fill="#1F3D30">Two numbers predict the biome</text>
+<text x="150" y="80" font-size="21" fill="#5A6B62">Mean annual temperature and precipitation place every terrestrial biome in climate space</text>
+
+<!-- ═══════ PLOT FRAME + GRID ═══════ -->
+<g stroke="#E2E8E4" stroke-width="1.5">
+  <path d="M150 596.7 H1000 M150 533.3 H1000 M150 470 H1000 M150 406.7 H1000
+           M150 343.3 H1000 M150 280 H1000 M150 216.7 H1000 M150 153.3 H1000 M150 90 H1000"/>
+  <path d="M244.4 90 V660 M338.9 90 V660 M433.3 90 V660 M527.8 90 V660 M622.2 90 V660
+           M716.7 90 V660 M811.1 90 V660 M905.6 90 V660"/>
+</g>
+
+<!-- climatically impossible corner (cool + very wet) -->
+<path d="M150 603 L320 568.8 L452.2 508 L527.8 451 L622.2 371.2 L716.7 286.3
+         L811.1 197.7 L905.6 128 L1000 90 L1000 90 L150 90 Z" fill="url(#imposs)"/>
+
+<!-- ═══════ BIOME ENVELOPES ═══════ -->
+<g stroke="#33453D" stroke-linejoin="round">
+  <!-- non-focal biomes (muted) -->
+  <g stroke-width="2.5" opacity=".62">
+    <path d="M150 660 L320 660 L320 568.8 L150 603 Z" fill="#C7D3D9"/>
+    <path d="M320 660 L452.2 660 L452.2 508 L320 568.8 Z" fill="#7FA890"/>
+    <path d="M452.2 590.3 L811.1 590.3 L811.1 520.7 L452.2 520.7 Z" fill="#BCA75E"/>
+    <path d="M622.2 371.2 L811.1 368.7 L811.1 197.7 L716.7 286.3 Z" fill="#2E7D5B"/>
+  </g>
+  <!-- focal biomes: the four on this slide -->
+  <g stroke-width="4">
+    <path d="M452.2 660 L811.1 660 L811.1 590.3 L452.2 590.3 Z" fill="#D9C97E"/>
+    <path d="M452.2 520.7 L811.1 520.7 L811.1 368.7 L622.2 371.2 L527.8 451 L452.2 504.2 Z" fill="#6BA368"/>
+    <path d="M811.1 660 L1000 660 L1000 596.7 L811.1 596.7 Z" fill="#E8C48A"/>
+    <path d="M811.1 596.7 L1000 596.7 L1000 368.7 L811.1 368.7 Z" fill="#C9A227"/>
+    <path d="M811.1 368.7 L1000 368.7 L1000 90 L905.6 128 L811.1 197.7 Z" fill="#1E6B3F"/>
+  </g>
+</g>
+
+<!-- ═══════ ZONE LABELS ═══════ -->
+<g font-size="17" font-weight="700" fill="#33453D" text-anchor="middle">
+  <text x="232" y="628" opacity=".8">Tundra</text>
+  <text x="386" y="612" opacity=".85" fill="#F2F7F4">Boreal</text>
+  <text x="386" y="631" opacity=".85" fill="#F2F7F4">forest</text>
+  <text x="631" y="551" opacity=".9">Woodland /</text>
+  <text x="631" y="570" opacity=".9">shrubland</text>
+  <text x="752" y="308" fill="#12402B" opacity="1">Temperate</text>
+  <text x="752" y="327" fill="#12402B" opacity="1">rainforest</text>
+</g>
+<g font-size="19" font-weight="700" text-anchor="middle">
+  <text x="631" y="632" fill="#4A3F14">Temperate grassland</text>
+  <text x="631" y="446" fill="#1B3D1C">Temperate</text>
+  <text x="631" y="467" fill="#1B3D1C">seasonal forest</text>
+  <text x="905" y="634" fill="#6B4A18">Desert</text>
+  <text x="905" y="480" fill="#4A3B08">Tropical savanna /</text>
+  <text x="905" y="501" fill="#4A3B08">seasonal forest</text>
+  <text x="905" y="246" fill="#F0FAF3">Tropical</text>
+  <text x="905" y="267" fill="#F0FAF3">rainforest</text>
+</g>
+
+<!-- impossible-corner callout -->
+<g>
+  <text x="300" y="200" font-size="18" font-weight="700" fill="#7C8B93">No climates occur here —</text>
+  <text x="300" y="223" font-size="18" font-weight="700" fill="#7C8B93">cold air cannot hold much moisture</text>
+</g>
+
+<!-- ═══════ AXES ═══════ -->
+<g stroke="#33453D" stroke-width="3.5" fill="none">
+  <path d="M150 90 V660 H1000"/>
+</g>
+<g stroke="#33453D" stroke-width="2.5">
+  <path d="M150 660 v9 M244.4 660 v9 M338.9 660 v9 M433.3 660 v9 M527.8 660 v9
+           M622.2 660 v9 M716.7 660 v9 M811.1 660 v9 M905.6 660 v9 M1000 660 v9"/>
+  <path d="M150 660 h-9 M150 533.3 h-9 M150 406.7 h-9 M150 280 h-9 M150 153.3 h-9 M150 90 h-9"/>
+</g>
+<g font-size="19" fill="#33453D" text-anchor="middle">
+  <text x="150" y="690">−15</text><text x="244.4" y="690">−10</text><text x="338.9" y="690">−5</text>
+  <text x="433.3" y="690">0</text><text x="527.8" y="690">5</text><text x="622.2" y="690">10</text>
+  <text x="716.7" y="690">15</text><text x="811.1" y="690">20</text><text x="905.6" y="690">25</text>
+  <text x="1000" y="690">30</text>
+</g>
+<g font-size="19" fill="#33453D" text-anchor="end">
+  <text x="132" y="667">0</text><text x="132" y="540">100</text><text x="132" y="413">200</text>
+  <text x="132" y="287">300</text><text x="132" y="160">400</text><text x="132" y="97">450</text>
+</g>
+<text x="575" y="728" font-size="21" font-weight="700" fill="#1F3D30" text-anchor="middle"
+      letter-spacing=".6">MEAN ANNUAL TEMPERATURE (°C)</text>
+<text x="58" y="375" font-size="21" font-weight="700" fill="#1F3D30" text-anchor="middle"
+      letter-spacing=".6" transform="rotate(-90 58 375)">MEAN ANNUAL PRECIPITATION (cm / year)</text>
+
+<!-- ═══════ RIGHT PANEL ═══════ -->
+<rect x="1052" y="96" width="516" height="470" rx="18" fill="#F7FAF8" stroke="#D3E0D8" stroke-width="2.5"/>
+<text x="1080" y="140" font-size="19" font-weight="700" fill="#1F3D30" letter-spacing=".8">THE FOUR BIOMES ON THIS SLIDE</text>
+
+<g>
+  <g transform="translate(1080,168)">
+    <rect x="0" y="0" width="28" height="28" rx="6" fill="#1E6B3F" stroke="#33453D" stroke-width="2.5"/>
+    <text x="42" y="21" font-size="22" font-weight="700" fill="#1F3D30">Tropical Rainforest</text>
+    <text x="42" y="48" font-size="19" fill="#4C5C53">20–28 °C  ·  200–450 cm/yr</text>
+  </g>
+  <g transform="translate(1080,268)">
+    <rect x="0" y="0" width="28" height="28" rx="6" fill="#6BA368" stroke="#33453D" stroke-width="2.5"/>
+    <text x="42" y="21" font-size="22" font-weight="700" fill="#1F3D30">Temperate Forest</text>
+    <text x="42" y="48" font-size="19" fill="#4C5C53">5–20 °C  ·  75–200 cm/yr</text>
+  </g>
+  <g transform="translate(1080,368)">
+    <rect x="0" y="0" width="28" height="28" rx="6" fill="#C9A227" stroke="#33453D" stroke-width="2.5"/>
+    <text x="42" y="21" font-size="22" font-weight="700" fill="#1F3D30">Grassland / Savanna</text>
+    <text x="42" y="48" font-size="19" fill="#4C5C53">0–28 °C  ·  25–150 cm/yr</text>
+  </g>
+  <g transform="translate(1080,468)">
+    <rect x="0" y="0" width="28" height="28" rx="6" fill="#E8C48A" stroke="#33453D" stroke-width="2.5"/>
+    <text x="42" y="21" font-size="22" font-weight="700" fill="#1F3D30">Desert</text>
+    <text x="42" y="48" font-size="19" fill="#4C5C53">18–30 °C  ·  under 50 cm/yr</text>
+  </g>
+</g>
+
+<!-- takeaway -->
+<rect x="1052" y="590" width="516" height="132" rx="18" fill="#EAF3ED" stroke="#BFD6C6" stroke-width="2.5"/>
+<text x="1080" y="626" font-size="20" font-weight="700" fill="#1F3D30">Read it like a map</text>
+<text x="1080" y="656" font-size="18.5" fill="#3C4C43">Move right → warmer. Move up → wetter.</text>
+<text x="1080" y="681" font-size="18.5" fill="#3C4C43">Rainfall separates desert from savanna from</text>
+<text x="1080" y="704" font-size="18.5" fill="#3C4C43">rainforest at the same temperature.</text>
+
+<!-- source -->
+<text x="150" y="782" font-size="17" fill="#7A8B82">Envelopes are approximate. After R. H. Whittaker, <tspan font-style="italic">Communities and Ecosystems</tspan> (2nd ed., 1975).</text>
+</svg>

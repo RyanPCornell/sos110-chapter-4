@@ -1,0 +1,434 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 760" width="1600" height="760"
+     font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" role="img"
+     aria-label="Hand-drawn panorama of four biomes along a climate gradient: tropical rainforest, temperate forest, grassland and savanna, and desert.">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#A5DAEC"/><stop offset=".26" stop-color="#BFE6F1"/>
+    <stop offset=".5" stop-color="#DAECE1"/><stop offset=".74" stop-color="#F5E2B2"/>
+    <stop offset="1" stop-color="#F8C689"/>
+  </linearGradient>
+  <linearGradient id="ground" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#1F5733"/><stop offset=".26" stop-color="#2E7B43"/>
+    <stop offset=".5" stop-color="#4F9247"/><stop offset=".72" stop-color="#C6A84E"/>
+    <stop offset="1" stop-color="#EACD93"/>
+  </linearGradient>
+  <linearGradient id="hills" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#3C7B55"/><stop offset=".3" stop-color="#53906A"/>
+    <stop offset=".55" stop-color="#7CA871"/><stop offset=".78" stop-color="#CDB579"/>
+    <stop offset="1" stop-color="#D9AC77"/>
+  </linearGradient>
+  <linearGradient id="axis" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#2E86C1"/><stop offset=".42" stop-color="#5DAE6B"/>
+    <stop offset=".74" stop-color="#E0A02E"/><stop offset="1" stop-color="#D4552B"/>
+  </linearGradient>
+  <radialGradient id="sunGlow">
+    <stop offset="0" stop-color="#FFE08A" stop-opacity=".85"/>
+    <stop offset="1" stop-color="#FFE08A" stop-opacity="0"/>
+  </radialGradient>
+
+  <!-- soft cloud -->
+  <g id="cloud">
+    <path d="M0 44 Q0 12 32 8 Q40 -28 82 -28 Q124 -28 132 4 Q166 0 172 28 Q176 44 152 44 Z"/>
+  </g>
+  <!-- grass tuft (inherits color via currentColor) -->
+  <g id="tuft" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+    <path d="M0 0 Q-5 -18 -15 -29 M0 0 Q-2 -22 -5 -35 M0 0 Q4 -20 13 -31 M0 0 Q9 -14 20 -23"/>
+  </g>
+  <!-- fern / understory leaf -->
+  <g id="fern" stroke="#123F28" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M0 0 Q-4 -30 -2 -54" fill="none"/>
+    <path d="M-2 -50 Q-24 -54 -30 -40 Q-12 -36 -2 -44Z" fill="#2A8A54"/>
+    <path d="M-2 -50 Q20 -56 27 -42 Q9 -37 -2 -44Z" fill="#2A8A54"/>
+    <path d="M-1 -34 Q-24 -38 -31 -25 Q-13 -21 -1 -28Z" fill="#22794A"/>
+    <path d="M-1 -34 Q21 -40 29 -26 Q11 -22 -1 -28Z" fill="#22794A"/>
+    <path d="M0 -18 Q-21 -22 -27 -10 Q-11 -7 0 -13Z" fill="#1E6B3F"/>
+    <path d="M0 -18 Q19 -24 26 -11 Q10 -8 0 -13Z" fill="#1E6B3F"/>
+  </g>
+  <!-- distant conifer silhouette -->
+  <g id="fir">
+    <path d="M0 0 L-20 0 L-11 -18 L-17 -18 L-9 -36 L-14 -36 L0 -60 L14 -36 L9 -36 L17 -18 L11 -18 L20 0 Z"/>
+  </g>
+</defs>
+
+<!-- ═══════════ SKY ═══════════ -->
+<rect x="0" y="0" width="1600" height="612" fill="url(#sky)"/>
+<circle cx="1452" cy="126" r="132" fill="url(#sunGlow)"/>
+<g stroke="#E7A32A" stroke-width="7" stroke-linecap="round">
+  <path d="M1452 34 L1452 12 M1452 240 L1452 262 M1360 126 L1338 126 M1544 126 L1566 126
+           M1387 61 L1372 46 M1517 191 L1532 206 M1517 61 L1532 46 M1387 191 L1372 206"/>
+</g>
+<circle cx="1452" cy="126" r="56" fill="#FFC94D" stroke="#E09A1F" stroke-width="5"/>
+
+<!-- clouds: heavy rain cloud over the rainforest, lighter ones drifting drier -->
+<g>
+  <use href="#cloud" transform="translate(72,84) scale(1.25)" fill="#9FB6C2" stroke="#5F7885" stroke-width="4" stroke-linejoin="round"/>
+  <use href="#cloud" transform="translate(216,132) scale(.85)" fill="#AFC4CE" stroke="#5F7885" stroke-width="5" stroke-linejoin="round"/>
+  <use href="#cloud" transform="translate(452,164) scale(.95)" fill="#EAF3F6" stroke="#8FA9B4" stroke-width="4.5" stroke-linejoin="round"/>
+  <use href="#cloud" transform="translate(700,150) scale(.72)" fill="#F2F8FA" stroke="#9FB6C2" stroke-width="6" stroke-linejoin="round"/>
+  <use href="#cloud" transform="translate(980,120) scale(.62)" fill="#FBF6EA" stroke="#C9BC9C" stroke-width="7" stroke-linejoin="round"/>
+</g>
+<!-- rain over the rainforest -->
+<g stroke="#7FB6D6" stroke-width="4" stroke-linecap="round" opacity=".6">
+  <path d="M62 168 L54 200 M104 176 L96 208 M146 168 L138 200 M188 180 L180 212
+           M84 216 L76 248 M126 224 L118 256 M168 214 L160 246 M210 228 L202 260
+           M242 196 L234 228 M266 232 L258 264 M40 214 L32 246 M300 210 L292 242"/>
+</g>
+<!-- birds -->
+<g fill="none" stroke="#41576A" stroke-width="4" stroke-linecap="round" opacity=".75">
+  <path d="M596 232 q12 -11 23 0 q11 -11 23 0"/>
+  <path d="M660 200 q9 -8 17 0 q8 -8 17 0"/>
+  <path d="M1050 214 q11 -10 21 0 q10 -10 21 0"/>
+</g>
+
+<!-- ═══════════ DISTANT HILLS ═══════════ -->
+<path d="M0 452 C 90 402, 180 398, 268 434 C 342 396, 420 392, 486 428
+         C 566 386, 660 388, 726 430 C 812 398, 898 402, 968 432
+         C 1046 400, 1130 404, 1196 434 C 1268 392, 1352 388, 1420 424
+         C 1482 396, 1548 402, 1600 428 L1600 612 L0 612 Z"
+      fill="url(#hills)" opacity=".85"/>
+<!-- desert buttes -->
+<g stroke="#8C5B33" stroke-width="4" stroke-linejoin="round">
+  <path d="M1374 452 L1384 374 Q1386 364 1398 363 L1446 361 Q1457 361 1459 371 L1470 452 Z" fill="#CE9560"/>
+  <path d="M1446 361 Q1457 361 1459 371 L1470 452 L1436 452 Z" fill="#B87F4C" stroke="none"/>
+  <path d="M1374 452 L1384 374 Q1386 364 1398 363 L1446 361 Q1457 361 1459 371 L1470 452 Z" fill="none"/>
+  <g stroke="#A9713F" stroke-width="3" opacity=".55" fill="none">
+    <path d="M1396 382 L1389 448 M1412 379 L1409 448 M1429 378 L1432 448"/>
+  </g>
+  <path d="M1492 452 L1500 412 Q1502 405 1510 404 L1548 403 Q1556 403 1558 410 L1566 452 Z" fill="#C48A57"/>
+  <path d="M1548 403 Q1556 403 1558 410 L1566 452 L1540 452 Z" fill="#B07749" stroke="none"/>
+  <path d="M1492 452 L1500 412 Q1502 405 1510 404 L1548 403 Q1556 403 1558 410 L1566 452 Z" fill="none"/>
+  <g stroke="#A9713F" stroke-width="2.6" opacity=".5" fill="none">
+    <path d="M1516 418 L1513 449 M1534 417 L1536 449"/>
+  </g>
+</g>
+
+<!-- ═══════════ GROUND ═══════════ -->
+<path d="M0 452 C 130 442, 268 458, 400 448 C 536 438, 664 456, 800 450
+         C 940 442, 1064 460, 1200 452 C 1340 444, 1470 458, 1600 450
+         L1600 612 L0 612 Z" fill="url(#ground)"/>
+<!-- sand dunes -->
+<g fill="#F0D7A2" stroke="#CBA96B" stroke-width="4" stroke-linejoin="round">
+  <path d="M1206 512 C 1268 470, 1350 470, 1418 508 C 1470 536, 1540 534, 1600 508 L1600 612 L1206 612 Z"/>
+  <path d="M1250 566 C 1316 536, 1396 540, 1452 570 C 1508 598, 1560 594, 1600 574 L1600 612 L1250 612 Z" fill="#F7E3BC" stroke="#D9BC85"/>
+</g>
+
+<!-- ═══════════ 1 · TROPICAL RAINFOREST (x 0–400) ═══════════ -->
+<!-- dense back canopy -->
+<g fill="#15452B" stroke="#0D3320" stroke-width="4" stroke-linejoin="round">
+  <ellipse cx="26" cy="392" rx="70" ry="46"/><ellipse cx="118" cy="374" rx="76" ry="50"/>
+  <ellipse cx="212" cy="388" rx="72" ry="46"/><ellipse cx="300" cy="378" rx="70" ry="48"/>
+  <ellipse cx="374" cy="396" rx="62" ry="42"/>
+</g>
+<!-- emergent tree (left) -->
+<g transform="translate(96,452)">
+  <path d="M-11 0 L-8 -150 Q-5 -186 0 -198 Q5 -186 8 -150 L11 0 Z" fill="#5C4326" stroke="#33261A" stroke-width="4.5" stroke-linejoin="round"/>
+  <path d="M-30 0 Q-16 -16 -7 -42 M30 0 Q16 -18 7 -46" fill="none" stroke="#33261A" stroke-width="5" stroke-linecap="round"/>
+  <path d="M0 -140 Q-34 -152 -58 -146 M0 -164 Q32 -176 56 -170" fill="none" stroke="#33261A" stroke-width="6" stroke-linecap="round"/>
+  <g stroke="#0F3D26" stroke-width="5" stroke-linejoin="round">
+    <ellipse cx="-56" cy="-176" rx="52" ry="36" fill="#1E6B3F"/>
+    <ellipse cx="54" cy="-190" rx="56" ry="38" fill="#22794A"/>
+    <ellipse cx="-6" cy="-224" rx="68" ry="46" fill="#2A8A54"/>
+    <ellipse cx="-40" cy="-206" rx="30" ry="20" fill="#33A063"/>
+  </g>
+</g>
+<!-- second canopy tree -->
+<g transform="translate(258,456)">
+  <path d="M-9 0 L-6 -118 Q-3 -146 0 -156 Q3 -146 6 -118 L9 0 Z" fill="#6B4E2C" stroke="#33261A" stroke-width="4" stroke-linejoin="round"/>
+  <g stroke="#0F3D26" stroke-width="5" stroke-linejoin="round">
+    <ellipse cx="-44" cy="-146" rx="44" ry="30" fill="#22794A"/>
+    <ellipse cx="42" cy="-152" rx="46" ry="32" fill="#1E6B3F"/>
+    <ellipse cx="0" cy="-180" rx="54" ry="38" fill="#2A8A54"/>
+  </g>
+</g>
+<!-- palm -->
+<g transform="translate(352,458)">
+  <path d="M-7 0 Q-2 -60 6 -104 Q9 -118 14 -126 L22 -122 Q14 -110 11 -96 Q3 -54 5 0 Z"
+        fill="#7A5A32" stroke="#33261A" stroke-width="4" stroke-linejoin="round"/>
+  <g fill="#2A8A54" stroke="#0F3D26" stroke-width="4" stroke-linejoin="round">
+    <path d="M17 -128 Q-24 -152 -50 -134 Q-20 -136 16 -120Z"/>
+    <path d="M17 -128 Q54 -160 78 -140 Q48 -140 19 -120Z"/>
+    <path d="M17 -128 Q-6 -172 -36 -172 Q-4 -158 14 -122Z"/>
+    <path d="M17 -128 Q40 -174 70 -176 Q40 -158 20 -122Z"/>
+    <path d="M17 -128 Q4 -100 -22 -88 Q6 -96 16 -116Z"/>
+  </g>
+  <circle cx="18" cy="-124" r="7" fill="#C97B2A" stroke="#7A4715" stroke-width="3"/>
+</g>
+<!-- hanging vines -->
+<g fill="none" stroke="#2A8A54" stroke-width="4" stroke-linecap="round">
+  <path d="M60 372 Q52 420 66 462"/><path d="M170 356 Q182 408 168 452"/>
+  <path d="M300 366 Q292 414 306 456"/>
+</g>
+<g fill="#33A063" stroke="#0F3D26" stroke-width="2.5">
+  <ellipse cx="62" cy="404" rx="8" ry="5"/><ellipse cx="176" cy="396" rx="8" ry="5"/>
+  <ellipse cx="296" cy="404" rx="8" ry="5"/>
+</g>
+<!-- toucan on a branch -->
+<g transform="translate(196,398)">
+  <path d="M-40 0 L26 -4" stroke="#33261A" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <g stroke="#1D2B24" stroke-width="3.4" stroke-linejoin="round">
+    <path d="M-2 -6 Q-30 -12 -32 -34 Q-32 -56 -12 -58 Q6 -58 8 -38 Q8 -14 -2 -6Z" fill="#22303A"/>
+    <path d="M-12 -50 Q-40 -52 -54 -40 Q-38 -34 -13 -38Z" fill="#F2A11E"/>
+    <path d="M4 -30 Q22 -24 26 -8 Q10 -12 0 -18Z" fill="#22303A"/>
+    <path d="M-8 -18 Q4 -14 6 -4 Q-4 -6 -10 -10Z" fill="#E8C34A"/>
+  </g>
+  <circle cx="-17" cy="-49" r="3.2" fill="#F7F3E4"/><circle cx="-17.6" cy="-49" r="1.6" fill="#1D2B24"/>
+</g>
+<!-- monkey on a vine -->
+<g transform="translate(304,414)">
+  <g stroke="#3A2716" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M2 -34 Q-8 -26 -4 -16" fill="none"/>
+    <ellipse cx="0" cy="6" rx="14" ry="17" fill="#8A5A2E"/>
+    <path d="M-9 20 Q-14 34 -6 40 M9 20 Q14 34 6 40" fill="none" stroke-width="4.4"/>
+    <path d="M-12 -2 Q-24 8 -22 22" fill="none" stroke-width="4.4"/>
+    <path d="M12 -2 Q24 6 22 20" fill="none" stroke-width="4.4"/>
+    <path d="M11 14 Q30 22 30 40 Q30 52 18 52" fill="none" stroke-width="4"/>
+    <circle cx="0" cy="-15" r="12" fill="#A8703A"/>
+    <ellipse cx="-12" cy="-19" rx="5" ry="6" fill="#A8703A"/><ellipse cx="12" cy="-19" rx="5" ry="6" fill="#A8703A"/>
+    <ellipse cx="0" cy="-11" rx="7.5" ry="6" fill="#E0BC8C"/>
+  </g>
+  <circle cx="-4" cy="-18" r="2.2" fill="#2B1B0C"/><circle cx="4" cy="-18" r="2.2" fill="#2B1B0C"/>
+</g>
+<!-- understory -->
+<use href="#fern" transform="translate(30,556) scale(1.25)"/>
+<use href="#fern" transform="translate(112,572) scale(1.05)"/>
+<use href="#fern" transform="translate(212,586) scale(1.35)"/>
+<use href="#fern" transform="translate(322,566) scale(1.0)"/>
+<use href="#fern" transform="translate(378,596) scale(1.2)"/>
+<g color="#1E6B3F">
+  <use href="#tuft" transform="translate(70,502)"/><use href="#tuft" transform="translate(160,516)"/>
+  <use href="#tuft" transform="translate(272,506)"/><use href="#tuft" transform="translate(350,524)"/>
+</g>
+<!-- butterfly -->
+<g transform="translate(150,506)" stroke="#3A2A10" stroke-width="2.4" stroke-linejoin="round">
+  <path d="M-1 0 Q-16 -14 -17 -3 Q-18 7 -1 4Z" fill="#39C4C0"/>
+  <path d="M1 0 Q16 -14 17 -3 Q18 7 1 4Z" fill="#39C4C0"/>
+  <path d="M0 -3 L0 6" stroke-width="3"/>
+</g>
+
+<!-- ═══════════ 2 · TEMPERATE FOREST (x 400–800) ═══════════ -->
+<g fill="#2F6B47" stroke="#1B4630" stroke-width="3.5">
+  <use href="#fir" transform="translate(428,450) scale(1.15)"/>
+  <use href="#fir" transform="translate(556,446) scale(.95)"/>
+  <use href="#fir" transform="translate(792,448) scale(1.05)"/>
+</g>
+<!-- deciduous trees: green, gold, russet -->
+<g transform="translate(478,452)">
+  <path d="M-9 0 L-6 -74 L6 -74 L9 0 Z" fill="#6B4E2C" stroke="#33261A" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M-6 -54 Q-24 -66 -34 -62 M6 -62 Q24 -74 36 -70" fill="none" stroke="#33261A" stroke-width="4.5" stroke-linecap="round"/>
+  <g stroke="#1B4630" stroke-width="4.5" stroke-linejoin="round">
+    <ellipse cx="-30" cy="-90" rx="36" ry="28" fill="#3F8B4A"/>
+    <ellipse cx="32" cy="-94" rx="38" ry="29" fill="#357F42"/>
+    <ellipse cx="0" cy="-116" rx="46" ry="34" fill="#4A9B52"/>
+  </g>
+</g>
+<g transform="translate(614,448)">
+  <path d="M-10 0 L-7 -84 L7 -84 L10 0 Z" fill="#5C4326" stroke="#33261A" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M-7 -62 Q-28 -76 -40 -72 M7 -70 Q28 -84 42 -80" fill="none" stroke="#33261A" stroke-width="4.5" stroke-linecap="round"/>
+  <g stroke="#8A5A16" stroke-width="4.5" stroke-linejoin="round">
+    <ellipse cx="-36" cy="-100" rx="40" ry="30" fill="#E0A32A"/>
+    <ellipse cx="38" cy="-104" rx="42" ry="31" fill="#D18D22"/>
+    <ellipse cx="0" cy="-130" rx="50" ry="37" fill="#EDB63C"/>
+  </g>
+</g>
+<g transform="translate(730,454)">
+  <path d="M-8 0 L-5 -66 L5 -66 L8 0 Z" fill="#6B4E2C" stroke="#33261A" stroke-width="4" stroke-linejoin="round"/>
+  <g stroke="#8B3A22" stroke-width="4.5" stroke-linejoin="round">
+    <ellipse cx="-26" cy="-80" rx="33" ry="25" fill="#C64B2E"/>
+    <ellipse cx="28" cy="-84" rx="34" ry="26" fill="#B23F26"/>
+    <ellipse cx="0" cy="-104" rx="41" ry="30" fill="#D5573A"/>
+  </g>
+</g>
+<!-- deer -->
+<g transform="translate(660,556)">
+  <g stroke="#4A3117" stroke-width="4.5" stroke-linecap="round" fill="none">
+    <path d="M-26 0 L-28 -34 M-8 0 L-9 -34 M14 0 L16 -34 M30 0 L32 -33"/>
+  </g>
+  <g stroke="#4A3117" stroke-width="4" stroke-linejoin="round">
+    <ellipse cx="2" cy="-46" rx="36" ry="20" fill="#B27A44"/>
+    <path d="M28 -54 Q40 -76 40 -88 Q40 -94 34 -94 Q26 -80 22 -58Z" fill="#B27A44"/>
+    <ellipse cx="42" cy="-96" rx="15" ry="10" fill="#C08A52" transform="rotate(-18 42 -96)"/>
+    <path d="M-32 -52 Q-46 -56 -48 -44" fill="none" stroke-width="4.5" stroke-linecap="round"/>
+  </g>
+  <!-- antlers -->
+  <g fill="none" stroke="#6B4A22" stroke-width="4" stroke-linecap="round">
+    <path d="M38 -104 Q36 -120 44 -130 M40 -118 Q30 -124 26 -132 M44 -130 Q52 -136 58 -134"/>
+    <path d="M48 -102 Q52 -118 62 -124 M54 -114 Q62 -122 70 -120"/>
+  </g>
+  <circle cx="47" cy="-99" r="2.8" fill="#2B1B0C"/>
+  <!-- spots -->
+  <g fill="#E4C79A"><circle cx="-6" cy="-50" r="3.4"/><circle cx="8" cy="-44" r="3"/><circle cx="-18" cy="-42" r="2.8"/></g>
+</g>
+<!-- fallen leaves + grass -->
+<g stroke="#8A5A16" stroke-width="2.4">
+  <ellipse cx="500" cy="546" rx="9" ry="5" fill="#E0A32A" transform="rotate(-18 500 546)"/>
+  <ellipse cx="556" cy="576" rx="9" ry="5" fill="#C64B2E" transform="rotate(14 556 576)"/>
+  <ellipse cx="742" cy="558" rx="9" ry="5" fill="#E0A32A" transform="rotate(26 742 558)"/>
+  <ellipse cx="784" cy="592" rx="9" ry="5" fill="#D5573A" transform="rotate(-8 784 592)"/>
+  <ellipse cx="446" cy="588" rx="9" ry="5" fill="#EDB63C" transform="rotate(32 446 588)"/>
+</g>
+<g color="#3F8B4A">
+  <use href="#tuft" transform="translate(430,516)"/><use href="#tuft" transform="translate(534,530)"/>
+  <use href="#tuft" transform="translate(596,596)"/><use href="#tuft" transform="translate(706,522)"/>
+  <use href="#tuft" transform="translate(768,540)"/>
+</g>
+
+<!-- ═══════════ 3 · GRASSLAND / SAVANNA (x 800–1200) ═══════════ -->
+<!-- big acacia -->
+<g transform="translate(898,466)">
+  <path d="M-10 0 Q-7 -46 -2 -66 L-16 -92 L-8 -96 L4 -74 L20 -96 L28 -91 L8 -62 Q10 -40 10 0 Z"
+        fill="#6B5232" stroke="#33261A" stroke-width="4.5" stroke-linejoin="round"/>
+  <g stroke="#4C6B22" stroke-width="4.5" stroke-linejoin="round">
+    <path d="M-96 -104 Q-60 -134 4 -136 Q70 -138 104 -110 Q66 -96 4 -98 Q-58 -96 -96 -104Z" fill="#6E9A38"/>
+    <path d="M-70 -118 Q-24 -142 26 -140 Q66 -138 88 -120 Q40 -128 -12 -126 Q-46 -124 -70 -118Z" fill="#7FAD44"/>
+  </g>
+</g>
+<!-- small acacia -->
+<g transform="translate(1146,458)">
+  <path d="M-7 0 Q-5 -30 -2 -44 L-12 -60 L-6 -64 L3 -50 L14 -64 L20 -60 L6 -42 Q7 -28 7 0 Z"
+        fill="#6B5232" stroke="#33261A" stroke-width="4" stroke-linejoin="round"/>
+  <g stroke="#4C6B22" stroke-width="4" stroke-linejoin="round">
+    <path d="M-60 -70 Q-36 -92 2 -93 Q42 -94 64 -75 Q40 -64 2 -65 Q-36 -64 -60 -70Z" fill="#6E9A38"/>
+  </g>
+</g>
+<!-- giraffe browsing -->
+<g transform="translate(986,586)">
+  <g stroke="#6B4A1C" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M-26 0 L-30 -52 M-6 0 L-9 -52 M18 0 L22 -50 M34 0 L37 -48"/>
+  </g>
+  <g stroke="#6B4A1C" stroke-width="4.5" stroke-linejoin="round">
+    <ellipse cx="4" cy="-66" rx="38" ry="24" fill="#E3AC50"/>
+    <path d="M26 -80 Q44 -120 52 -156 Q56 -176 62 -178 L72 -172 Q64 -152 60 -132 Q52 -96 40 -76Z" fill="#E3AC50"/>
+    <path d="M62 -176 Q86 -186 92 -178 Q86 -166 68 -164Z" fill="#EDBB63"/>
+    <path d="M-32 -74 Q-48 -70 -50 -50" fill="none" stroke-width="4.5" stroke-linecap="round"/>
+  </g>
+  <g fill="none" stroke="#6B4A1C" stroke-width="4" stroke-linecap="round">
+    <path d="M64 -180 L61 -192 M72 -179 L71 -191"/>
+  </g>
+  <circle cx="61" cy="-193" r="3.6" fill="#8A5E22"/><circle cx="71" cy="-192" r="3.6" fill="#8A5E22"/>
+  <circle cx="76" cy="-175" r="2.8" fill="#4A2F0C"/>
+  <g fill="#A8712A">
+    <ellipse cx="-8" cy="-70" rx="7" ry="6"/><ellipse cx="10" cy="-62" rx="6.5" ry="5.5"/>
+    <ellipse cx="22" cy="-72" rx="6" ry="5"/><ellipse cx="-22" cy="-60" rx="5.5" ry="5"/>
+    <ellipse cx="38" cy="-96" rx="5" ry="4.5"/><ellipse cx="46" cy="-118" rx="4.5" ry="4"/>
+    <ellipse cx="53" cy="-140" rx="4.5" ry="4"/><ellipse cx="59" cy="-160" rx="4" ry="3.5"/>
+  </g>
+</g>
+<!-- distant grazers -->
+<g fill="#6B5232" stroke="#6B5232" stroke-width="3" stroke-linecap="round" opacity=".85">
+  <g transform="translate(1060,492)">
+    <path d="M-12 0 L-12 -11 M-4 0 L-4 -11 M8 0 L8 -11 M15 0 L15 -11" fill="none"/>
+    <ellipse cx="1" cy="-17" rx="16" ry="7" stroke="none"/>
+    <path d="M13 -20 L21 -30" fill="none" stroke-width="5"/>
+    <ellipse cx="24" cy="-32" rx="6" ry="4" stroke="none"/>
+    <path d="M23 -36 L20 -42 M27 -36 L29 -42" fill="none" stroke-width="2.6"/>
+    <path d="M-15 -19 Q-22 -14 -21 -7" fill="none" stroke-width="2.6"/>
+  </g>
+  <g transform="translate(1100,486) scale(.8)">
+    <path d="M-12 0 L-12 -11 M-4 0 L-4 -11 M8 0 L8 -11 M15 0 L15 -11" fill="none"/>
+    <ellipse cx="1" cy="-17" rx="16" ry="7" stroke="none"/>
+    <path d="M13 -20 L21 -30" fill="none" stroke-width="5"/>
+    <ellipse cx="24" cy="-32" rx="6" ry="4" stroke="none"/>
+    <path d="M23 -36 L20 -42 M27 -36 L29 -42" fill="none" stroke-width="2.6"/>
+  </g>
+</g>
+<!-- golden grass -->
+<g color="#B8912F">
+  <use href="#tuft" transform="translate(820,506)"/><use href="#tuft" transform="translate(864,528)"/>
+  <use href="#tuft" transform="translate(930,514)"/><use href="#tuft" transform="translate(1004,502)"/>
+  <use href="#tuft" transform="translate(1078,522)"/><use href="#tuft" transform="translate(1170,510)"/>
+</g>
+<g color="#C9A227">
+  <use href="#tuft" transform="translate(840,566) scale(1.3)"/><use href="#tuft" transform="translate(908,588) scale(1.4)"/>
+  <use href="#tuft" transform="translate(1054,578) scale(1.35)"/><use href="#tuft" transform="translate(1128,600) scale(1.45)"/>
+  <use href="#tuft" transform="translate(1188,566) scale(1.25)"/><use href="#tuft" transform="translate(972,604) scale(1.5)"/>
+</g>
+
+<!-- ═══════════ 4 · DESERT (x 1200–1600) ═══════════ -->
+<!-- big saguaro -->
+<g transform="translate(1306,566)" stroke="#2F5A2A" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round">
+  <path d="M-15 0 Q-15 -120 -14 -168 Q-14 -196 0 -196 Q14 -196 14 -168 Q15 -110 15 0 Z" fill="#4C8F45"/>
+  <path d="M-15 -104 Q-44 -106 -46 -134 Q-47 -158 -38 -160 Q-30 -160 -30 -142 Q-30 -122 -15 -122Z" fill="#4C8F45"/>
+  <path d="M15 -128 Q42 -130 44 -156 Q45 -176 37 -178 Q29 -178 29 -162 Q29 -146 15 -146Z" fill="#57A050"/>
+  <g stroke="#2F5A2A" stroke-width="2.6" opacity=".7">
+    <path d="M-6 -180 L-6 -20 M6 -180 L6 -20 M-38 -150 L-38 -128 M37 -168 L37 -150"/>
+  </g>
+  <ellipse cx="0" cy="-196" rx="6" ry="5" fill="#F2E3A0" stroke="#B79E4A" stroke-width="3"/>
+</g>
+<!-- small saguaro -->
+<g transform="translate(1486,556) scale(.72)" stroke="#2F5A2A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+  <path d="M-14 0 Q-14 -100 -13 -140 Q-13 -166 0 -166 Q13 -166 13 -140 Q14 -96 14 0 Z" fill="#57A050"/>
+  <path d="M14 -96 Q40 -98 42 -122 Q43 -142 35 -144 Q27 -144 27 -128 Q27 -114 14 -114Z" fill="#4C8F45"/>
+</g>
+<!-- prickly pear -->
+<g transform="translate(1236,596)" stroke="#2F5A2A" stroke-width="4" stroke-linejoin="round">
+  <ellipse cx="0" cy="-16" rx="17" ry="21" fill="#4C8F45"/>
+  <ellipse cx="-20" cy="-34" rx="13" ry="16" fill="#57A050" transform="rotate(-24 -20 -34)"/>
+  <ellipse cx="19" cy="-38" rx="12" ry="15" fill="#57A050" transform="rotate(22 19 -38)"/>
+  <circle cx="-22" cy="-48" r="4" fill="#E2513A" stroke="#94301F" stroke-width="2.4"/>
+  <circle cx="22" cy="-50" r="4" fill="#E2513A" stroke="#94301F" stroke-width="2.4"/>
+</g>
+<!-- barrel cactus -->
+<g transform="translate(1560,600)" stroke="#2F5A2A" stroke-width="4" stroke-linejoin="round">
+  <ellipse cx="0" cy="-15" rx="19" ry="16" fill="#4C8F45"/>
+  <path d="M-12 -26 L-12 -6 M0 -30 L0 -2 M12 -26 L12 -6" stroke-width="2.4" opacity=".7"/>
+  <circle cx="0" cy="-31" r="4.5" fill="#F0B429" stroke="#B07E14" stroke-width="2.4"/>
+</g>
+<!-- rocks -->
+<g fill="#C9A379" stroke="#8C6236" stroke-width="4" stroke-linejoin="round">
+  <path d="M1424 604 q10 -20 28 -18 q18 2 22 18Z"/>
+  <path d="M1268 552 q7 -13 19 -12 q12 1 15 12Z"/>
+</g>
+<!-- lizard -->
+<g transform="translate(1382,600)" stroke="#7A4A18" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+  <path d="M-18 0 Q-34 2 -44 -6" fill="none" stroke-width="3.4"/>
+  <ellipse cx="0" cy="-4" rx="19" ry="8" fill="#C08A3E"/>
+  <path d="M-10 2 L-16 10 M6 2 L12 10 M-10 -10 L-16 -18 M6 -10 L12 -18" fill="none" stroke-width="3.2"/>
+  <ellipse cx="22" cy="-7" rx="9" ry="6.5" fill="#CE9A4C"/>
+  <circle cx="25" cy="-9" r="2.2" fill="#3A2410"/>
+  <g fill="#8A5E22"><circle cx="-6" cy="-6" r="2.4"/><circle cx="4" cy="-2" r="2.2"/><circle cx="10" cy="-8" r="2"/></g>
+</g>
+<!-- heat shimmer -->
+<g fill="none" stroke="#C98A46" stroke-width="4" stroke-linecap="round" opacity=".45">
+  <path d="M1436 500 q12 -8 24 0 q12 8 24 0"/>
+  <path d="M1448 520 q12 -8 24 0 q12 8 24 0"/>
+  <path d="M1526 508 q10 -7 20 0 q10 7 20 0"/>
+</g>
+
+<!-- ═══════════ WARMING CALLOUT ═══════════ -->
+<g>
+  <rect x="392" y="24" width="832" height="72" rx="36" fill="#FFFFFF" fill-opacity=".94" stroke="#26463A" stroke-width="4"/>
+  <g transform="translate(444,61)">
+    <rect x="-8" y="-28" width="16" height="36" rx="8" fill="#FFFFFF" stroke="#26463A" stroke-width="3.4"/>
+    <rect x="-3.5" y="-16" width="7" height="28" rx="3.5" fill="#E23B2E"/>
+    <circle cx="0" cy="13" r="12" fill="#E23B2E" stroke="#26463A" stroke-width="3.4"/>
+    <g stroke="#26463A" stroke-width="2.6" stroke-linecap="round">
+      <path d="M10 -18 L17 -18 M10 -9 L17 -9 M10 0 L17 0"/>
+    </g>
+  </g>
+  <text x="842" y="70" font-size="25" font-weight="700" fill="#22402F" letter-spacing=".3" text-anchor="middle">Warming shifts species ranges — and stresses organisms</text>
+</g>
+
+<!-- ═══════════ INFO BAND ═══════════ -->
+<rect x="0" y="612" width="1600" height="148" fill="#FBF7EC"/>
+<path d="M0 612 H1600" stroke="#DCD3BC" stroke-width="3"/>
+
+<g text-anchor="middle" fill="#22402F">
+  <text x="200" y="654" font-size="27" font-weight="700" letter-spacing="1.2">TROPICAL RAINFOREST</text>
+  <text x="600" y="654" font-size="27" font-weight="700" letter-spacing="1.2">TEMPERATE FOREST</text>
+  <text x="1000" y="654" font-size="27" font-weight="700" letter-spacing="1.2">GRASSLAND / SAVANNA</text>
+  <text x="1400" y="654" font-size="27" font-weight="700" letter-spacing="1.2">DESERT</text>
+</g>
+<g>
+  <rect x="140" y="666" width="120" height="7" rx="3.5" fill="#1E6B3F"/>
+  <rect x="540" y="666" width="120" height="7" rx="3.5" fill="#D18D22"/>
+  <rect x="940" y="666" width="120" height="7" rx="3.5" fill="#C9A227"/>
+  <rect x="1340" y="666" width="120" height="7" rx="3.5" fill="#D4552B"/>
+</g>
+
+<!-- climate axis -->
+<rect x="150" y="700" width="1300" height="16" rx="8" fill="url(#axis)" stroke="#B9AE92" stroke-width="2"/>
+<g fill="#4A5A4E" font-size="20" font-weight="700">
+  <text x="150" y="744">WARM &amp; WET · HIGH RAINFALL</text>
+  <text x="1450" y="744" text-anchor="end">HOT &amp; DRY · LOW RAINFALL</text>
+</g>
+</svg>

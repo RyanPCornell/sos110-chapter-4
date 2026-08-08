@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life & Biodiversity · SOS 110</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --forest:   #1c3a2b;
+    --moss:     #2d5a3d;
+    --leaf:     #4a8c5c;
+    --mint:     #7ec8a0;
+    --cream:    #f5f0e8;
+    --paper:    #fafaf7;
+    --ink:      #1a2218;
+    --muted:    #6b7c6a;
+    --accent:   #c8860a;
+    --gold:     #e8a020;
+    --rust:     #b84a2a;
+    --sky:      #3a7ca5;
+    --border:   #d4d9cc;
+    --card-bg:  #ffffff;
+    --shadow:   0 2px 12px rgba(28,58,43,.10);
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    background: var(--forest);
+    color: #fff;
+    padding: 1.5rem 2rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 16px rgba(0,0,0,.25);
+  }
+  header .top-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: .3rem;
+  }
+  header h1 {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+  }
+  header .course-tag {
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--mint);
+    opacity: .85;
+  }
+  header p.subtitle {
+    font-size: .82rem;
+    color: rgba(255,255,255,.55);
+    margin-bottom: .9rem;
+  }
+
+  /* ── Tabs ── */
+  nav.tabs {
+    display: flex;
+    gap: .15rem;
+    overflow-x: auto;
+  }
+  nav.tabs button {
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,.55);
+    font-family: 'Inter', sans-serif;
+    font-size: .82rem;
+    font-weight: 500;
+    padding: .65rem 1.1rem;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: color .18s, border-color .18s;
+    letter-spacing: .02em;
+  }
+  nav.tabs button:hover { color: rgba(255,255,255,.85); }
+  nav.tabs button.active {
+    color: #fff;
+    border-bottom-color: var(--mint);
+    font-weight: 600;
+  }
+
+  /* ── Main layout ── */
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── Section header ── */
+  .section-header {
+    margin-bottom: 1.6rem;
+  }
+  .section-header .eyebrow {
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--leaf);
+    margin-bottom: .3rem;
+  }
+  .section-header h2 {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--forest);
+    line-height: 1.2;
+  }
+  .section-header p {
+    margin-top: .5rem;
+    font-size: .9rem;
+    color: var(--muted);
+    max-width: 680px;
+    line-height: 1.6;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.4rem 1.6rem;
+    box-shadow: var(--shadow);
+  }
+  .card h3 {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--forest);
+    margin-bottom: .5rem;
+  }
+  .card p {
+    font-size: .85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+
+  @media (max-width: 700px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.2rem; }
+  }
+
+  /* ── Concept chips ── */
+  .concept-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: 1.2rem 0;
+  }
+  .chip {
+    background: var(--forest);
+    color: #fff;
+    font-size: .74rem;
+    font-weight: 500;
+    padding: .3rem .75rem;
+    border-radius: 999px;
+    letter-spacing: .03em;
+  }
+  .chip.accent { background: var(--accent); }
+  .chip.sky    { background: var(--sky); }
+  .chip.rust   { background: var(--rust); }
+
+  /* ── Sim controls shared ── */
+  .sim-wrap {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.4rem;
+    margin-top: 1.4rem;
+  }
+  .sim-title {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--forest);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .sim-title .badge {
+    background: var(--leaf);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: .68rem;
+    font-weight: 600;
+    padding: .2rem .55rem;
+    border-radius: 4px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+  .ctrl-group label {
+    display: block;
+    font-size: .75rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: .35rem;
+  }
+  .ctrl-group .val-row {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+  }
+  .ctrl-group input[type=range] {
+    flex: 1;
+    accent-color: var(--leaf);
+    cursor: pointer;
+  }
+  .ctrl-group .val-badge {
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--forest);
+    background: rgba(45,90,61,.10);
+    border: 1px solid rgba(45,90,61,.18);
+    border-radius: 5px;
+    padding: .1rem .45rem;
+    min-width: 3rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .ctrl-group select {
+    width: 100%;
+    padding: .35rem .5rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: .85rem;
+    color: var(--ink);
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: var(--forest);
+    color: #fff;
+    border: none;
+    padding: .55rem 1.2rem;
+    border-radius: 7px;
+    font-family: 'Inter', sans-serif;
+    font-size: .84rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s;
+    letter-spacing: .02em;
+  }
+  .btn:hover { background: var(--moss); }
+  .btn.secondary {
+    background: transparent;
+    color: var(--forest);
+    border: 1.5px solid var(--leaf);
+  }
+  .btn.secondary:hover { background: rgba(74,140,92,.08); }
+  .btn.accent-btn { background: var(--accent); }
+  .btn.accent-btn:hover { background: #a06d08; }
+  .btn-row { display: flex; gap: .7rem; flex-wrap: wrap; align-items: center; }
+
+  /* ── Stat callouts ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.2rem 0;
+  }
+  .stat-card {
+    background: var(--forest);
+    color: #fff;
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    text-align: center;
+  }
+  .stat-card .number {
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--mint);
+    line-height: 1;
+  }
+  .stat-card .label {
+    font-size: .74rem;
+    color: rgba(255,255,255,.65);
+    margin-top: .3rem;
+    line-height: 1.4;
+  }
+
+  /* ── Evolution simulation ── */
+  #evo-canvas {
+    width: 100%;
+    border-radius: 8px;
+    background: var(--ink);
+    display: block;
+  }
+  .evo-legend {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: .8rem;
+    flex-wrap: wrap;
+    font-size: .78rem;
+    color: var(--muted);
+  }
+  .evo-legend span {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+  }
+  .evo-legend .dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  #evo-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .8rem;
+    margin-top: 1rem;
+  }
+  .evo-stat {
+    background: rgba(28,58,43,.07);
+    border-radius: 7px;
+    padding: .6rem .9rem;
+    text-align: center;
+  }
+  .evo-stat .n { font-size: 1.3rem; font-weight: 700; color: var(--forest); }
+  .evo-stat .l { font-size: .7rem; color: var(--muted); margin-top: .1rem; }
+
+  /* ── Speciation viz ── */
+  #spec-canvas {
+    width: 100%;
+    border-radius: 8px;
+    background: #f0f4ed;
+    display: block;
+  }
+  #drift-canvas {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    display: block;
+    background: #fff;
+  }
+
+  /* ── Charts ── */
+  .chart-wrap {
+    position: relative;
+    height: 320px;
+  }
+  #drift-chart {
+    display: block;
+    width: 100%;
+    height: 320px;
+  }
+  .info-box {
+    background: rgba(74,140,92,.08);
+    border-left: 3px solid var(--leaf);
+    border-radius: 0 6px 6px 0;
+    padding: .75rem 1rem;
+    font-size: .83rem;
+    color: var(--forest);
+    margin-top: 1rem;
+    line-height: 1.6;
+  }
+  .info-box strong { color: var(--forest); }
+
+  /* ── Key concepts panel ── */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1rem;
+    margin-top: 1.4rem;
+  }
+  .concept-card {
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 1rem 1.1rem;
+    background: #fff;
+    transition: border-color .15s, box-shadow .15s;
+    cursor: default;
+  }
+  .concept-card:hover {
+    border-color: var(--leaf);
+    box-shadow: 0 2px 10px rgba(74,140,92,.12);
+  }
+  .concept-card .term {
+    font-weight: 700;
+    font-size: .88rem;
+    color: var(--forest);
+    margin-bottom: .3rem;
+  }
+  .concept-card .def {
+    font-size: .8rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .concept-card .icon {
+    font-size: 1.3rem;
+    margin-bottom: .4rem;
+  }
+
+  /* ── Trophic cascade ── */
+  .cascade-flow {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    margin-top: 1rem;
+  }
+  .cascade-step {
+    display: flex;
+    align-items: flex-start;
+    gap: .9rem;
+    padding: .75rem 1rem;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid var(--border);
+    opacity: .35;
+    transition: opacity .4s, border-color .4s;
+  }
+  .cascade-step.revealed {
+    opacity: 1;
+    border-color: var(--leaf);
+  }
+  .cascade-step .step-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: .1rem;
+  }
+  .cascade-step .step-text strong {
+    display: block;
+    font-size: .88rem;
+    color: var(--forest);
+    margin-bottom: .15rem;
+  }
+  .cascade-step .step-text span {
+    font-size: .78rem;
+    color: var(--muted);
+  }
+  .cascade-arrow {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--leaf);
+    line-height: .8;
+  }
+
+  /* ── Responsive misc ── */
+  .mb-1 { margin-bottom: 1rem; }
+  .mb-15 { margin-bottom: 1.5rem; }
+  .mt-1 { margin-top: 1rem; }
+  .mt-15 { margin-top: 1.5rem; }
+
+  .pill-toggle {
+    display: flex;
+    background: var(--border);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 0;
+    width: fit-content;
+  }
+  .pill-toggle button {
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    padding: .35rem .9rem;
+    font-size: .8rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--muted);
+    transition: background .15s, color .15s;
+  }
+  .pill-toggle button.active {
+    background: var(--forest);
+    color: #fff;
+  }
+
+  /* ── Tooltip ── */
+  .tooltip-wrap { position: relative; display: inline-block; }
+  .tooltip-wrap .tooltip-text {
+    visibility: hidden;
+    background: var(--ink);
+    color: #fff;
+    font-size: .75rem;
+    padding: .4rem .7rem;
+    border-radius: 6px;
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity .15s;
+    pointer-events: none;
+  }
+  .tooltip-wrap:hover .tooltip-text { visibility: visible; opacity: 1; }
+
+
+  /* ── Footnote superscripts ── */
+  sup.fn {
+    font-size: .65rem;
+    font-weight: 600;
+    color: var(--leaf);
+    letter-spacing: 0;
+    vertical-align: super;
+    line-height: 0;
+    margin-left: 1px;
+  }
+
+  /* ── References footer ── */
+  .references {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .references h4 {
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .6rem;
+  }
+  .references ol {
+    padding-left: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+  }
+  .references li {
+    font-size: .76rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .references li em { font-style: italic; }
+  /* Embed mode: host page provides its own header */
+  body.embed header { display: none !important; }
+  body.embed main { padding-top: 1.25rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="top-row">
+    <h1>Life &amp; Biodiversity</h1>
+    <span class="course-tag">SOS 110 · Ryan Cornell · Chapter 4</span>
+  </div>
+  <p class="subtitle">Evolution · Speciation · Population Dynamics · Biodiversity</p>
+  <nav class="tabs" id="tabs">
+    <button class="active" data-tab="evolution">Evolution &amp; Natural Selection</button>
+    <button data-tab="speciation">Speciation &amp; Genetic Drift</button>
+    <button data-tab="population">Population Growth</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ══════════════════════════════════════════════
+     TAB 1 · EVOLUTION & NATURAL SELECTION
+══════════════════════════════════════════════ -->
+<section class="tab-panel active" id="tab-evolution">
+  <div class="section-header">
+    <div class="eyebrow">Section 4.2</div>
+    <h2>Evolution &amp; Natural Selection</h2>
+    <p>Darwin's central insight: heritable variation + differential survival = change over generations. Run the simulation to watch natural selection reshape a population in real time.</p>
+  </div>
+
+  <div class="concept-row">
+    <span class="chip">Natural Selection</span>
+    <span class="chip">Adaptive Radiation</span>
+    <span class="chip sky">Heritable Variation</span>
+    <span class="chip rust">Fitness</span>
+  </div>
+
+  <!-- Natural selection simulation — TOP -->
+  <div class="sim-wrap mb-15">
+    <div class="sim-title">Natural Selection Simulator <span class="badge">Live Sim</span></div>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;">A population of organisms varies in color (a heritable trait). Set the environment's background and selection pressure, then watch which variants survive and reproduce across generations.<sup class="fn">1,2</sup></p>
+
+    <div class="controls-grid">
+      <div class="ctrl-group">
+        <label>Environment</label>
+        <select id="env-select">
+          <option value="dark">Dark forest floor</option>
+          <option value="light">Sandy desert</option>
+          <option value="mixed">Dappled undergrowth</option>
+        </select>
+      </div>
+      <div class="ctrl-group">
+        <label style="display:flex;align-items:center;gap:.4rem;">
+          Selection Pressure
+          <button id="sel-pressure-info-btn" aria-label="What is Selection Pressure?" style="background:none;border:1.5px solid var(--muted);color:var(--muted);border-radius:50%;width:16px;height:16px;font-size:.65rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;flex-shrink:0;transition:border-color .15s,color .15s;">i</button>
+        </label>
+        <div class="val-row">
+          <input type="range" id="sel-pressure" min="0.1" max="1" step="0.05" value="0.55">
+          <span class="val-badge" id="sel-val">0.55</span>
+        </div>
+      </div>
+      <div class="ctrl-group">
+        <label style="display:flex;align-items:center;gap:.4rem;">
+          Mutation Rate
+          <button id="mut-rate-info-btn" aria-label="What is Mutation Rate?" style="background:none;border:1.5px solid var(--muted);color:var(--muted);border-radius:50%;width:16px;height:16px;font-size:.65rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;flex-shrink:0;transition:border-color .15s,color .15s;">i</button>
+        </label>
+        <div class="val-row">
+          <input type="range" id="mut-rate" min="0" max="0.3" step="0.02" value="0.06">
+          <span class="val-badge" id="mut-val">0.06</span>
+        </div>
+      </div>
+
+      <!-- Selection Pressure popover -->
+      <div id="sel-pressure-popover" style="display:none;position:fixed;z-index:200;background:var(--ink);color:#fff;font-size:.8rem;line-height:1.55;padding:.75rem 1rem;border-radius:8px;max-width:240px;box-shadow:0 4px 20px rgba(0,0,0,.35);">
+        How strongly the environment selectively removes organisms that don't blend in. At <strong>low</strong> values, poorly camouflaged organisms often survive anyway. At <strong>high</strong> values, only well-camouflaged organisms reliably survive each generation — driving faster, more dramatic trait change.
+        <button id="sel-pressure-close" style="display:block;margin-top:.5rem;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:.75rem;padding:.25rem .6rem;border-radius:5px;cursor:pointer;">Got it</button>
+      </div>
+
+      <!-- Mutation Rate popover -->
+      <div id="mut-rate-popover" style="display:none;position:fixed;z-index:200;background:var(--ink);color:#fff;font-size:.8rem;line-height:1.55;padding:.75rem 1rem;border-radius:8px;max-width:240px;box-shadow:0 4px 20px rgba(0,0,0,.35);">
+        The probability that an offspring's trait differs slightly from its parent's. At <strong>0</strong>, offspring are exact copies — no new variation enters. Higher values introduce more random variation each generation, which can slow selection or introduce new trait values into the population.
+        <button id="mut-rate-close" style="display:block;margin-top:.5rem;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:.75rem;padding:.25rem .6rem;border-radius:5px;cursor:pointer;">Got it</button>
+      </div>
+      <div class="ctrl-group">
+        <label>Population Size</label>
+        <select id="pop-size-select">
+          <option value="60">Small (60)</option>
+          <option value="120" selected>Medium (120)</option>
+          <option value="220">Large (220)</option>
+        </select>
+      </div>
+      <div class="ctrl-group">
+        <label>Simulation Speed</label>
+        <select id="speed-select">
+          <option value="2000">Very Slow</option>
+          <option value="800">Slow</option>
+          <option value="400" selected>Medium</option>
+          <option value="160">Fast</option>
+          <option value="50">Very Fast</option>
+        </select>
+      </div>
+    </div>
+
+    <canvas id="evo-canvas" height="300"></canvas>
+
+    <div class="evo-legend">
+      <span><span class="dot" style="background:#f8eed2;border:1px solid #aaa"></span>Light-colored organisms</span>
+      <span><span class="dot" style="background:#8b7a5a"></span>Medium-colored organisms</span>
+      <span><span class="dot" style="background:#0c0805"></span>Dark-colored organisms</span>
+      <span><span class="dot" style="background:#e74c3c;opacity:.7"></span>Killed by predator this generation</span>
+    </div>
+
+    <div id="evo-stats">
+      <div class="evo-stat"><div class="n" id="stat-gen">0</div><div class="l">Generation</div></div>
+      <div class="evo-stat"><div class="n" id="stat-pop">—</div><div class="l">Population</div></div>
+      <div class="evo-stat" style="padding:.5rem .9rem;">
+        <div style="display:flex;flex-direction:column;gap:.28rem;width:100%;">
+          <div style="display:flex;align-items:center;gap:.45rem;font-size:.78rem;">
+            <span style="width:11px;height:11px;border-radius:50%;background:#e8c87a;flex-shrink:0;display:inline-block;"></span>
+            <span style="color:var(--muted);flex:1">Light</span>
+            <span id="stat-light" style="font-weight:700;color:var(--forest);min-width:2.5rem;text-align:right;">—</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.45rem;font-size:.78rem;">
+            <span style="width:11px;height:11px;border-radius:50%;background:#8b5e3c;flex-shrink:0;display:inline-block;"></span>
+            <span style="color:var(--muted);flex:1">Medium</span>
+            <span id="stat-medium" style="font-weight:700;color:var(--forest);min-width:2.5rem;text-align:right;">—</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.45rem;font-size:.78rem;">
+            <span style="width:11px;height:11px;border-radius:50%;background:#2d1a0e;flex-shrink:0;display:inline-block;"></span>
+            <span style="color:var(--muted);flex:1">Dark</span>
+            <span id="stat-dark" style="font-weight:700;color:var(--forest);min-width:2.5rem;text-align:right;">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row mt-1">
+      <button class="btn" id="evo-start">▶ Start</button>
+      <button class="btn secondary" id="evo-step">Step 1 Gen</button>
+      <button class="btn secondary" id="evo-reset">Reset</button>
+      <span id="evo-status" style="font-size:.8rem;color:var(--muted);margin-left:.3rem;"></span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>The Three Conditions for Natural Selection<sup class="fn">1,2</sup></h3>
+      <p style="margin-top:.5rem;font-size:.84rem;color:var(--ink);line-height:1.7;">
+        <strong style="color:var(--forest)">1. Variation</strong> — Individuals in a population differ in their traits.<br>
+        <strong style="color:var(--forest)">2. Heritability</strong> — Traits are passed from parent to offspring through genes.<br>
+        <strong style="color:var(--forest)">3. Differential survival</strong> — Some trait variants confer a survival or reproductive advantage in the current environment.
+      </p>
+      <div style="margin-top:.9rem;padding:.7rem .9rem;background:rgba(28,58,43,.06);border-radius:7px;font-size:.8rem;color:var(--muted);line-height:1.55;">
+        <em>"Survival of the fittest" refers to <strong>reproductive success</strong> — passing genes to more offspring — not physical strength.</em>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Five Misconceptions About Evolution<sup class="fn">1</sup></h3>
+      <ul style="margin-top:.4rem;font-size:.83rem;color:var(--ink);line-height:1.8;padding-left:1.1rem;">
+        <li><strong style="color:var(--rust)">Myth:</strong> Evolution has a goal or direction. <strong style="color:var(--forest)">Fact:</strong> It is random variation filtered by environment.</li>
+        <li><strong style="color:var(--rust)">Myth:</strong> Individuals evolve. <strong style="color:var(--forest)">Fact:</strong> Populations evolve over generations.</li>
+        <li><strong style="color:var(--rust)">Myth:</strong> "Fittest" means strongest. <strong style="color:var(--forest)">Fact:</strong> It means leaving the most offspring.</li>
+        <li><strong style="color:var(--rust)">Myth:</strong> Organisms choose to adapt. <strong style="color:var(--forest)">Fact:</strong> Selection favors pre-existing variation.</li>
+        <li><strong style="color:var(--rust)">Myth:</strong> Humans are exempt. <strong style="color:var(--forest)">Fact:</strong> We are a major <em>driver</em> of evolution now.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="references">
+    <h4>References</h4>
+    <ol>
+      <li>Sherman, D. J., &amp; Montgomery, D. R. (2022). <em>Environmental Science and Sustainability</em> (2nd ed.). W. W. Norton &amp; Company.</li>
+      <li>Darwin, C. (1859). <em>On the Origin of Species by Means of Natural Selection</em>. John Murray.</li>
+      <li>Mayr, E. (1942). <em>Systematics and the Origin of Species</em>. Columbia University Press.</li>
+    </ol>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     TAB 2 · SPECIATION & GENETIC DRIFT
+══════════════════════════════════════════════ -->
+<section class="tab-panel" id="tab-speciation">
+  <div class="section-header">
+    <div class="eyebrow">Section 4.3</div>
+    <h2>Speciation &amp; Genetic Drift</h2>
+    <p>How does one species become two? Explore geographic isolation, gene flow, and the outsized role of random chance in small populations.</p>
+  </div>
+
+  <div class="concept-row">
+    <span class="chip">Speciation</span>
+    <span class="chip">Reproductive Isolation</span>
+    <span class="chip accent">Gene Flow</span>
+    <span class="chip sky">Genetic Drift</span>
+  </div>
+
+  <!-- Speciation visualization — TOP -->
+  <div class="sim-wrap mb-15">
+    <div class="sim-title">Geographic Isolation &amp; Speciation <span class="badge">Interactive</span></div>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;">Two populations are separated by a barrier. <strong style="color:var(--forest)">Population A</strong> lives on a dark forest floor — dark organisms blend in and survive. <strong style="color:var(--accent)">Population B</strong> lives in a sandy desert — light organisms blend in and survive. Watch the two populations evolve in opposite directions over time.<sup class="fn">1,2</sup></p>
+    <div class="controls-grid">
+      <div class="ctrl-group">
+        <label style="display:flex;align-items:center;gap:.4rem;">
+          Barrier Strength
+          <button id="barrier-info-btn" aria-label="What is Barrier Strength?" style="background:none;border:1.5px solid var(--muted);color:var(--muted);border-radius:50%;width:16px;height:16px;font-size:.65rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;flex-shrink:0;transition:border-color .15s,color .15s;">i</button>
+        </label>
+        <div class="val-row">
+          <input type="range" id="barrier-str" min="0" max="1" step="0.05" value="1">
+          <span class="val-badge" id="barrier-val">Complete</span>
+        </div>
+      </div>
+
+      <!-- Barrier info popover -->
+      <div id="barrier-info-popover" style="display:none;position:fixed;z-index:200;background:var(--ink);color:#fff;font-size:.8rem;line-height:1.55;padding:.75rem 1rem;border-radius:8px;max-width:240px;box-shadow:0 4px 20px rgba(0,0,0,.35);">
+        How completely the geographic barrier blocks movement between populations. At <strong>1 (Complete)</strong>, no organisms cross — gene flow is zero and populations diverge freely. Reducing it allows organisms to cross, mixing alleles and slowing or reversing divergence.
+        <button id="barrier-info-close" style="display:block;margin-top:.5rem;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:.75rem;padding:.25rem .6rem;border-radius:5px;cursor:pointer;">Got it</button>
+      </div>
+      <div class="ctrl-group">
+        <label style="display:flex;align-items:center;gap:.4rem;">
+          Habitat Contrast
+          <button id="habitat-info-btn" aria-label="What is Habitat Contrast?" style="background:none;border:1.5px solid var(--muted);color:var(--muted);border-radius:50%;width:16px;height:16px;font-size:.65rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;flex-shrink:0;transition:border-color .15s,color .15s;">i</button>
+        </label>
+        <div class="val-row">
+          <input type="range" id="div-pressure" min="0" max="1" step="0.05" value="0.4">
+          <span class="val-badge" id="div-val">0.40</span>
+        </div>
+      </div>
+
+      <!-- Info popover -->
+      <div id="habitat-info-popover" style="display:none;position:fixed;z-index:200;background:var(--ink);color:#fff;font-size:.8rem;line-height:1.55;padding:.75rem 1rem;border-radius:8px;max-width:240px;box-shadow:0 4px 20px rgba(0,0,0,.35);">
+        How different the two environments are. At <strong>0</strong>, both populations share the same optimum and drift randomly. At <strong>1</strong>, selection strongly pulls Population A toward dark and Population B toward light — causing faster, more dramatic divergence.
+        <button id="habitat-info-close" style="display:block;margin-top:.5rem;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:.75rem;padding:.25rem .6rem;border-radius:5px;cursor:pointer;">Got it</button>
+      </div>
+      <div class="ctrl-group">
+        <label>Population Size</label>
+        <select id="spec-pop-size">
+          <option value="20">Very small (20)</option>
+          <option value="60" selected>Small (60)</option>
+          <option value="150">Large (150)</option>
+        </select>
+      </div>
+    </div>
+    <canvas id="spec-canvas" height="360"></canvas>
+    <div id="spec-info" style="margin-top:.8rem;font-size:.83rem;color:var(--forest);padding:.6rem .9rem;background:rgba(28,58,43,.06);border-radius:7px;min-height:2rem;"></div>
+    <div class="btn-row mt-1">
+      <button class="btn" id="spec-start">▶ Start</button>
+      <button class="btn secondary" id="spec-step">Step</button>
+      <button class="btn secondary" id="spec-reset">Reset</button>
+    </div>
+  </div>
+
+  <!-- Genetic drift chart -->
+  <div class="sim-wrap">
+    <div class="sim-title">Genetic Drift — Allele Frequency Over Time <span class="badge">Chart</span></div>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;">Trace the fate of a single allele (starting at 50% frequency) across multiple independent populations. In small populations, chance dominates — alleles go to fixation (100%) or extinction (0%) much faster.<sup class="fn">3</sup></p>
+    <div class="controls-grid">
+      <div class="ctrl-group">
+        <label>Population Size (N)</label>
+        <div class="val-row">
+          <input type="range" id="drift-n" min="5" max="200" step="5" value="20">
+          <span class="val-badge" id="drift-n-val">20</span>
+        </div>
+      </div>
+      <div class="ctrl-group">
+        <label>Number of Lineages</label>
+        <div class="val-row">
+          <input type="range" id="drift-lines" min="1" max="10" step="1" value="5">
+          <span class="val-badge" id="drift-lines-val">5</span>
+        </div>
+      </div>
+      <div class="ctrl-group">
+        <label>Generations to Simulate</label>
+        <div class="val-row">
+          <input type="range" id="drift-gens" min="20" max="200" step="10" value="80">
+          <span class="val-badge" id="drift-gens-val">80</span>
+        </div>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="drift-chart"></canvas>
+    </div>
+    <div class="btn-row mt-1">
+      <button class="btn" id="drift-run">Run Simulation</button>
+    </div>
+    <div class="info-box mt-1">
+      <strong>Key insight:</strong> In a small population (N=10–20), alleles frequently drift to fixation or loss within 20–40 generations purely by chance — regardless of whether those alleles are helpful, neutral, or harmful. This is why <strong>inbreeding in small, isolated populations</strong> erodes genetic diversity and increases extinction risk.<sup class="fn">1,3</sup>
+    </div>
+  </div>
+
+  <div class="references">
+    <h4>References</h4>
+    <ol>
+      <li>Sherman, D. J., &amp; Montgomery, D. R. (2022). <em>Environmental Science and Sustainability</em> (2nd ed.). W. W. Norton &amp; Company.</li>
+      <li>Mayr, E. (1963). <em>Animal Species and Evolution</em>. Harvard University Press.</li>
+      <li>Wright, S. (1931). Evolution in Mendelian populations. <em>Genetics, 16</em>(2), 97–159.</li>
+    </ol>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     TAB 3 · POPULATION GROWTH
+══════════════════════════════════════════════ -->
+<section class="tab-panel" id="tab-population">
+  <div class="section-header">
+    <div class="eyebrow">Section 4.6</div>
+    <h2>Population Growth Models</h2>
+    <p>From unlimited exponential growth to the reality of carrying capacity — explore what controls how populations rise, stabilize, and crash.</p>
+  </div>
+
+  <div class="concept-row">
+    <span class="chip">Exponential (J-curve)</span>
+    <span class="chip">Logistic (S-curve)</span>
+    <span class="chip accent">Carrying Capacity K</span>
+    <span class="chip sky">r-strategists</span>
+    <span class="chip rust">K-strategists</span>
+  </div>
+
+  <div class="stats-row mb-15">
+    <div class="stat-card"><div class="number">J</div><div class="label">Exponential curve — unlimited resources</div></div>
+    <div class="stat-card"><div class="number">S</div><div class="label">Logistic curve — approaching carrying capacity</div></div>
+    <div class="stat-card"><div class="number">K</div><div class="label">Carrying capacity — max sustainable population</div></div>
+    <div class="stat-card"><div class="number">r</div><div class="label">Intrinsic growth rate of a population</div></div>
+  </div>
+
+  <div class="sim-wrap mb-15">
+    <div class="sim-title">Interactive Population Growth Simulator <span class="badge">Live Chart</span><sup class="fn" style="margin-left:.5rem">1,2</sup></div>
+    <div class="controls-grid">
+      <div class="ctrl-group">
+        <label>Growth Rate (r)</label>
+        <div class="val-row">
+          <input type="range" id="pg-r" min="0.05" max="1.5" step="0.05" value="0.4">
+          <span class="val-badge" id="pg-r-val">0.40</span>
+        </div>
+      </div>
+      <div class="ctrl-group">
+        <label>Carrying Capacity (K)</label>
+        <div class="val-row">
+          <input type="range" id="pg-k" min="100" max="2000" step="50" value="800">
+          <span class="val-badge" id="pg-k-val">800</span>
+        </div>
+      </div>
+      <div class="ctrl-group">
+        <label>Starting Population (N₀)</label>
+        <div class="val-row">
+          <input type="range" id="pg-n0" min="5" max="400" step="5" value="20">
+          <span class="val-badge" id="pg-n0-val">20</span>
+        </div>
+      </div>
+      <div class="ctrl-group">
+        <label>Time Steps</label>
+        <div class="val-row">
+          <input type="range" id="pg-t" min="20" max="200" step="10" value="80">
+          <span class="val-badge" id="pg-t-val">80</span>
+        </div>
+      </div>
+      <div class="ctrl-group">
+        <label>Y-Axis Max</label>
+        <div class="val-row">
+          <input type="range" id="pg-ymax" min="100" max="10000" step="100" value="2000">
+          <span class="val-badge" id="pg-ymax-val">2000</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:.9rem;display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;">
+      <div class="pill-toggle" id="model-toggle">
+        <button class="active" data-model="logistic">Logistic (S-curve)</button>
+        <button data-model="exponential">Exponential (J-curve)</button>
+        <button data-model="boom-bust">Boom-Bust</button>
+      </div>
+      <label style="font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:.35rem;cursor:pointer;">
+        <input type="checkbox" id="show-k-line" checked style="accent-color:var(--leaf)"> Show K line
+      </label>
+    </div>
+
+    <div class="chart-wrap">
+      <canvas id="pop-chart"></canvas>
+    </div>
+
+    <div id="pg-info-box" class="info-box mt-1"></div>
+  </div>
+
+  <!-- r vs K strategists -->
+  <div class="grid-2">
+    <div class="card">
+      <h3>r-Strategists — "Quantity"<sup class="fn">1</sup></h3>
+      <p style="margin-top:.4rem;font-size:.84rem;color:var(--ink);line-height:1.7;">
+        High growth rate · Many offspring · Little parental investment · Short lifespan · Population size fluctuates widely
+      </p>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.7rem;">
+        <span style="background:rgba(200,134,10,.12);color:var(--accent);border-radius:5px;padding:.2rem .55rem;font-size:.76rem;font-weight:600">Insects</span>
+        <span style="background:rgba(200,134,10,.12);color:var(--accent);border-radius:5px;padding:.2rem .55rem;font-size:.76rem;font-weight:600">Most fish</span>
+        <span style="background:rgba(200,134,10,.12);color:var(--accent);border-radius:5px;padding:.2rem .55rem;font-size:.76rem;font-weight:600">Dandelions</span>
+        <span style="background:rgba(200,134,10,.12);color:var(--accent);border-radius:5px;padding:.2rem .55rem;font-size:.76rem;font-weight:600">Mice</span>
+      </div>
+      <p style="margin-top:.7rem;font-size:.78rem;color:var(--muted);line-height:1.5"><em>Strategy:</em> Produce massive numbers of offspring quickly — most will die, but some will survive in unpredictable environments.</p>
+    </div>
+    <div class="card">
+      <h3>K-Strategists — "Quality"<sup class="fn">1</sup></h3>
+      <p style="margin-top:.4rem;font-size:.84rem;color:var(--ink);line-height:1.7;">
+        Low growth rate · Few offspring · High parental investment · Long lifespan · Population size near carrying capacity K
+      </p>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.7rem;">
+        <span style="background:rgba(28,58,43,.1);color:var(--forest);border-radius:5px;padding:.2rem .55rem;font-size:.76rem;font-weight:600">Elephants</span>
+        <span style="background:rgba(28,58,43,.1);color:var(--forest);border-radius:5px;padding:.2rem .55rem;font-size:.76rem;font-weight:600">Humans</span>
+        <span style="background:rgba(28,58,43,.1);color:var(--forest);border-radius:5px;padding:.2rem .55rem;font-size:.76rem;font-weight:600">Whales</span>
+        <span style="background:rgba(28,58,43,.1);color:var(--forest);border-radius:5px;padding:.2rem .55rem;font-size:.76rem;font-weight:600">Eagles</span>
+      </div>
+      <p style="margin-top:.7rem;font-size:.78rem;color:var(--muted);line-height:1.5"><em>Strategy:</em> Invest heavily in fewer offspring, each with a high chance of survival. Works in stable, competitive environments near K.</p>
+    </div>
+  </div>
+
+  <div class="references">
+    <h4>References</h4>
+    <ol>
+      <li>Sherman, D. J., &amp; Montgomery, D. R. (2022). <em>Environmental Science and Sustainability</em> (2nd ed.). W. W. Norton &amp; Company.</li>
+      <li>May, R. M. (1976). Simple mathematical models with very complicated dynamics. <em>Nature, 261</em>, 459–467. (Foundation for logistic growth, carrying capacity, and boom-bust dynamics.)</li>
+    </ol>
+  </div>
+</section>
+
+
+</main>
+
+<script>
+/* ═══════════════════════════════════════
+   TABS
+═══════════════════════════════════════ */
+document.querySelectorAll('#tabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#tabs button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    if (btn.dataset.tab === 'speciation') {
+      if (window.specTabInit) window.specTabInit();
+      setTimeout(() => { if (!driftInitDone) { driftInitDone = true; initDriftChart(); } }, 50);
+    }
+    if (btn.dataset.tab === 'population' && !popChartInst) initPopChart();
+    if (btn.dataset.tab === 'biodiversity') initExtinctionBars();
+  });
+});
+
+/* Deep-link to a tab via URL hash (e.g. index.html#population).
+   Used when this app is embedded as a slide; harmless otherwise. */
+function openTabFromHash() {
+  const name = (location.hash || '').replace('#', '').trim();
+  if (!name) return;
+  const btn = document.querySelector('#tabs button[data-tab="' + name + '"]');
+  if (btn) btn.click();
+}
+window.addEventListener('DOMContentLoaded', () => {
+  // Embed mode (?embed=1): hide the app's own header so an embedding page
+  // can supply its own. Harmless when opened standalone.
+  if (new URLSearchParams(location.search).has('embed')) {
+    document.body.classList.add('embed');
+  }
+  openTabFromHash();
+});
+window.addEventListener('hashchange', openTabFromHash);
+
+/* ═══════════════════════════════════════
+   EVOLUTION SIMULATION
+═══════════════════════════════════════ */
+(function() {
+  const canvas = document.getElementById('evo-canvas');
+  const ctx = canvas.getContext('2d');
+  let organisms = [], generation = 0, running = false, animId = null;
+
+  const envBg = { dark: '#1a1008', light: '#f0e8c0', mixed: '#6b7a50' };
+  const optimalColor = { dark: 0.05, light: 0.95, mixed: 0.5 };
+
+  function getParams() {
+    return {
+      env: document.getElementById('env-select').value,
+      pressure: parseFloat(document.getElementById('sel-pressure').value),
+      mutation: parseFloat(document.getElementById('mut-rate').value),
+      popSize: parseInt(document.getElementById('pop-size-select').value),
+    };
+  }
+
+  function initOrgs() {
+    const { popSize } = getParams();
+    const W = canvas.width, H = canvas.height;
+    organisms = [];
+    for (let i = 0; i < popSize; i++) {
+      organisms.push({
+        x: 20 + Math.random() * (W - 40),
+        y: 20 + Math.random() * (H - 40),
+        trait: Math.random(),
+        dead: false,
+        killed: false,
+      });
+    }
+    generation = 0;
+    updateStats();
+  }
+
+  function traitToColor(t) {
+    const r = Math.round(248 * t + 12 * (1 - t));
+    const g = Math.round(238 * t + 8  * (1 - t));
+    const b = Math.round(210 * t + 5  * (1 - t));
+    return `rgb(${r},${g},${b})`;
+  }
+
+  function drawFrame(flash = []) {
+    const W = canvas.width, H = canvas.height;
+    const { env } = getParams();
+    ctx.fillStyle = envBg[env];
+    ctx.fillRect(0, 0, W, H);
+
+    // subtle texture
+    ctx.fillStyle = 'rgba(255,255,255,.03)';
+    for (let i = 0; i < 60; i++) {
+      ctx.fillRect(Math.random()*W, Math.random()*H, 2, 2);
+    }
+
+    organisms.forEach((o, i) => {
+      const killed = flash.includes(i);
+      ctx.beginPath();
+      ctx.arc(o.x, o.y, 5, 0, Math.PI*2);
+      if (killed) {
+        ctx.fillStyle = 'rgba(231,76,60,.8)';
+        ctx.fill();
+        ctx.strokeStyle = '#ff0';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      } else {
+        ctx.fillStyle = traitToColor(o.trait);
+        ctx.fill();
+        ctx.strokeStyle = o.trait > 0.5 ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.65)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    });
+  }
+
+  function stepGeneration(cb) {
+    const { env, pressure, mutation, popSize } = getParams();
+    const optimal = optimalColor[env];
+    const killed = [];
+
+    // Selection: kill based on distance from optimal trait
+    organisms.forEach((o, i) => {
+      const dist = Math.abs(o.trait - optimal);
+      if (Math.random() < dist * pressure) killed.push(i);
+    });
+
+    // Flash deaths
+    drawFrame(killed);
+    setTimeout(() => {
+      organisms = organisms.filter((_, i) => !killed.includes(i));
+
+      // Reproduction to maintain ~popSize
+      while (organisms.length < popSize) {
+        if (organisms.length === 0) { organisms.push({ trait: Math.random() }); continue; }
+        const parent = organisms[Math.floor(Math.random() * organisms.length)];
+        const W = canvas.width, H = canvas.height;
+        let trait = parent.trait + (Math.random() - 0.5) * mutation * 2;
+        trait = Math.max(0, Math.min(1, trait));
+        organisms.push({
+          x: 20 + Math.random() * (W - 40),
+          y: 20 + Math.random() * (H - 40),
+          trait,
+          dead: false,
+        });
+      }
+
+      generation++;
+      updateStats();
+      drawFrame([]);
+      if (cb) cb();
+    }, 300);
+  }
+
+  function updateStats() {
+    document.getElementById('stat-gen').textContent = generation;
+    document.getElementById('stat-pop').textContent = organisms.length;
+    if (organisms.length > 0) {
+      const total = organisms.length;
+      const light  = organisms.filter(o => o.trait > 0.66).length;
+      const medium = organisms.filter(o => o.trait >= 0.33 && o.trait <= 0.66).length;
+      const dark   = organisms.filter(o => o.trait < 0.33).length;
+      document.getElementById('stat-light').textContent  = Math.round(light  / total * 100) + '%';
+      document.getElementById('stat-medium').textContent = Math.round(medium / total * 100) + '%';
+      document.getElementById('stat-dark').textContent   = Math.round(dark   / total * 100) + '%';
+    }
+  }
+
+  function getSpeed() {
+    return parseInt(document.getElementById('speed-select').value);
+  }
+
+  function runLoop() {
+    if (!running) return;
+    stepGeneration(() => {
+      animId = setTimeout(runLoop, getSpeed());
+    });
+  }
+
+  function resize() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = 300;
+    if (organisms.length) drawFrame([]);
+  }
+
+  // Sync sliders
+  ['sel-pressure','mut-rate'].forEach(id => {
+    const el = document.getElementById(id);
+    const valEl = document.getElementById(id === 'sel-pressure' ? 'sel-val' : 'mut-val');
+    el.addEventListener('input', () => { valEl.textContent = parseFloat(el.value).toFixed(2); });
+  });
+
+  // Info popovers helper
+  function makePopover(btnId, popId, closeId) {
+    const btn = document.getElementById(btnId);
+    const pop = document.getElementById(popId);
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const rect = btn.getBoundingClientRect();
+      pop.style.top  = (rect.bottom + 6) + 'px';
+      pop.style.left = Math.min(rect.left, window.innerWidth - 256) + 'px';
+      const open = pop.style.display !== 'block';
+      pop.style.display = open ? 'block' : 'none';
+      btn.style.borderColor = open ? 'var(--leaf)' : 'var(--muted)';
+      btn.style.color       = open ? 'var(--leaf)' : 'var(--muted)';
+    });
+    document.getElementById(closeId).addEventListener('click', () => {
+      pop.style.display = 'none';
+      btn.style.borderColor = 'var(--muted)'; btn.style.color = 'var(--muted)';
+    });
+    document.addEventListener('click', e => {
+      if (!pop.contains(e.target) && e.target !== btn) {
+        pop.style.display = 'none';
+        btn.style.borderColor = 'var(--muted)'; btn.style.color = 'var(--muted)';
+      }
+    });
+  }
+  makePopover('sel-pressure-info-btn', 'sel-pressure-popover', 'sel-pressure-close');
+  makePopover('mut-rate-info-btn',     'mut-rate-popover',     'mut-rate-close');
+
+  // Redraw when environment or population size changes
+  document.getElementById('env-select').addEventListener('change', () => {
+    if (organisms.length) drawFrame([]);
+  });
+  document.getElementById('pop-size-select').addEventListener('change', () => {
+    // Reinitialize with new size, preserving running state
+    const wasRunning = running;
+    running = false;
+    clearTimeout(animId);
+    initOrgs();
+    drawFrame([]);
+    if (wasRunning) { running = true; runLoop(); }
+  });
+
+  document.getElementById('evo-start').addEventListener('click', () => {
+    running = !running;
+    document.getElementById('evo-start').textContent = running ? '⏸ Pause' : '▶ Start';
+    if (running) { if (!organisms.length) initOrgs(); runLoop(); }
+  });
+  document.getElementById('evo-step').addEventListener('click', () => {
+    if (!organisms.length) initOrgs();
+    stepGeneration(null);
+  });
+  document.getElementById('evo-reset').addEventListener('click', () => {
+    running = false;
+    clearTimeout(animId);
+    document.getElementById('evo-start').textContent = '▶ Start';
+    initOrgs();
+    drawFrame([]);
+  });
+
+  window.addEventListener('resize', resize);
+  setTimeout(() => { resize(); initOrgs(); drawFrame([]); }, 60);
+})();
+
+
+/* ═══════════════════════════════════════
+   SPECIATION SIMULATION
+═══════════════════════════════════════ */
+(function() {
+  const canvas = document.getElementById('spec-canvas');
+  const ctx = canvas.getContext('2d');
+  let popA = [], popB = [], gen = 0, running = false, animId = null;
+
+  function getP() {
+    return {
+      barrier: parseFloat(document.getElementById('barrier-str').value),
+      diverge: parseFloat(document.getElementById('div-pressure').value),
+      n: parseInt(document.getElementById('spec-pop-size').value),
+    };
+  }
+
+  function init() {
+    const { n } = getP();
+    popA = Array.from({length: n}, () => ({ trait: .5 + (Math.random()-.5)*.2 }));
+    popB = Array.from({length: n}, () => ({ trait: .5 + (Math.random()-.5)*.2 }));
+    gen = 0;
+    drawSpec();
+    showInfo();
+  }
+
+  function meanTrait(pop) { return pop.reduce((s,o) => s+o.trait, 0) / pop.length; }
+
+  function step() {
+    const { barrier, diverge, n } = getP();
+
+    function evolve(pop, optDir) {
+      // selection toward optimal
+      const opt = 0.5 + optDir * diverge * 0.4;
+      return pop.map(o => {
+        let t = o.trait + (Math.random()-.5)*.08;
+        if (Math.random() < diverge * .3) t += (opt - t) * .15;
+        t = Math.max(0, Math.min(1, t));
+        return { trait: t };
+      });
+    }
+
+    popA = evolve(popA, -1);
+    popB = evolve(popB, +1);
+
+    // gene flow (barrier = 1 → no flow; barrier = 0 → full mix)
+    const flowRate = (1 - barrier) * .3;
+    if (flowRate > 0 && Math.random() < flowRate) {
+      const nSwap = Math.max(1, Math.floor(n * flowRate * .4));
+      for (let i = 0; i < nSwap; i++) {
+        const fromA = popA.splice(Math.floor(Math.random()*popA.length), 1)[0];
+        const fromB = popB.splice(Math.floor(Math.random()*popB.length), 1)[0];
+        popA.push(fromB);
+        popB.push(fromA);
+      }
+    }
+
+    gen++;
+    drawSpec();
+    showInfo();
+  }
+
+  function drawSpec() {
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const midX = W/2;
+
+    // Background colors interpolate with Habitat Contrast:
+    // contrast=0 → both sides the same neutral tan
+    // contrast=1 → Pop A very dark, Pop B very light
+    const contrast = parseFloat(document.getElementById('div-pressure').value);
+    function lerpColor(hex1, hex2, t) {
+      const c1 = [parseInt(hex1.slice(1,3),16), parseInt(hex1.slice(3,5),16), parseInt(hex1.slice(5,7),16)];
+      const c2 = [parseInt(hex2.slice(1,3),16), parseInt(hex2.slice(3,5),16), parseInt(hex2.slice(5,7),16)];
+      return `rgb(${Math.round(c1[0]+(c2[0]-c1[0])*t)},${Math.round(c1[1]+(c2[1]-c1[1])*t)},${Math.round(c1[2]+(c2[2]-c1[2])*t)})`;
+    }
+    const neutral = '#a08858'; // shared midpoint when contrast = 0
+    const bgA = lerpColor(neutral, '#1a1008', contrast); // neutral → dark forest
+    const bgB = lerpColor(neutral, '#f0e8c0', contrast); // neutral → sandy desert
+
+    ctx.fillStyle = bgA; ctx.fillRect(0, 0, midX - 8, H);
+    ctx.fillStyle = bgB; ctx.fillRect(midX + 8, 0, W - midX - 8, H);
+
+    // barrier
+    const bStr = parseFloat(document.getElementById('barrier-str').value);
+    ctx.fillStyle = `rgba(120,100,70,${bStr * .9})`;
+    ctx.fillRect(midX - 8, 0, 16, H);
+    if (bStr > 0.1) {
+      ctx.fillStyle = `rgba(255,255,255,${bStr * .7})`;
+      ctx.font = 'bold 10px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.save();
+      ctx.translate(midX, H/2);
+      ctx.rotate(-Math.PI/2);
+      ctx.fillText('BARRIER', 0, 4);
+      ctx.restore();
+    }
+
+    // labels — white on dark side, dark on light side
+    ctx.font = 'bold 11px Inter, sans-serif'; ctx.textAlign = 'center';
+    ctx.fillStyle = 'rgba(255,255,255,.85)';
+    ctx.fillText(`Population A  (gen ${gen})`, midX/2, 16);
+    ctx.fillStyle = '#4a3010';
+    ctx.fillText('Population B', midX + (W - midX)/2, 16);
+
+    // Organism color — same function as evolution simulator:
+    // trait → 0 = very dark brown (#2d1a0e), trait → 1 = warm yellow (#e8c87a)
+    function traitToColor(t) {
+      const r = Math.round(248 * t + 12 * (1 - t));
+      const g = Math.round(238 * t + 8  * (1 - t));
+      const b = Math.round(210 * t + 5  * (1 - t));
+      return `rgb(${r},${g},${b})`;
+    }
+    function traitStroke(t) {
+      // dark organisms get a light ring; light organisms get a dark ring
+      return t > 0.5 ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.7)';
+    }
+
+    function drawPop(pop, xBase, xRange) {
+      pop.forEach((o, i) => {
+        const x = xBase + 15 + Math.random() * xRange;
+        const y = 28 + (i / pop.length) * (H - 46);
+        ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI*2);
+        ctx.fillStyle = traitToColor(o.trait);
+        ctx.fill();
+        ctx.strokeStyle = traitStroke(o.trait);
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+      });
+    }
+
+    drawPop(popA, 10, midX - 40);
+    drawPop(popB, midX + 18, W - midX - 40);
+  }
+
+  function traitBuckets(pop) {
+    if (!pop.length) return { light: 0, medium: 0, dark: 0 };
+    const light  = pop.filter(o => o.trait > 0.66).length;
+    const medium = pop.filter(o => o.trait >= 0.33 && o.trait <= 0.66).length;
+    const dark   = pop.filter(o => o.trait < 0.33).length;
+    const n = pop.length;
+    return {
+      light:  Math.round(light  / n * 100),
+      medium: Math.round(medium / n * 100),
+      dark:   Math.round(dark   / n * 100),
+    };
+  }
+
+  function barHTML(pct, color) {
+    return `<div style="flex:1;background:#e5e9e2;border-radius:999px;height:7px;overflow:hidden;">
+      <div style="width:${pct}%;background:${color};height:100%;border-radius:999px;transition:width .35s;"></div>
+    </div>`;
+  }
+
+  function popStatsHTML(label, buckets, borderColor) {
+    return `
+      <div style="flex:1;padding:.6rem .85rem;background:#fff;border:1.5px solid ${borderColor};border-radius:8px;min-width:140px;">
+        <div style="font-weight:700;font-size:.8rem;color:${borderColor};margin-bottom:.5rem;letter-spacing:.03em;">${label}</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;">
+          <div style="display:flex;align-items:center;gap:.5rem;font-size:.76rem;">
+            <span style="width:10px;height:10px;border-radius:50%;background:#f8eed2;border:1px solid #aaa;flex-shrink:0;display:inline-block;"></span>
+            <span style="color:#6b7c6a;width:3.2rem;">Light</span>
+            ${barHTML(buckets.light, '#c8b88a')}
+            <span style="font-weight:700;color:#1c3a2b;min-width:2.2rem;text-align:right;">${buckets.light}%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem;font-size:.76rem;">
+            <span style="width:10px;height:10px;border-radius:50%;background:#8b7a5a;flex-shrink:0;display:inline-block;"></span>
+            <span style="color:#6b7c6a;width:3.2rem;">Medium</span>
+            ${barHTML(buckets.medium, '#8b7a5a')}
+            <span style="font-weight:700;color:#1c3a2b;min-width:2.2rem;text-align:right;">${buckets.medium}%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem;font-size:.76rem;">
+            <span style="width:10px;height:10px;border-radius:50%;background:#0c0805;flex-shrink:0;display:inline-block;"></span>
+            <span style="color:#6b7c6a;width:3.2rem;">Dark</span>
+            ${barHTML(buckets.dark, '#0c0805')}
+            <span style="font-weight:700;color:#1c3a2b;min-width:2.2rem;text-align:right;">${buckets.dark}%</span>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function showInfo() {
+    const bA = traitBuckets(popA), bB = traitBuckets(popB);
+    const diff = Math.abs(meanTrait(popA) - meanTrait(popB)).toFixed(3);
+    const bStr = parseFloat(document.getElementById('barrier-str').value);
+    let status = diff > .25 ? '⚠️ High divergence — speciation likely' : diff > .1 ? '↑ Populations diverging' : '≈ Populations similar';
+    if (bStr < .3) status += ' · Gene flow reducing differences';
+    document.getElementById('spec-info').innerHTML = `
+      <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-bottom:.55rem;">
+        ${popStatsHTML('Population A', bA, '#2d5a3d')}
+        ${popStatsHTML('Population B', bB, '#2a3d5a')}
+      </div>
+      <div style="font-size:.78rem;color:#6b7c6a;">Gen ${gen} &nbsp;·&nbsp; Divergence: <strong style="color:#1c3a2b">${diff}</strong> &nbsp;·&nbsp; ${status}</div>`;
+  }
+
+  // Barrier Strength info popover
+  (function() {
+    const btn = document.getElementById('barrier-info-btn');
+    const pop = document.getElementById('barrier-info-popover');
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const rect = btn.getBoundingClientRect();
+      pop.style.top  = (rect.bottom + 6) + 'px';
+      pop.style.left = Math.min(rect.left, window.innerWidth - 256) + 'px';
+      pop.style.display = pop.style.display === 'none' ? 'block' : 'none';
+      btn.style.borderColor = pop.style.display === 'block' ? 'var(--leaf)' : 'var(--muted)';
+      btn.style.color       = pop.style.display === 'block' ? 'var(--leaf)' : 'var(--muted)';
+    });
+    document.getElementById('barrier-info-close').addEventListener('click', () => {
+      pop.style.display = 'none';
+      btn.style.borderColor = 'var(--muted)'; btn.style.color = 'var(--muted)';
+    });
+    document.addEventListener('click', e => {
+      if (!pop.contains(e.target) && e.target !== btn) {
+        pop.style.display = 'none';
+        btn.style.borderColor = 'var(--muted)'; btn.style.color = 'var(--muted)';
+      }
+    });
+  })();
+
+  // Habitat Contrast info popover
+  const infoBtn = document.getElementById('habitat-info-btn');
+  const popover = document.getElementById('habitat-info-popover');
+  infoBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const rect = infoBtn.getBoundingClientRect();
+    const top = rect.bottom + 6;
+    const left = Math.min(rect.left, window.innerWidth - 256);
+    popover.style.top = top + 'px';
+    popover.style.left = left + 'px';
+    popover.style.display = popover.style.display === 'none' ? 'block' : 'none';
+    infoBtn.style.borderColor = popover.style.display === 'block' ? 'var(--leaf)' : 'var(--muted)';
+    infoBtn.style.color      = popover.style.display === 'block' ? 'var(--leaf)' : 'var(--muted)';
+  });
+  document.getElementById('habitat-info-close').addEventListener('click', () => {
+    popover.style.display = 'none';
+    infoBtn.style.borderColor = 'var(--muted)';
+    infoBtn.style.color = 'var(--muted)';
+  });
+  document.addEventListener('click', e => {
+    if (!popover.contains(e.target) && e.target !== infoBtn) {
+      popover.style.display = 'none';
+      infoBtn.style.borderColor = 'var(--muted)';
+      infoBtn.style.color = 'var(--muted)';
+    }
+  });
+
+  document.getElementById('barrier-str').addEventListener('input', e => {
+    const v = parseFloat(e.target.value);
+    document.getElementById('barrier-val').textContent = v >= .95 ? 'Complete' : v <= .05 ? 'None' : v.toFixed(2);
+    if (popA.length) drawSpec();
+  });
+  document.getElementById('div-pressure').addEventListener('input', e => {
+    document.getElementById('div-val').textContent = parseFloat(e.target.value).toFixed(2);
+    if (popA.length) drawSpec();
+  });
+
+  function runLoop() {
+    if (!running) return;
+    step();
+    animId = setTimeout(runLoop, 350);
+  }
+
+  document.getElementById('spec-start').addEventListener('click', () => {
+    running = !running;
+    document.getElementById('spec-start').textContent = running ? '⏸ Pause' : '▶ Start';
+    if (running) { if (!popA.length) init(); runLoop(); }
+  });
+  document.getElementById('spec-step').addEventListener('click', () => { if (!popA.length) init(); step(); });
+  document.getElementById('spec-reset').addEventListener('click', () => {
+    running = false; clearTimeout(animId);
+    document.getElementById('spec-start').textContent = '▶ Start';
+    init();
+  });
+
+  function resize() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = 360;
+    if (popA.length) drawSpec();
+    else init();
+  }
+  window.addEventListener('resize', resize);
+
+  // Called by the tab switcher each time this tab is shown
+  window.specTabInit = function() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = 360;
+    init();
+  };
+})();
+
+
+/* ═══════════════════════════════════════
+   GENETIC DRIFT CHART
+═══════════════════════════════════════ */
+/* ── Genetic Drift: pure-canvas implementation ───────────────────────────── */
+let driftRafId   = null;   // requestAnimationFrame handle
+let driftGroups  = null;   // pre-computed lineage data
+let driftFrame   = 0;      // how many generations revealed so far
+let driftTotal   = 0;      // total generations
+let driftInitDone = false; // guard: init only once
+
+const DRIFT_COLORS = ['#c8860a','#2d5a3d','#3a7ca5','#b84a2a','#6d2e46',
+                      '#4a8c5c','#1c3a2b','#028090','#990011','#065a82'];
+const PAD = { top: 18, right: 18, bottom: 44, left: 52 };
+
+function getDriftCanvas() { return document.getElementById('drift-chart'); }
+
+function initDriftChart() {
+  ['drift-n','drift-lines','drift-gens'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => {
+      const map = {'drift-n':'drift-n-val','drift-lines':'drift-lines-val','drift-gens':'drift-gens-val'};
+      document.getElementById(map[id]).textContent = document.getElementById(id).value;
+    });
+  });
+
+  document.getElementById('drift-run').onclick = runDrift;
+  runDrift();
+}
+
+function buildDriftData(n, nLines, gens) {
+  return Array.from({length: nLines}, (_, li) => {
+    let freq = 0.5;
+    const allData = [freq];
+    for (let g = 0; g < gens; g++) {
+      if (freq > 0 && freq < 1) {
+        freq = Math.max(0, Math.min(1,
+          freq + (Math.random() - 0.5) * Math.sqrt(freq * (1 - freq) / n) * 1.8
+        ));
+      }
+      allData.push(freq);
+    }
+    return { allData, color: DRIFT_COLORS[li % DRIFT_COLORS.length], n, li };
+  });
+}
+
+function runDrift() {
+  const n      = parseInt(document.getElementById('drift-n').value);
+  const nLines = parseInt(document.getElementById('drift-lines').value);
+  const gens   = parseInt(document.getElementById('drift-gens').value);
+  startDriftAnim(buildDriftData(n, nLines, gens));
+}
+
+function drawDriftCanvas(upTo) {
+  const cvs = getDriftCanvas();
+  const dpr = window.devicePixelRatio || 1;
+  // Use parent width; fall back to 600. Height is always 320 CSS px.
+  const W = (cvs.parentElement ? cvs.parentElement.clientWidth : 0) || cvs.offsetWidth || 600;
+  const H = 320;
+  const pw_needed = Math.round(W * dpr);
+  const ph_needed = Math.round(H * dpr);
+  if (cvs.width !== pw_needed || cvs.height !== ph_needed) {
+    cvs.width  = pw_needed;
+    cvs.height = ph_needed;
+  }
+  const ctx = cvs.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const pw  = W - PAD.left - PAD.right;
+  const ph   = H - PAD.top  - PAD.bottom;
+
+  ctx.clearRect(0, 0, W, H);
+
+  // ── background ──
+  ctx.fillStyle = '#f9f7f2';
+  ctx.fillRect(0, 0, W, H);
+
+  // ── grid lines ──
+  ctx.strokeStyle = '#ddd';
+  ctx.lineWidth   = 1;
+  [0, 0.25, 0.5, 0.75, 1].forEach(v => {
+    const y = PAD.top + ph * (1 - v);
+    ctx.beginPath(); ctx.moveTo(PAD.left, y); ctx.lineTo(PAD.left + pw, y); ctx.stroke();
+  });
+
+  // ── axes ──
+  ctx.strokeStyle = '#8a9e8a';
+  ctx.lineWidth   = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(PAD.left, PAD.top);
+  ctx.lineTo(PAD.left, PAD.top + ph);
+  ctx.lineTo(PAD.left + pw, PAD.top + ph);
+  ctx.stroke();
+
+  // ── y-axis labels ──
+  ctx.fillStyle  = '#6b7c6a';
+  ctx.font       = '11px Inter, sans-serif';
+  ctx.textAlign  = 'right';
+  ctx.textBaseline = 'middle';
+  [0, 25, 50, 75, 100].forEach(pct => {
+    const y = PAD.top + ph * (1 - pct/100);
+    ctx.fillText(pct + '%', PAD.left - 6, y);
+  });
+
+  // ── x-axis label ──
+  ctx.fillStyle    = '#6b7c6a';
+  ctx.font         = '12px Inter, sans-serif';
+  ctx.textAlign    = 'center';
+  ctx.textBaseline = 'bottom';
+  ctx.fillText('Generation', PAD.left + pw / 2, H - 2);
+
+  // ── y-axis label ──
+  ctx.save();
+  ctx.translate(13, PAD.top + ph / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.textBaseline = 'top';
+  ctx.fillText('Allele Frequency', 0, 0);
+  ctx.restore();
+
+  if (!driftGroups || upTo < 0) return;
+
+  const totalGens = driftGroups[0][0].allData.length - 1;
+  const pts = Math.min(upTo, totalGens) + 1;   // number of points to draw
+
+  // ── x-axis tick labels (show ~6) ──
+  ctx.fillStyle    = '#6b7c6a';
+  ctx.font         = '10px Inter, sans-serif';
+  ctx.textAlign    = 'center';
+  ctx.textBaseline = 'top';
+  const tickCount = Math.min(6, totalGens);
+  for (let i = 0; i <= tickCount; i++) {
+    const gen = Math.round(i * totalGens / tickCount);
+    const x   = PAD.left + (gen / totalGens) * pw;
+    ctx.fillText(gen, x, PAD.top + ph + 5);
+  }
+
+  // ── lineages ──
+  driftGroups.forEach((group, gi) => {
+    group.forEach(d => {
+      ctx.beginPath();
+      ctx.strokeStyle = d.color;
+      ctx.lineWidth   = 1.8;
+      if (gi > 0) ctx.setLineDash([5, 3]); else ctx.setLineDash([]);
+
+      for (let i = 0; i < pts; i++) {
+        const x = PAD.left + (i / totalGens) * pw;
+        const y = PAD.top  + ph * (1 - d.allData[i]);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    });
+  });
+  ctx.setLineDash([]);
+}
+
+function startDriftAnim(...groups) {
+  if (driftRafId) { cancelAnimationFrame(driftRafId); driftRafId = null; }
+
+  driftGroups = groups;
+  driftTotal  = groups[0][0].allData.length - 1;
+  driftFrame  = 0;
+
+  const btn = document.getElementById('drift-run');
+  btn.textContent = '⏹ Stop';
+  btn.onclick = finishDrift;
+
+  // How many RAF frames to spend per generation so animation takes ~3 s
+  // At ~60fps that's 180 frames total; spread across driftTotal gens.
+  const rafPerGen = Math.max(1, Math.round(180 / driftTotal));
+  let   rafTick   = 0;
+
+  function loop() {
+    drawDriftCanvas(driftFrame);
+    rafTick++;
+    if (rafTick >= rafPerGen) {
+      rafTick = 0;
+      driftFrame++;
+    }
+    if (driftFrame > driftTotal) { finishDrift(); return; }
+    driftRafId = requestAnimationFrame(loop);
+  }
+
+  driftRafId = requestAnimationFrame(loop);
+}
+
+function finishDrift() {
+  if (driftRafId) { cancelAnimationFrame(driftRafId); driftRafId = null; }
+  drawDriftCanvas(driftTotal);
+  const btn = document.getElementById('drift-run');
+  btn.textContent = 'Run Simulation';
+  btn.onclick = runDrift;
+}
+
+
+/* ═══════════════════════════════════════
+   POPULATION GROWTH CHART
+═══════════════════════════════════════ */
+let popChartInst = null;
+
+function initPopChart() {
+  const ctx = document.getElementById('pop-chart').getContext('2d');
+  popChartInst = new Chart(ctx, {
+    type: 'line',
+    data: { labels: [], datasets: [] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      animation: { duration: 250 },
+      scales: {
+        x: { title: { display: true, text: 'Time', color: '#6b7c6a' } },
+        y: { min: 0, max: 2000, title: { display: true, text: 'Population (N)', color: '#6b7c6a' } }
+      },
+      plugins: {
+        legend: { display: true, labels: { font: { size: 11 }, boxWidth: 14 } },
+        tooltip: { callbacks: { label: ctx => `N = ${Math.round(ctx.parsed.y).toLocaleString()}` } }
+      }
+    }
+  });
+
+  // Controls
+  const ids = ['pg-r','pg-k','pg-n0','pg-t'];
+  ids.forEach(id => {
+    document.getElementById(id).addEventListener('input', () => {
+      document.getElementById(id+'-val').textContent = parseFloat(document.getElementById(id).value).toFixed(id==='pg-r'?2:0);
+      updatePopChart();
+    });
+  });
+  document.getElementById('pg-ymax').addEventListener('input', () => {
+    const v = parseInt(document.getElementById('pg-ymax').value);
+    document.getElementById('pg-ymax-val').textContent = v;
+    popChartInst.options.scales.y.max = v;
+    popChartInst.update('none');
+  });
+
+  document.querySelectorAll('#model-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#model-toggle button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updatePopChart();
+    });
+  });
+
+  document.getElementById('show-k-line').addEventListener('change', updatePopChart);
+  updatePopChart();
+}
+
+function updatePopChart() {
+  const r = parseFloat(document.getElementById('pg-r').value);
+  const K = parseInt(document.getElementById('pg-k').value);
+  const N0 = parseInt(document.getElementById('pg-n0').value);
+  const T = parseInt(document.getElementById('pg-t').value);
+  const model = document.querySelector('#model-toggle button.active').dataset.model;
+  const showK = document.getElementById('show-k-line').checked;
+
+  const labels = Array.from({length: T+1}, (_,i) => i);
+  const data = [];
+
+  if (model === 'exponential') {
+    for (let t = 0; t <= T; t++) data.push(N0 * Math.exp(r * t));
+  } else if (model === 'logistic') {
+    let N = N0;
+    data.push(N);
+    for (let t = 1; t <= T; t++) {
+      N = N + r * N * (1 - N/K);
+      data.push(Math.max(0, N));
+    }
+  } else { // boom-bust — use discrete logistic in oscillatory regime (r_eff > 2)
+    // Scale user's r into the range that reliably produces boom-bust cycles.
+    // Discrete logistic: N_{t+1} = N_t + r_eff * N_t * (1 - N_t/K)
+    // r_eff in [2.0, 2.6] → stable 2- or 4-point oscillations; > 2.6 → chaos
+    const rEff = 2.0 + (r / 1.5) * 0.55; // maps [0.05–1.5] → [2.03–2.55]
+    let N = N0;
+    data.push(N);
+    for (let t = 1; t <= T; t++) {
+      N = N + rEff * N * (1 - N / K);
+      data.push(Math.max(0, N));
+    }
+  }
+
+  const datasets = [{
+    label: model === 'exponential' ? 'Exponential (J-curve)' : model === 'logistic' ? 'Logistic (S-curve)' : 'Boom-Bust',
+    data,
+    borderColor: model === 'exponential' ? '#c8860a' : model === 'logistic' ? '#2d5a3d' : '#b84a2a',
+    backgroundColor: model === 'exponential' ? 'rgba(200,134,10,.08)' : model === 'logistic' ? 'rgba(45,90,61,.08)' : 'rgba(184,74,42,.08)',
+    borderWidth: 2.5,
+    fill: true,
+    pointRadius: 0,
+    tension: .3,
+  }];
+
+  if (showK && model !== 'exponential') {
+    datasets.push({
+      label: `Carrying Capacity (K = ${K.toLocaleString()})`,
+      data: Array(T+1).fill(K),
+      borderColor: 'rgba(58,124,165,.7)',
+      borderDash: [6,4],
+      borderWidth: 1.8,
+      pointRadius: 0,
+      fill: false,
+    });
+  }
+
+  popChartInst.data.labels = labels;
+  popChartInst.data.datasets = datasets;
+  popChartInst.update();
+
+  // Info box
+  const infoMap = {
+    exponential: `<strong>Exponential growth</strong> occurs when resources are unlimited — the population doubles at a constant rate (doubling time ≈ ${(Math.log(2)/r).toFixed(1)} time units at r = ${r.toFixed(2)}). This is rare in nature but describes populations colonizing new environments.`,
+    logistic: `<strong>Logistic growth</strong> is more realistic: as the population approaches carrying capacity K (${K.toLocaleString()}), resource competition and density-dependent factors slow growth. The inflection point (fastest growth) occurs at N = K/2 = ${Math.round(K/2).toLocaleString()}.`,
+    'boom-bust': `<strong>Boom-bust dynamics</strong> arise when a population's growth rate is high enough to overshoot carrying capacity K (${K.toLocaleString()}), depleting resources and triggering a crash — which then allows recovery and another overshoot. Common in r-strategists (lemmings, insects, algal blooms). The <strong>Growth Rate (r)</strong> slider controls the intensity: higher r → wilder swings and potential chaos.`,
+  };
+  document.getElementById('pg-info-box').innerHTML = infoMap[model];
+}
+
+
+/* ═══════════════════════════════════════
+   TROPHIC CASCADE
+═══════════════════════════════════════ */
+(function() {
+  let step = 0;
+  const steps = document.querySelectorAll('.cascade-step');
+  const status = document.getElementById('cascade-status');
+
+  document.getElementById('cascade-next').addEventListener('click', () => {
+    if (step < steps.length - 1) {
+      step++;
+      steps[step].classList.add('revealed');
+      status.textContent = `Step ${step} of ${steps.length - 1}`;
+      if (step === steps.length - 1) {
+        document.getElementById('cascade-next').textContent = 'Complete ✓';
+        document.getElementById('cascade-next').disabled = true;
+        status.textContent = 'The entire landscape changed — one predator restored.';
+      }
+    }
+  });
+
+  document.getElementById('cascade-reset').addEventListener('click', () => {
+    step = 0;
+    steps.forEach((s, i) => { if (i > 0) s.classList.remove('revealed'); });
+    document.getElementById('cascade-next').textContent = 'Next Step →';
+    document.getElementById('cascade-next').disabled = false;
+    status.textContent = '';
+  });
+})();
+
+
+/* ═══════════════════════════════════════
+   EXTINCTION BARS
+═══════════════════════════════════════ */
+let extinctionDrawn = false;
+function initExtinctionBars() {
+  if (extinctionDrawn) return;
+  extinctionDrawn = true;
+  const data = [
+    { label: 'Habitat Destruction', pct: 85, color: '#c8860a' },
+    { label: 'Overexploitation',    pct: 37, color: '#b84a2a' },
+    { label: 'Invasive Species',    pct: 31, color: '#3a7ca5' },
+    { label: 'Climate Change',      pct: 19, color: '#6d2e46' },
+    { label: 'Pollution',           pct: 24, color: '#2d5a3d' },
+  ];
+  const container = document.getElementById('extinction-bars');
+  container.innerHTML = '';
+  data.forEach(d => {
+    container.innerHTML += `
+      <div style="margin-bottom:.65rem;">
+        <div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.2rem;">
+          <span style="color:var(--ink);font-weight:500">${d.label}</span>
+          <span style="color:var(--muted)">${d.pct}%</span>
+        </div>
+        <div style="background:#eee;border-radius:999px;height:8px;overflow:hidden;">
+          <div style="background:${d.color};width:0%;height:100%;border-radius:999px;transition:width .8s ease;" data-w="${d.pct}%"></div>
+        </div>
+      </div>`;
+  });
+  setTimeout(() => {
+    container.querySelectorAll('[data-w]').forEach(el => el.style.width = el.dataset.w);
+  }, 80);
+}
+
+
+/* ═══════════════════════════════════════
+   BIOMES
+═══════════════════════════════════════ */
+(function() {
+  const biomes = [
+    { name: 'Tropical Rainforest', emoji: '🌴', climate: 'Hot & wet year-round (>200cm rain/yr)', richness: 'Highest on Earth', threats: 'Deforestation, agriculture', fact: 'Tropical forests cover ~7% of land but harbor ~50% of all species.' },
+    { name: 'Temperate Forest',    emoji: '🌲', climate: 'Four seasons, moderate rainfall', richness: 'High', threats: 'Logging, urbanization', fact: 'Deciduous trees drop leaves to conserve water in winter — a key adaptation.' },
+    { name: 'Grassland/Savanna',   emoji: '🌾', climate: 'Seasonal drought limits tree growth', richness: 'Moderate', threats: 'Agriculture, overgrazing', fact: 'Grasslands cover ~40% of Earth\'s land surface; most have been converted to farmland.' },
+    { name: 'Desert',              emoji: '🏜️', climate: '<25cm rain/yr, extreme temperatures', richness: 'Low but highly adapted', threats: 'Climate change expanding deserts', fact: 'Desert organisms have remarkable water-conservation adaptations — cacti can store 200+ gallons.' },
+    { name: 'Tundra',              emoji: '❄️', climate: 'Permafrost, very short growing season', richness: 'Low', threats: 'Climate change thawing permafrost', fact: 'Permafrost thaw releases stored carbon — tundra is now a net CO₂ emitter in warm years.' },
+    { name: 'Ocean/Marine',        emoji: '🌊', climate: 'Varies by depth & latitude', richness: 'Very high (91% undiscovered)', threats: 'Acidification, pollution, overfishing', fact: 'Oceans cover 71% of Earth and produce ~50% of atmospheric oxygen via phytoplankton.' },
+  ];
+
+  const btnContainer = document.getElementById('biome-buttons');
+  const detail = document.getElementById('biome-detail');
+
+  biomes.forEach((b, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'btn secondary';
+    btn.style.fontSize = '.8rem';
+    btn.textContent = `${b.emoji} ${b.name}`;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#biome-buttons .btn').forEach(x => x.classList.remove('active-biome'));
+      btn.style.background = 'rgba(28,58,43,.1)';
+      detail.style.display = 'block';
+      detail.innerHTML = `
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem">
+          <span style="font-size:2rem">${b.emoji}</span>
+          <div>
+            <div style="font-family:'Lora',serif;font-weight:700;font-size:1.05rem;color:var(--forest)">${b.name}</div>
+            <div style="font-size:.75rem;color:var(--muted)">${b.climate}</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;font-size:.82rem;">
+          <div><strong style="color:var(--forest)">Species richness:</strong><br>${b.richness}</div>
+          <div><strong style="color:var(--rust)">Key threats:</strong><br>${b.threats}</div>
+        </div>
+        <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(74,140,92,.08);border-radius:6px;font-size:.81rem;color:var(--muted);line-height:1.5">
+          📌 ${b.fact}
+        </div>`;
+    });
+    btnContainer.appendChild(btn);
+  });
+})();
+
+
+/* ═══════════════════════════════════════
+   (Quiz removed)
+═══════════════════════════════════════ */
+if (false) { const questions = [
+    {
+      q: 'Natural selection acts on _____, but evolution changes _____.',
+      opts: ['individuals; populations', 'populations; individuals', 'genes; species', 'species; communities'],
+      ans: 0,
+      feedback: 'Natural selection acts on individual organisms (some survive and reproduce more than others), but evolutionary change is measured at the population level — shifts in allele frequencies across generations.'
+    },
+    {
+      q: 'What is "carrying capacity" (K)?',
+      opts: ['The growth rate of a population under ideal conditions', 'The maximum population an environment can sustainably support', 'The number of species in an ecosystem', 'The rate at which a species goes extinct'],
+      ans: 1,
+      feedback: 'Carrying capacity (K) is the maximum population size that an environment can support indefinitely, given the food, water, habitat, and other resources available. Logistic growth curves approach K asymptotically.'
+    },
+    {
+      q: 'Genetic drift has the greatest effect in:',
+      opts: ['Large, stable populations', 'Tropical rainforests', 'Small, isolated populations', 'Populations with high gene flow'],
+      ans: 2,
+      feedback: 'In small populations, random chance events have an outsized influence on which alleles are passed to the next generation. Alleles can be lost or fixed by drift alone — regardless of whether they are adaptive. This is why small populations (bottlenecks, island species) lose genetic diversity rapidly.'
+    },
+    {
+      q: 'When wolves were reintroduced to Yellowstone, they triggered a "trophic cascade." What does this mean?',
+      opts: ['Wolves directly killed all elk', 'Wolves changed elk behavior, which indirectly restored vegetation and altered river channels', 'Wolves introduced new plant species', 'Wolves competed with bears for territory'],
+      ans: 1,
+      feedback: 'A trophic cascade is an indirect chain of ecological effects rippling through a food web. Wolves reduced and displaced elk → riverside vegetation recovered → beavers returned → rivers changed physically. One predator reshaped an entire landscape through indirect effects.'
+    },
+    {
+      q: 'Speciation requires:',
+      opts: ['A dramatic climate event', 'Reproductive isolation between populations', 'The extinction of the ancestral species', 'Parasitic infection'],
+      ans: 1,
+      feedback: 'Speciation occurs when subsets of a population become reproductively isolated — whether by geographic barriers, behavioral differences, or other mechanisms — and then diverge genetically until they can no longer interbreed and produce fertile offspring.'
+    },
+    {
+      q: 'Which relationship is an example of mutualism?',
+      opts: ['Tapeworm living in a mammal host', 'Bees pollinating flowers while collecting nectar', 'Barnacles riding on a whale', 'A wolf hunting an elk'],
+      ans: 1,
+      feedback: 'Mutualism is a +/+ relationship where both species benefit. Bees gain nectar (food) while flowers gain pollination (reproduction). Over evolutionary time, many mutualistic partners coevolve so tightly that neither can survive without the other.'
+    },
+    {
+      q: 'The "latitudinal gradient" in species richness refers to:',
+      opts: ['Deeper oceans having more species', 'Tropical regions having higher species richness than polar regions', 'Mountain ecosystems having greater diversity than valleys', 'Island species being more diverse than mainland species'],
+      ans: 1,
+      feedback: 'Species richness generally increases from the poles toward the equator — tropical regions have the highest diversity. This is the latitudinal gradient. Reasons include stable warm climates, higher productivity, and longer evolutionary time with fewer extinction events.'
+    },
+    {
+      q: 'An r-strategist is best described as:',
+      opts: ['Producing few offspring with high parental investment', 'Maintaining population size near carrying capacity K', 'Producing many offspring with little parental care', 'Avoiding competition by living in isolated habitats'],
+      ans: 2,
+      feedback: 'r-strategists (named for the intrinsic growth rate r) prioritize rapid reproduction — many offspring, minimal care per offspring. This strategy succeeds in unpredictable environments where survival is uncertain. Examples: insects, most fish, dandelions. Contrast with K-strategists (elephants, humans) who invest heavily in few offspring.'
+    },
+  ];
+
+  const container = document.getElementById('quiz-container');
+  let answered = 0;
+
+  function render() {
+    container.innerHTML = '';
+    answered = 0;
+    document.getElementById('quiz-score').textContent = '';
+    questions.forEach((q, qi) => {
+      const div = document.createElement('div');
+      div.className = 'quiz-q';
+      div.innerHTML = `
+        <div class="question">${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.opts.map((o, oi) => `<div class="opt" data-qi="${qi}" data-oi="${oi}">${o}</div>`).join('')}
+        </div>
+        <div class="feedback" id="fb-${qi}">${q.feedback}</div>`;
+      container.appendChild(div);
+    });
+
+    container.querySelectorAll('.opt').forEach(el => {
+      el.addEventListener('click', () => {
+        const qi = parseInt(el.dataset.qi);
+        const oi = parseInt(el.dataset.oi);
+        const alreadyDone = container.querySelectorAll(`[data-qi="${qi}"].correct, [data-qi="${qi}"].wrong`).length > 0;
+        if (alreadyDone) return;
+
+        if (oi === questions[qi].ans) {
+          el.classList.add('correct');
+          answered++;
+        } else {
+          el.classList.add('wrong');
+          // show correct
+          container.querySelector(`[data-qi="${qi}"][data-oi="${questions[qi].ans}"]`).classList.add('correct');
+          answered++;
+        }
+        document.getElementById(`fb-${qi}`).classList.add('show');
+
+        if (answered === questions.length) {
+          const correct = container.querySelectorAll('.correct').length - container.querySelectorAll('.wrong + .correct').length;
+          const score = container.querySelectorAll('.opt.correct:not(~ .opt.wrong)').length;
+          // simpler: count greens that aren't preceded by a red
+          let s = 0;
+          questions.forEach((qq, i) => {
+            const chosen = container.querySelector(`[data-qi="${i}"].correct, [data-qi="${i}"].wrong`);
+            if (chosen && chosen.classList.contains('correct')) s++;
+          });
+          document.getElementById('quiz-score').textContent = `Score: ${s} / ${questions.length}`;
+        }
+      });
+    });
+  }
+
+}
+</script>
+</body>
+</html>

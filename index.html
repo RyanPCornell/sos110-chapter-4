@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 4 — Life: What Shapes Biodiversity?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#15201b; --forest:#1A3C34; --forest-mid:#2D6A4F; --green:#40916C;
+  --green-light:#74C69D; --pale:#F0F7F4; --line:#dde7e2; --muted:#5b6b63;
+  --gold:#B8860B; --amber:#C9722B; --paper:#ffffff;
+  --shadow:0 10px 30px rgba(20,40,30,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  color:var(--ink); background:#0c1411; overflow:hidden;
+}
+.deck{position:fixed; inset:0;}
+.slide{
+  position:absolute; inset:0; opacity:0; visibility:hidden;
+  display:flex; flex-direction:column; justify-content:center;
+  background:var(--paper); transition:opacity .35s ease;
+}
+.slide.active{opacity:1; visibility:visible; z-index:2;}
+.slide-inner{
+  width:100%; max-width:1440px; margin:0 auto;
+  padding:clamp(1.1rem,2.8vh,2.2rem) clamp(1.4rem,3vw,2.6rem);
+}
+.slide-inner.two-col{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(1.5rem,3.5vw,3.5rem); align-items:center;}
+.slide-inner.one-col,.slide-inner.col{display:flex; flex-direction:column; justify-content:center;}
+
+/* typography */
+h1,h2,h3,.heading{font-family:'Merriweather',Georgia,serif;}
+.eyebrow{font-size:clamp(.72rem,1.35vw,.92rem); font-weight:700; letter-spacing:.04em;
+  text-transform:uppercase; color:var(--accent,var(--green)); margin-bottom:.7rem;}
+.eyebrow::before{content:""; display:inline-block; width:.6em; height:.6em; border-radius:2px;
+  background:var(--accent,var(--green)); margin-right:.5em; transform:translateY(.02em);}
+.eyebrow.light{color:var(--green-light);}
+.eyebrow.light::before{display:none;}
+.heading{font-size:clamp(1.5rem,3.4vw,2.5rem); line-height:1.12; color:var(--forest); font-weight:800; margin-bottom:1rem;}
+.lead{font-size:clamp(.95rem,1.55vw,1.12rem); line-height:1.5; color:#33453d; margin-bottom:1.1rem; max-width:60ch;}
+.lead.center{text-align:center; margin:0 auto 1.6rem;}
+.bullets{list-style:none; display:flex; flex-direction:column; gap:.7rem;}
+.bullets li{position:relative; padding-left:1.5rem; font-size:clamp(.9rem,1.5vw,1.06rem); line-height:1.45; color:#2c3a34;}
+.bullets li::before{content:""; position:absolute; left:0; top:.5em; width:.5rem; height:.5rem;
+  border-radius:50%; background:var(--accent,var(--green-light));}
+.bullets li strong{color:var(--forest);}
+.note{margin-top:1.1rem; padding:.7rem .95rem; background:var(--pale); border-left:3px solid var(--green);
+  border-radius:0 8px 8px 0; font-size:clamp(.8rem,1.25vw,.92rem); color:#3a4a43; font-style:italic;}
+.col-media{height:100%; display:flex; align-items:center;}
+.col-media img{width:100%; height:auto; max-height:74vh; object-fit:cover; border-radius:16px; box-shadow:var(--shadow);}
+
+/* pairs */
+.pairs{display:flex; flex-direction:column; gap:.6rem;}
+.pair{background:var(--pale); border:1px solid var(--line); border-radius:12px; padding:.7rem .95rem;}
+.pair-head{font-weight:700; color:var(--forest); font-size:clamp(.86rem,1.4vw,1rem);}
+.pair-desc{font-size:clamp(.8rem,1.3vw,.95rem); color:#3a4a43; line-height:1.4; margin-top:.15rem;}
+
+/* grids */
+.grid{display:grid; gap:clamp(.8rem,1.6vw,1.3rem); width:100%;}
+.grid.cols-2{grid-template-columns:repeat(2,1fr);}
+.grid.cols-3{grid-template-columns:repeat(3,1fr);}
+.grid.cols-4{grid-template-columns:repeat(4,1fr);}
+.gcard{background:var(--paper); border:1px solid var(--line); border-top:4px solid var(--accent,var(--green));
+  border-radius:14px; padding:clamp(.9rem,1.8vw,1.4rem); box-shadow:0 4px 14px rgba(20,40,30,.06);}
+.gcard-head{font-family:'Merriweather',serif; font-weight:700; color:var(--forest);
+  font-size:clamp(.95rem,1.5vw,1.12rem); margin-bottom:.45rem;}
+.gcard-desc{font-size:clamp(.82rem,1.3vw,.96rem); line-height:1.45; color:#3a4a43;}
+.gcard.img img{width:100%; height:clamp(110px,16vh,170px); object-fit:cover; border-radius:10px; margin-bottom:.7rem;}
+
+/* outline & objectives */
+.outline-grid{display:grid; grid-template-columns:1fr 1fr; gap:.7rem 2.2rem; margin-top:1rem;}
+.ol-item{display:flex; align-items:center; gap:1rem; padding:.7rem .4rem; border-bottom:1px solid var(--line);}
+.ol-num{font-family:'Merriweather',serif; font-weight:800; color:var(--accent,var(--green)); font-size:clamp(1.1rem,2vw,1.5rem); min-width:2.4rem;}
+.ol-text{font-size:clamp(.92rem,1.5vw,1.1rem); color:var(--forest); font-weight:600;}
+.obj-grid{display:grid; grid-template-columns:1fr 1fr; gap:1rem 2rem; margin-top:1.2rem;}
+.obj-item{display:flex; gap:1rem; align-items:flex-start;}
+.obj-num{flex:none; width:2.4rem; height:2.4rem; border-radius:50%; background:var(--forest-mid); color:#fff;
+  font-family:'Merriweather',serif; font-weight:700; display:flex; align-items:center; justify-content:center; font-size:1.1rem;}
+.obj-text{font-size:clamp(.9rem,1.45vw,1.05rem); line-height:1.4; color:#2c3a34; padding-top:.35rem;}
+
+/* quote */
+.bigquote{font-family:'Merriweather',serif; font-size:clamp(1.4rem,3vw,2.2rem); line-height:1.25;
+  color:var(--forest); font-style:italic; margin-bottom:1.2rem;}
+.bigquote cite{display:block; font-size:clamp(.9rem,1.4vw,1.05rem); font-style:normal; color:var(--green);
+  font-family:'Inter',sans-serif; font-weight:600; margin-top:.6rem;}
+
+/* footer */
+.footer{position:absolute; bottom:1rem; right:1.6rem; font-size:.72rem; color:#9bb0a6;}
+.footer.light{color:rgba(255,255,255,.7);}
+
+/* title slides */
+.title-slide{justify-content:flex-end;}
+img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.title-slide img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.title-scrim{position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(10,25,18,.86) 0%, rgba(10,25,18,.55) 50%, rgba(10,25,18,.2) 100%);}
+.title-content{position:relative; z-index:2; padding:0 clamp(2.5rem,7vw,6rem) clamp(3rem,9vh,6rem); color:#fff; max-width:60rem;}
+.chapter-kicker{font-size:clamp(.9rem,1.6vw,1.1rem); font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--green-light); margin-bottom:.6rem;}
+.mega{font-size:clamp(4rem,13vw,9rem); line-height:.95; font-weight:900; letter-spacing:-.01em;}
+.title-sub{font-family:'Merriweather',serif; font-size:clamp(1.3rem,3.2vw,2.4rem); font-weight:400; margin-top:.4rem; color:#eaf5ef;}
+.title-tag{margin-top:1.6rem; font-style:italic; font-size:clamp(1rem,1.9vw,1.4rem); color:var(--green-light);
+  border-left:3px solid var(--green-light); padding-left:1rem;}
+
+/* sim slides */
+.slide.sim{background:#0e1a15; padding:0;}
+.sim-bar{display:flex; align-items:center; justify-content:space-between; gap:1.5rem;
+  padding:.9rem clamp(1.2rem,3vw,2.2rem); background:linear-gradient(120deg,#143027,#1d4438); color:#fff;}
+.sim-bar-text .eyebrow{margin-bottom:.2rem;}
+.sim-title{font-size:clamp(1.15rem,2.4vw,1.8rem); color:#fff; font-weight:800; line-height:1;}
+.sim-q{font-size:clamp(.78rem,1.3vw,.95rem); color:#bfe3d3; margin-top:.35rem;}
+.sim-open{flex:none; background:var(--green-light); color:#0e1a15; font-weight:700; text-decoration:none;
+  padding:.6rem 1.1rem; border-radius:10px; font-size:.85rem; white-space:nowrap; transition:background .15s;}
+.sim-open:hover{background:#9fe0c0;}
+.sim-note{background:#3a2c12; color:#ffe6b8; font-size:.82rem; padding:.5rem clamp(1.2rem,3vw,2.2rem); line-height:1.4;}
+.sim-frame-wrap{flex:1; min-height:0; background:#fff;}
+.sim-frame{width:100%; height:100%; border:0; display:block; background:#fff;}
+
+/* embed slides (interactive chart / app under a slim light header) */
+.slide.embed{background:#fff; padding:0;}
+.embed-head{display:flex; align-items:flex-end; justify-content:space-between; gap:1.5rem;
+  padding:.85rem clamp(1.3rem,3vw,2.4rem) .8rem; border-bottom:1px solid var(--line); background:#fff;}
+.embed-head .eyebrow{margin-bottom:.25rem;}
+.embed-title{font-size:clamp(1.1rem,2.4vw,1.7rem); color:var(--forest); font-weight:800; line-height:1.05;}
+.embed-sub{font-size:clamp(.72rem,1.2vw,.86rem); color:var(--muted); margin-top:.3rem; max-width:80ch;}
+.embed-open{flex:none; align-self:center; background:var(--accent,var(--green)); color:#fff; font-weight:700;
+  text-decoration:none; padding:.5rem 1rem; border-radius:9px; font-size:.82rem; white-space:nowrap;
+  transition:filter .15s;}
+.embed-open:hover{filter:brightness(1.08);}
+.embed-wrap{flex:1; min-height:0; background:#fff;}
+.embed-frame{width:100%; height:100%; border:0; display:block; background:#fff;}
+
+/* nav chrome */
+.nav-btn{position:fixed; top:50%; transform:translateY(-50%); z-index:30;
+  width:clamp(40px,5vw,56px); height:clamp(40px,5vw,56px); border-radius:50%;
+  border:none; background:rgba(20,40,30,.32); color:#fff; font-size:1.4rem; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:background .15s; backdrop-filter:blur(4px);}
+.nav-btn:hover{background:rgba(20,40,30,.6);}
+.nav-btn.prev{left:14px;} .nav-btn.next{right:14px;}
+.topbar{position:fixed; top:0; left:0; right:0; height:4px; background:rgba(255,255,255,.12); z-index:40;}
+.progress{height:100%; background:var(--green-light); width:0; transition:width .3s;}
+.hud{position:fixed; bottom:14px; left:50%; transform:translateX(-50%); z-index:40;
+  display:flex; align-items:center; gap:.5rem; background:rgba(14,26,21,.72); backdrop-filter:blur(6px);
+  padding:.4rem .55rem; border-radius:999px; box-shadow:0 6px 20px rgba(0,0,0,.25);}
+.hud button{background:none; border:none; color:#dbeee5; cursor:pointer; font-size:.95rem; padding:.3rem .55rem; border-radius:8px; line-height:1;}
+.hud button:hover{background:rgba(255,255,255,.12);}
+.hud .counter{color:#fff; font-size:.82rem; font-weight:600; min-width:3.2rem; text-align:center; font-variant-numeric:tabular-nums;}
+
+/* menu overlay */
+.menu{position:fixed; inset:0; z-index:60; background:rgba(8,16,12,.92); backdrop-filter:blur(8px);
+  display:none; padding:clamp(1.5rem,4vh,3rem); overflow:auto;}
+.menu.open{display:block;}
+.menu h3{color:#fff; font-family:'Merriweather',serif; margin-bottom:1.2rem; font-size:1.3rem;}
+.menu-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:.5rem; max-width:1100px; margin:0 auto;}
+.menu-item{display:flex; align-items:center; gap:.7rem; text-align:left; background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1); color:#e6f3ec; padding:.6rem .8rem; border-radius:10px; cursor:pointer;
+  font-size:.86rem; transition:background .15s;}
+.menu-item:hover{background:rgba(116,198,157,.22);}
+.menu-num{flex:none; width:1.7rem; height:1.7rem; border-radius:6px; background:var(--forest-mid); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:.78rem; font-weight:700;}
+.menu-close{position:fixed; top:18px; right:22px; background:none; border:none; color:#fff; font-size:1.6rem; cursor:pointer; z-index:61;}
+
+/* half-bleed content layout (text left, edge-to-edge image right) */
+.bleed-grid{position:absolute; inset:0; display:grid; grid-template-columns:1.04fr .96fr;}
+.bleed-text{padding:clamp(1.4rem,4vh,2.8rem) clamp(1.5rem,3.4vw,3.2rem);
+  display:flex; flex-direction:column; justify-content:center; min-width:0; overflow:auto;}
+.bleed-media{position:relative; overflow:hidden; background:var(--pale);}
+.bleed-media::before{content:""; position:absolute; left:0; top:0; bottom:0; width:34px; z-index:3;
+  background:linear-gradient(90deg, rgba(20,40,30,.13), transparent); pointer-events:none;}
+.bleed-media.cover img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.bleed-media.contain{display:flex; align-items:center; justify-content:center;
+  padding:clamp(1.4rem,3.2vw,3rem); background:linear-gradient(155deg,#eef6f1,#dfeee6);}
+.bleed-media.contain img{max-width:100%; max-height:100%; object-fit:contain; background:#fff;
+  border-radius:12px; box-shadow:0 10px 30px rgba(20,40,30,.18); padding:6px;}
+
+/* stacked layout (text on top, wide image full-width below) */
+.stack-grid{position:absolute; inset:0; display:flex; flex-direction:column;}
+.stack-top{display:grid; grid-template-columns:minmax(240px,34%) 1fr;
+  gap:clamp(1.2rem,3vw,2.8rem); align-items:start;
+  padding:clamp(1.1rem,2.8vh,2rem) clamp(1.6rem,3.4vw,3.4rem) clamp(.7rem,1.6vh,1.1rem);}
+.stack-head .heading{margin-bottom:0;}
+.stack-body{min-width:0;}
+.stack-body .lead{margin-bottom:.7rem;}
+.stack-body .bullets{display:block; columns:2; column-gap:1.9rem;}
+.stack-body .bullets li{break-inside:avoid; margin-bottom:.5rem;}
+.stack-body .pairs{display:block; columns:2; column-gap:1.2rem;}
+.stack-body .pairs .pair{break-inside:avoid; margin-bottom:.55rem;}
+.stack-body .note{margin-top:.7rem;}
+.stack-media{flex:1; min-height:0; position:relative; display:flex; align-items:center; justify-content:center;
+  padding:clamp(.7rem,1.8vh,1.2rem) clamp(1.6rem,3.4vw,3.4rem) clamp(2.2rem,4.5vh,3rem);
+  background:linear-gradient(180deg,#eef6f1,#dfeee6);}
+.stack-media::before{content:""; position:absolute; left:0; right:0; top:0; height:24px; z-index:2;
+  background:linear-gradient(180deg,rgba(20,40,30,.11),transparent); pointer-events:none;}
+.stack-media.contain img,.stack-media img{max-width:100%; max-height:100%; object-fit:contain;
+  background:#fff; border-radius:12px; box-shadow:0 10px 30px rgba(20,40,30,.18); padding:6px;}
+
+/* stat callouts */
+.stat-row{display:flex; flex-wrap:wrap; gap:.7rem; margin:.2rem 0 1.1rem;}
+.stat-box{flex:1 1 0; min-width:92px; background:#fff; border:1px solid var(--line);
+  border-top:3px solid var(--accent,var(--green)); border-radius:12px;
+  padding:.6rem .7rem .65rem; box-shadow:0 4px 14px rgba(20,40,30,.06);}
+.stat-num{font-family:'Merriweather',serif; font-weight:800; color:var(--accent,var(--forest));
+  font-size:clamp(1.35rem,2.9vw,2.1rem); line-height:1;}
+.stat-lbl{font-size:clamp(.66rem,1.05vw,.8rem); color:var(--muted); line-height:1.25; margin-top:.3rem;}
+
+@media (max-width:820px){
+  .slide-inner.two-col{grid-template-columns:1fr; gap:1.2rem;}
+  .col-media{order:-1;} .col-media img{max-height:34vh;}
+  .bleed-grid{position:static; display:flex; flex-direction:column; height:100%;}
+  .bleed-media{min-height:34vh;} .bleed-media.contain{min-height:30vh;}
+  .bleed-media::before{display:none;}
+  .stack-grid{position:static;}
+  .stack-top{grid-template-columns:1fr; gap:.4rem;}
+  .stack-body .bullets,.stack-body .pairs{grid-template-columns:1fr;}
+  .stack-media{min-height:34vh;}
+  .grid.cols-2{grid-template-columns:1fr;}
+  .grid.cols-3,.grid.cols-4{grid-template-columns:1fr 1fr;}
+  .outline-grid,.obj-grid{grid-template-columns:1fr;}
+  .slide{justify-content:flex-start; overflow-y:auto;}
+}
+
+
+/* ═══ shared interactive-slide framework (ix-*) ═══ */
+.ix-inner{max-width:76rem; margin:0 auto; width:100%;}
+.ix-head{font-size:clamp(1.1rem,2.1vw,1.6rem);}
+.ix-body{display:grid; grid-template-columns:1.5fr 1fr; gap:clamp(.9rem,2vw,1.6rem); align-items:start; margin-top:.5rem;}
+.ix-scenecol{display:flex; flex-direction:column; min-width:0;}
+.ix-scene{border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); overflow:hidden;}
+.ix-svg{width:100%; height:auto; display:block;}
+.ix-svg [data-stage]{transition:opacity .35s;}
+.ix-svg.dim [data-stage]{opacity:.13;}
+.ix-svg.dim [data-stage].on{opacity:1;}
+.ix-side{display:flex; flex-direction:column; min-width:0;}
+.ix-stages{display:flex; flex-direction:column; gap:.3rem;}
+.ix-stagebtn{font:inherit; text-align:left; font-weight:600; font-size:clamp(.78rem,1.28vw,.95rem); color:var(--forest);
+  background:#fff; border:1.5px solid var(--line); border-radius:10px; padding:.4rem .7rem; cursor:pointer; transition:all .12s;}
+.ix-stagebtn:hover{transform:translateX(2px);}
+.ix-stagebtn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+.ix-explain{margin-top:.55rem; font-size:clamp(.8rem,1.3vw,.97rem); line-height:1.5; color:var(--ink,#22302b);
+  background:#f4f8f6; border-left:4px solid var(--accent); border-radius:8px; padding:.55rem .75rem; min-height:5rem;}
+.ix-play{margin-top:.55rem; width:100%; font:inherit; font-weight:800; color:#fff; border:none; cursor:pointer;
+  background:var(--accent); border-radius:10px; padding:.55rem 1rem; font-size:clamp(.85rem,1.4vw,1.02rem); transition:filter .15s, transform .08s;}
+.ix-play:hover{filter:brightness(1.1);} .ix-play:active{transform:translateY(1px);}
+.ix-src{font-size:.73rem; color:#6b7d75; margin-top:.7rem; line-height:1.5;}
+@keyframes ix-dash{to{stroke-dashoffset:-48;}}
+@media(max-width:900px){.ix-body{grid-template-columns:1fr;}}
+@media(prefers-reduced-motion:reduce){.ix-svg *{animation:none!important;}}
+
+/* ═══ Yellowstone trophic cascade (hand-drawn SVG art via <use>) ═══ */
+.ys-flow{stroke-dasharray:10 12; animation:ix-dash 1.5s linear infinite;}
+@keyframes ys-bob{0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)}}
+.ys-anim{transform-box:fill-box; transform-origin:center; animation:ys-bob 2s ease-in-out infinite;}
+@keyframes ys-sway{0%,100%{transform:rotate(-4deg)} 50%{transform:rotate(4deg)}}
+.ys-plant{transform-box:fill-box; transform-origin:bottom center; animation:ys-sway 3s ease-in-out infinite;}
+@keyframes ys-fly{0%{transform:translate(-30px,0)} 50%{transform:translate(30px,-10px)} 100%{transform:translate(-30px,0)}}
+.ys-bird{transform-box:fill-box; animation:ys-fly 5s ease-in-out infinite;}
+@keyframes ys-trot{0%{transform:translateX(-40px); opacity:0} 100%{transform:translateX(0); opacity:1}}
+.ys-wolf{transform-box:fill-box; animation:ys-bob 1.4s ease-in-out infinite;}
+/* default (1926, wolves removed): show wide river, many elk, sparse plants; hide wolves/beavers/birds/extras */
+.ys-river-narrow{display:none;} .ys-river-wide{display:block;}
+.ys-wolves,.ys-beavers,.ys-birds{opacity:0; pointer-events:none;}
+.ys-plant.ys-extra{opacity:0;}
+/* recovered (1995, wolves back) */
+.ys-slide.wolves-back .ys-river-wide{display:none;}
+.ys-slide.wolves-back .ys-river-narrow{display:block;}
+.ys-slide.wolves-back .ys-wolves{opacity:1; animation:ys-trot 1s ease-out both;}
+.ys-slide.wolves-back .ys-beavers{opacity:1; transition:opacity .6s .5s;}
+.ys-slide.wolves-back .ys-birds{opacity:1; transition:opacity .6s .7s;}
+.ys-slide.wolves-back .ys-plant.ys-extra{opacity:1; transition:opacity .5s .3s;}
+.ys-slide.wolves-back .ys-elkg.ys-gone{opacity:0; transition:opacity .5s;}
+.ys-era-txt{font:800 13px 'Inter',sans-serif; fill:#33453d;}
+.ys-toggle{margin-top:.5rem; width:100%; font:inherit; font-weight:800; cursor:pointer; color:#fff; border:none;
+  background:var(--accent); border-radius:10px; padding:.6rem 1rem; font-size:clamp(.88rem,1.45vw,1.05rem); transition:filter .15s, transform .08s;}
+.ys-toggle:hover{filter:brightness(1.08);} .ys-toggle:active{transform:translateY(1px);}
+
+/* interactive evenness slide */
+.col-interactive{display:flex; flex-direction:column; gap:clamp(.8rem,2vh,1.3rem); justify-content:center;}
+.even-defs{display:flex; flex-direction:column; gap:.6rem; margin-top:1rem;}
+.even-def{background:#fff; border:1px solid var(--line); border-left:4px solid var(--line); border-radius:10px; padding:.6rem .85rem; transition:all .25s;}
+.even-def.on{border-left-color:var(--green); background:var(--pale); box-shadow:0 3px 12px rgba(45,106,79,.12);}
+.even-def .pair-head{font-weight:700; color:var(--forest); font-size:clamp(.85rem,1.4vw,1rem);}
+.even-def .pair-desc{font-size:clamp(.78rem,1.25vw,.92rem); color:#3a4a43; line-height:1.4; margin-top:.1rem;}
+.even-pics{display:grid; grid-template-columns:1fr 1fr; gap:clamp(.8rem,2vw,1.4rem);}
+.even-pic{background:linear-gradient(160deg,#fbfdfc,#eef6f1); border:1px solid var(--line); border-radius:14px; padding:.7rem; box-shadow:0 4px 14px rgba(20,40,30,.07);}
+.pic-chip{font-size:clamp(.7rem,1.15vw,.82rem); font-weight:700; color:var(--forest); margin-bottom:.5rem;}
+.mosaic{display:grid; grid-template-columns:repeat(10,1fr); gap:3px; aspect-ratio:1/1;}
+.mosaic .cell{border-radius:3px; background:#dfe9e4; transition:background .35s ease;}
+.mosaic2{width:100%; aspect-ratio:1/1; display:block; background:#eef6f1; border-radius:8px;}
+.mosaic2 use{transition:opacity .3s ease;}
+
+/* image-grid cards (slide "Patterns of Population Growth"): show the WHOLE chart
+   instead of a cover-crop that cut the axes off */
+.gcard.img img{height:clamp(150px,22vh,230px); object-fit:contain; background:#fff; padding:6px;}
+
+/* ═══ Yellowstone "cascade by the numbers" data slide ═══ */
+.yd-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(.55rem,1.2vw,.95rem); margin-top:.7rem;}
+.yd-card{background:#fff; border:1px solid var(--line); border-top:4px solid var(--accent);
+  border-radius:14px; padding:.65rem .7rem .75rem; box-shadow:0 4px 14px rgba(20,40,30,.07);
+  display:flex; flex-direction:column;}
+.yd-name{font-family:'Merriweather',serif; font-weight:700; color:var(--forest);
+  font-size:clamp(.88rem,1.4vw,1.05rem); line-height:1.25;}
+.yd-sub{font-size:clamp(.66rem,1.02vw,.76rem); color:var(--muted); margin-top:.12rem;
+  text-transform:uppercase; letter-spacing:.03em; font-weight:600;}
+.yd-chart{width:100%; height:auto; display:block; margin:.45rem 0 .35rem;}
+.yd-take{font-size:clamp(.72rem,1.15vw,.86rem); color:#3a4a43; line-height:1.45; margin-top:auto;}
+.yd-note{margin-top:.75rem; background:#f4f8f6; border-left:4px solid var(--accent); border-radius:8px;
+  padding:.6rem .85rem; font-size:clamp(.74rem,1.18vw,.9rem); line-height:1.5; color:#22302b;}
+.yd-src{margin-top:.5rem; font-size:clamp(.6rem,.93vw,.71rem); color:#6b7d75; line-height:1.5;}
+@media(max-width:1150px){.yd-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:760px){.yd-grid{grid-template-columns:1fr;}}
+.abar{display:flex; height:11px; border-radius:6px; overflow:hidden; margin-top:.55rem; background:#dfe9e4;}
+.abar span{transition:width .35s ease, background .35s ease;}
+.even-control{margin-top:.2rem;}
+.even-slider{width:100%; accent-color:var(--green); cursor:pointer; height:6px;}
+.slider-ends{display:flex; justify-content:space-between; margin-top:.35rem; font-size:clamp(.72rem,1.2vw,.85rem); font-weight:700; color:var(--forest-mid);}
+.even-readout{display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; justify-content:center; padding:.7rem .5rem 0; border-top:1px solid var(--line);}
+.even-readout .ro{display:flex; flex-direction:column; align-items:center; line-height:1.1;}
+.ro-label{font-size:clamp(.62rem,1vw,.72rem); text-transform:uppercase; letter-spacing:.03em; color:var(--muted); font-weight:600;}
+.ro-num{font-family:'Merriweather',serif; font-weight:700; color:var(--forest); font-size:clamp(.95rem,1.6vw,1.15rem);}
+.even-readout .ro.state .ro-num{font-size:clamp(1.05rem,1.9vw,1.35rem);}
+@media (max-width:820px){ .even-pics{grid-template-columns:1fr 1fr;} }
+
+
+/* announcements / upcoming assignments */
+.slide[data-type="announce"]{background:linear-gradient(160deg,#f7faf8,#eaf1ed);}
+.an-head{margin-bottom:clamp(.8rem,2vh,1.4rem);}
+.an-head .heading{margin-bottom:.35rem;}
+.an-sub{font-size:clamp(.88rem,1.4vw,1.05rem); color:var(--muted); max-width:72ch; line-height:1.45;}
+.an-list{display:flex; flex-direction:column; gap:clamp(.55rem,1.5vh,.95rem); width:100%;}
+.an-row{display:flex; align-items:center; gap:clamp(.8rem,1.8vw,1.4rem);
+  background:var(--paper); border:1px solid var(--line); border-left:5px solid var(--accent,var(--green));
+  border-radius:14px; box-shadow:0 4px 14px rgba(20,40,30,.07);
+  padding:clamp(.75rem,1.9vh,1.15rem) clamp(1rem,2.2vw,1.6rem);}
+.an-num{flex:none; width:2.3rem; height:2.3rem; border-radius:50%; background:var(--accent,var(--forest-mid));
+  color:#fff; font-family:'Merriweather',serif; font-weight:800; font-size:clamp(.95rem,1.6vw,1.15rem);
+  display:flex; align-items:center; justify-content:center;}
+.an-main{flex:1; min-width:0;}
+.an-name{font-family:'Merriweather',serif; font-weight:700; color:var(--forest);
+  font-size:clamp(1rem,1.75vw,1.3rem); line-height:1.25;}
+.an-detail{font-size:clamp(.78rem,1.25vw,.95rem); color:var(--muted); line-height:1.4; margin-top:.22rem;}
+.an-due{flex:none; min-width:clamp(112px,13vw,168px); text-align:center;
+  background:var(--pale); border:1.5px solid var(--line); border-radius:11px;
+  padding:.45rem .8rem;}
+.an-due-lbl{display:block; font-size:clamp(.6rem,.95vw,.72rem); font-weight:800; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--muted);}
+.an-due-val{display:block; font-family:'Merriweather',serif; font-weight:800; color:var(--forest);
+  font-size:clamp(.9rem,1.5vw,1.12rem); line-height:1.2; margin-top:.1rem;}
+.an-due.tba{background:repeating-linear-gradient(135deg,#fbfaf6,#fbfaf6 7px,#f4f1e6 7px,#f4f1e6 14px);
+  border:1.5px dashed var(--gold);}
+.an-due.tba .an-due-val{color:var(--gold); letter-spacing:.04em;}
+.an-note{margin-top:clamp(.7rem,1.8vh,1.2rem); padding:.65rem .95rem; background:var(--pale);
+  border-left:3px solid var(--accent,var(--green)); border-radius:0 8px 8px 0;
+  font-size:clamp(.78rem,1.2vw,.92rem); color:#3a4a43; font-style:italic;}
+@media (max-width:820px){
+  .an-row{flex-wrap:wrap; gap:.6rem;}
+  .an-main{flex:1 1 60%;}
+  .an-due{min-width:0; margin-left:3.1rem;}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="progress" id="progress"></div></div>
+
+<div class="deck" id="deck">
+<section class="slide title-slide" data-type="title">
+  <img class="bleed" src="media/image1.jpg" alt="">
+  <div class="title-scrim"></div>
+  <div class="title-content">
+    <div class="chapter-kicker">Chapter 4</div>
+    <h1 class="mega">Life</h1>
+    <div class="title-sub">What Shapes Biodiversity?</div>
+  </div>
+  <div class="footer light">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="outline">
+  <div class="slide-inner col">
+    <div class="eyebrow">Chapter 4 · Outline</div>
+    <h2 class="heading">What we'll cover</h2>
+    <div class="outline-grid"><div class="ol-item"><span class="ol-num">4.1</span><span class="ol-text">What Do Living Things Have in Common?</span></div><div class="ol-item"><span class="ol-num">4.2</span><span class="ol-text">How Does Life Evolve?</span></div><div class="ol-item"><span class="ol-num">4.3</span><span class="ol-text">What Causes Population Traits to Change?</span></div><div class="ol-item"><span class="ol-num">4.4</span><span class="ol-text">What Shapes Biodiversity?</span></div><div class="ol-item"><span class="ol-num">4.5</span><span class="ol-text">How Do Communities of Organisms Interact?</span></div><div class="ol-item"><span class="ol-num">4.6</span><span class="ol-text">What Controls Population Size?</span></div><div class="ol-item"><span class="ol-num">4.7</span><span class="ol-text">What Can Cause Loss of Biodiversity?</span></div><div class="ol-item"><span class="ol-num">4.8</span><span class="ol-text">What Can I Do?</span></div></div>
+  </div>
+</section>
+<section class="slide" data-type="announce" style="--accent:#2D6A4F">
+  <div class="slide-inner col">
+    <div class="an-head">
+      <div class="eyebrow">Announcements</div>
+      <h2 class="heading">Upcoming Assignments</h2>
+      <p class="an-sub">Here's what's on deck. Check Canvas for full instructions and submission links.</p>
+    </div>
+    <div class="an-list"><div class="an-row"><span class="an-num">1</span><div class="an-main"><div class="an-name">InQuizitive: Chapter 3 — Matter and Energy</div><div class="an-detail">Norton's adaptive practice covering matter, energy, and the laws of thermodynamics.</div></div><div class="an-due tba"><span class="an-due-lbl">Due</span><span class="an-due-val">TBA</span></div></div><div class="an-row"><span class="an-num">2</span><div class="an-main"><div class="an-name">InQuizitive: Chapter 4 — Life: What Shapes Biodiversity?</div><div class="an-detail">Adaptive practice on evolution, speciation, biodiversity, and population dynamics.</div></div><div class="an-due tba"><span class="an-due-lbl">Due</span><span class="an-due-val">TBA</span></div></div><div class="an-row"><span class="an-num">3</span><div class="an-main"><div class="an-name">InQuizitive: Chapter 5 — Conservation: Why Is It Important to Protect Biodiversity?</div><div class="an-detail">Adaptive practice on conservation strategies and the value of protecting biodiversity.</div></div><div class="an-due tba"><span class="an-due-lbl">Due</span><span class="an-due-val">TBA</span></div></div><div class="an-row"><span class="an-num">4</span><div class="an-main"><div class="an-name">Module 2: Biomimicry Quiz</div><div class="an-detail">Quiz on the Module 2 biomimicry material — take it in Canvas.</div></div><div class="an-due tba"><span class="an-due-lbl">Due</span><span class="an-due-val">TBA</span></div></div><div class="an-row"><span class="an-num">5</span><div class="an-main"><div class="an-name">What Would You Do? — Exercise #1</div><div class="an-detail">Apply this unit's concepts to a real-world decision scenario.</div></div><div class="an-due tba"><span class="an-due-lbl">Due</span><span class="an-due-val">TBA</span></div></div><div class="an-row"><span class="an-num">6</span><div class="an-main"><div class="an-name">Review Exercise #1</div><div class="an-detail">Completed together in class — bring your notes.</div></div><div class="an-due tba"><span class="an-due-lbl">Due</span><span class="an-due-val">TBA</span></div></div></div>
+    <p class="an-note">Due dates to be announced — mark your calendar once they're posted.</p>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="quote" style="--accent:#2D6A4F">
+  <div class="bleed-grid">
+    <div class="bleed-text">
+      <div class="eyebrow">Introduction</div>
+      <blockquote class="bigquote">“In nature nothing exists alone.”<cite>— Rachel Carson</cite></blockquote>
+      <div class="stat-row"><div class="stat-box"><div class="stat-num">~1M</div><div class="stat-lbl">animal species identified so far</div></div></div>
+      <ul class="bullets"><li><strong>Interconnected webs:</strong> Plants and pollinators. Plants. Herbivores. Predators.</li><li>Complex interactions among species are required for ecosystem survival.</li><li><strong>WE are part of this complex web.</strong></li></ul>
+    </div>
+    <div class="bleed-media contain"><img src="media/image2.jpg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="content" style="--accent:#2D6A4F">
+  <div class="stack-grid">
+    <div class="stack-top">
+      <div class="stack-head">
+<div class="eyebrow">4.1 · What Do Living Things Have in Common?</div>
+<h2 class="heading">Scales of Life — From Cell to Biosphere</h2>
+      </div>
+      <div class="stack-body">
+<p class="lead">Living things maintain greater order than nonliving things (which requires a constant input of energy), can reproduce, and have the capacity to evolve over generations.</p>
+<div class="pairs"><div class="pair"><div class="pair-head">Cell → Tissue → Organ</div><div class="pair-desc">Groups of cells form tissues; tissues form organs and organ systems.</div></div><div class="pair"><div class="pair-head">Organism → Population</div><div class="pair-desc">A population is a group of the same species living in a given area.</div></div><div class="pair"><div class="pair-head">Community → Ecosystem</div><div class="pair-desc">Community = interacting populations in a place. Ecosystem = community + nonliving environment.</div></div><div class="pair"><div class="pair-head">Biome → Biosphere</div><div class="pair-desc">Biomes are regional ecosystems; together they form the biosphere.</div></div></div>
+      </div>
+    </div>
+    <div class="stack-media contain"><img src="media/image3.jpg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="content" style="--accent:#2D6A4F">
+  <div class="stack-grid">
+    <div class="stack-top">
+      <div class="stack-head">
+<div class="eyebrow">4.1 · Earth's Spheres</div>
+<h2 class="heading">The Four Spheres</h2>
+      </div>
+      <div class="stack-body">
+<p class="lead">Earth's systems are grouped into four spheres that constantly exchange matter and energy.</p>
+<div class="pairs"><div class="pair"><div class="pair-head">Biosphere</div><div class="pair-desc">Everywhere life is found, from deep soil to the open air.</div></div><div class="pair"><div class="pair-head">Hydrosphere</div><div class="pair-desc">All of Earth's water: oceans, ice, rivers, groundwater, and vapor.</div></div><div class="pair"><div class="pair-head">Atmosphere</div><div class="pair-desc">The layer of air that surrounds the planet.</div></div><div class="pair"><div class="pair-head">Geosphere</div><div class="pair-desc">The solid, physical Earth: rock, soil, and the interior.</div></div></div>
+      </div>
+    </div>
+    <div class="stack-media contain"><img src="media/earth-spheres.svg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="content" style="--accent:#1C7293">
+  <div class="bleed-grid">
+    <div class="bleed-text">
+<div class="eyebrow">4.2 · How Does Life Evolve? — Darwin and Natural Selection</div>
+<h2 class="heading">Galápagos Finches and Adaptive Radiation</h2>
+<p class="lead">Darwin's 1831 voyage revealed finch species on different Galápagos islands had diversified from a common ancestor — each beak adapted to the food available on its island.</p>
+<ul class="bullets"><li><strong>Natural selection:</strong> traits that confer survival or reproductive advantages are more likely to be passed to offspring over generations.</li><li><strong>Adaptive radiation:</strong> one ancestral species diversifies into many species; each adapted to a specific niche.</li><li><strong>Habitat:</strong> the place an organism lives; it determines which traits natural selection favors.</li><li><strong>Species:</strong> a group of closely related organisms that can interbreed and produce fertile offspring.</li></ul>
+    </div>
+    <div class="bleed-media contain"><img src="media/image5.jpg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="content" style="--accent:#1C7293">
+  <div class="bleed-grid">
+    <div class="bleed-text">
+<div class="eyebrow">4.2 · Common Ancestry and the Tree of Life</div>
+<h2 class="heading">All Life Is Related</h2>
+<p class="lead">Birds and crocodiles shared a common ancestor about 240 million years ago. Phylogenetic trees map these evolutionary relationships using shared traits and DNA.</p>
+<div class="stat-row"><div class="stat-box"><div class="stat-num">~240M</div><div class="stat-lbl">years since birds &amp; crocodiles shared an ancestor</div></div></div>
+<ul class="bullets"><li>A phylogenetic tree (cladogram) shows how species descend from common ancestors over deep time.</li><li>Shared characteristics (anatomy, embryology, and especially DNA) reveal evolutionary relationships.</li><li>The more recently two species shared an ancestor, the more genetic material they have in common.</li><li>Evolution is not a ladder toward 'higher' forms — it is a branching tree with no predetermined direction.</li></ul>
+<p class="note">Interesting read: “The Story of Birds” by Steve Brusatte</p>
+    </div>
+    <div class="bleed-media contain"><img src="media/image7.jpg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="content" style="--accent:#1C7293">
+  <div class="bleed-grid">
+    <div class="bleed-text">
+<div class="eyebrow">4.2 · Genes, Mutation, Selection, and Extinction</div>
+<h2 class="heading">The Molecular Basis of Heredity</h2>
+<ul class="bullets"><li><strong>Genes:</strong> segments of DNA that direct cell function and trait expression — the basic units of inheritance.</li><li><strong>Alleles:</strong> different forms of a gene inherited from each parent, producing trait variation (e.g. eye color).</li><li><strong>Genotype</strong> = genetic makeup; <strong>phenotype</strong> = the expressed, observable traits.</li><li><strong>Mutations:</strong> changes to DNA that may be harmful, neutral, or beneficial depending on the environment.</li><li>If a species cannot adapt to environmental change, it may go extinct — a permanent loss of its genetic lineage.</li></ul>
+    </div>
+    <div class="bleed-media contain"><img src="media/image8.jpg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide sim" data-type="sim" style="--accent:#1C7293">
+  <div class="sim-bar">
+    <div class="sim-bar-text">
+      <span class="eyebrow light">4.2 · Evolution &nbsp;·&nbsp; Interactive App</span>
+      <h2 class="sim-title">Natural Selection Simulation</h2>
+      <div class="sim-q">How do specific traits impact survival? &nbsp;·&nbsp; What happens over time?</div>
+    </div>
+    </div>
+  
+  <div class="sim-frame-wrap">
+    <iframe class="sim-frame" data-src="biodiversity-explorer/index.html?embed=1#evolution" title="Natural Selection Simulation interactive simulation"></iframe>
+  </div>
+</section>
+<section class="slide" data-type="content" style="--accent:#6D597A">
+  <div class="bleed-grid">
+    <div class="bleed-text">
+<div class="eyebrow">4.3 · What Causes Population Traits to Change?</div>
+<h2 class="heading">Speciation, Gene Flow, and Genetic Drift</h2>
+<ul class="bullets"><li><strong>Speciation:</strong> subsets of a population diverge genetically until they can no longer interbreed.</li><li><strong>Reproductive isolation:</strong> geographic, physical, or behavioral barriers that prevent interbreeding.</li><li><strong>Gene flow:</strong> when populations mix, genetic differences shrink while overall diversity rises.</li><li><strong>Genetic drift:</strong> random, chance-based changes in trait frequency (strongest in small populations).</li><li>Small isolated populations lose genetic diversity through drift and inbreeding.</li></ul>
+    </div>
+    <div class="bleed-media contain"><img src="media/image10.jpg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="content" style="--accent:#BC8A2E">
+  <div class="bleed-grid">
+    <div class="bleed-text">
+<div class="eyebrow">4.4 · What Shapes Biodiversity?</div>
+<h2 class="heading">Counting Life on Earth</h2>
+<p class="lead">Over 2 million species have been described, but as many as 86% of land species and 91% of ocean species may still be undiscovered.</p>
+<div class="stat-row"><div class="stat-box"><div class="stat-num">2M+</div><div class="stat-lbl">species described</div></div><div class="stat-box"><div class="stat-num">86%</div><div class="stat-lbl">of land species undiscovered</div></div><div class="stat-box"><div class="stat-num">91%</div><div class="stat-lbl">of ocean species undiscovered</div></div></div>
+<ul class="bullets"><li><strong>Species richness:</strong> the number of different species in an area. Darwin and Alfred Russel Wallace noticed tropical climates hosted greater diversity than temperate regions.</li><li><strong>Biodiversity has three levels:</strong> genetic diversity, species diversity, and ecosystem diversity.</li><li>Insects and microbes dominate the count. Vertebrates like mammals are a tiny fraction of all species.</li></ul>
+    </div>
+    <div class="bleed-media contain"><img src="media/image12.jpg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide sim" data-type="sim" style="--accent:#BC8A2E">
+  <div class="sim-bar">
+    <div class="sim-bar-text">
+      <span class="eyebrow light">4.4 · Biodiversity &nbsp;·&nbsp; Interactive App</span>
+      <h2 class="sim-title">Speciation Simulation</h2>
+      <div class="sim-q">How does reproductive isolation impact speciation? &nbsp;·&nbsp; What is the impact of population size on allele extinction?</div>
+    </div>
+    </div>
+  
+  <div class="sim-frame-wrap">
+    <iframe class="sim-frame" data-src="biodiversity-explorer/index.html?embed=1#speciation" title="Speciation Simulation interactive simulation"></iframe>
+  </div>
+</section>
+<section class="slide" data-type="interactive">
+  <div class="slide-inner two-col">
+    <div class="col-text">
+      <div class="eyebrow">4.4 · What Shapes Biodiversity?</div>
+      <h2 class="heading">Richness Isn't the Whole Story</h2>
+      <p class="lead">Two communities can have the same number of species (equal <strong>richness</strong>) but very different <strong>evenness</strong> — how balanced the population sizes are across species. Drag the slider to reshape both communities.</p>
+      <div class="even-defs">
+        <div class="even-def" id="def-low">
+          <div class="pair-head">Low Evenness</div>
+          <div class="pair-desc">One or two species dominate while the rest are rare — less balanced and less stable.</div>
+        </div>
+        <div class="even-def" id="def-high">
+          <div class="pair-head">High Evenness</div>
+          <div class="pair-desc">Species occur in similar abundances — more balanced, productive, and resilient.</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-interactive">
+      <div class="even-pics">
+        <div class="even-pic">
+          <div class="pic-chip">🐠 Community A · Reef</div>
+          <div class="mosaic" id="ev-mos-a"></div>
+          <div class="abar" id="ev-bar-a"></div>
+        </div>
+        <div class="even-pic">
+          <div class="pic-chip">🌼 Community B · Meadow</div>
+          <div class="mosaic" id="ev-mos-b"></div>
+          <div class="abar" id="ev-bar-b"></div>
+        </div>
+      </div>
+      <div class="even-control">
+        <input type="range" min="0" max="100" value="22" id="ev-slider" class="even-slider"
+               aria-label="Evenness from low to high">
+        <div class="slider-ends"><span>◀ Low evenness</span><span>High evenness ▶</span></div>
+      </div>
+      <div class="even-readout">
+        <div class="ro state"><span class="ro-num" id="ev-state">Low evenness</span></div>
+        <div class="ro"><span class="ro-label">Evenness (J)</span><span class="ro-num" id="ev-jval">0.00</span></div>
+        <div class="ro"><span class="ro-label">Dominant species</span><span class="ro-num" id="ev-dom">0%</span></div>
+        <div class="ro"><span class="ro-label">Richness</span><span class="ro-num">6 species</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+  <script>
+  (function(){
+    var S=6, N=100;
+    var palA=['#2D6A4F','#E76F51','#E9C46A','#4361EE','#9B5DE5','#48BFE3'];
+    var palB=['#0F8B8D','#EF476F','#FFC43D','#7209B7','#06D6A0','#F3722C'];
+    function shuffle(n,seed){var a=[];for(var i=0;i<n;i++)a.push(i);var s=seed;
+      for(var i=n-1;i>0;i--){s=(s*9301+49297)%233280;var j=Math.floor(s/233280*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+    var posA=shuffle(N,7), posB=shuffle(N,99);
+    function build(id){var el=document.getElementById(id);var c=[];for(var i=0;i<N;i++){var d=document.createElement('div');d.className='cell';el.appendChild(d);c.push(d);}return c;}
+    var cellsA=build('ev-mos-a'), cellsB=build('ev-mos-b');
+    function abund(t){var r=0.16+0.84*t,w=[],sum=0;for(var i=0;i<S;i++){w.push(Math.pow(r,i));sum+=w[i];}return w.map(function(x){return x/sum;});}
+    function counts(p){var fl=[],used=0;for(var i=0;i<S;i++){fl.push(Math.floor(p[i]*N));used+=fl[i];}
+      var rem=[];for(var i=0;i<S;i++)rem.push({i:i,f:p[i]*N-fl[i]});rem.sort(function(a,b){return b.f-a.f;});
+      var k=0;while(used<N){fl[rem[k%S].i]++;used++;k++;}return fl;}
+    function evenness(p){var H=0;for(var i=0;i<S;i++){if(p[i]>0)H-=p[i]*Math.log(p[i]);}return H/Math.log(S);}
+    function paint(cells,pos,cnt,pal){var ids=[];for(var sp=0;sp<S;sp++){for(var i=0;i<cnt[sp];i++)ids.push(sp);}
+      for(var k=0;k<N;k++){cells[pos[k]].style.background=pal[ids[k]];}}
+    function bar(id,cnt,pal){var el=document.getElementById(id);el.innerHTML='';for(var sp=0;sp<S;sp++){if(cnt[sp]<=0)continue;var s=document.createElement('span');s.style.width=cnt[sp]+'%';s.style.background=pal[sp];el.appendChild(s);}}
+    function update(){
+      var t=+document.getElementById('ev-slider').value/100;
+      var p=abund(t), cnt=counts(p), J=evenness(p);
+      paint(cellsA,posA,cnt,palA); paint(cellsB,posB,cnt,palB);
+      bar('ev-bar-a',cnt,palA); bar('ev-bar-b',cnt,palB);
+      document.getElementById('ev-jval').textContent=J.toFixed(2);
+      var dom=0;for(var i=0;i<S;i++)dom=Math.max(dom,cnt[i]);
+      document.getElementById('ev-dom').textContent=dom+'%';
+      var state = J<0.55?'Low':(J<0.82?'Moderate':'High');
+      var col = J<0.55?'#C0392B':(J<0.82?'#B8860B':'#2D6A4F');
+      var st=document.getElementById('ev-state'); st.textContent=state+' evenness'; st.style.color=col;
+      document.getElementById('def-low').classList.toggle('on',state==='Low');
+      document.getElementById('def-high').classList.toggle('on',state==='High');
+    }
+    document.getElementById('ev-slider').addEventListener('input',update);
+    update();
+  })();
+  </script>
+</section>
+<section class="slide" data-type="interactive">
+  <!-- ═══ hand-drawn species art (referenced via <use>) ═══ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <symbol id="rf0" viewBox="0 0 100 100">
+      <g stroke="#243b33" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M70 50 L93 33 Q88 50 93 67 Z" fill="#F5771F"/>
+        <path d="M40 76 Q46 66 58 68 Q52 78 40 76Z" fill="#F5771F"/>
+        <ellipse cx="45" cy="50" rx="35" ry="23" fill="#F5771F"/>
+        <path d="M30 30 Q34 50 30 70 Q23 65 20 58 Q24 50 20 42 Q23 35 30 30Z" fill="#fff" stroke="none"/>
+        <path d="M54 29 Q58 50 54 71 Q47 70 43 69 Q47 50 43 31 Q47 30 54 29Z" fill="#fff" stroke="none"/>
+        <ellipse cx="45" cy="50" rx="35" ry="23" fill="none"/>
+        <circle cx="16" cy="48" r="4.2" fill="#243b33" stroke="none"/>
+      </g>
+    </symbol>
+    <symbol id="rf1" viewBox="0 0 100 100">
+      <g stroke="#1b2f4a" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M74 50 L92 36 L86 50 L92 64 Z" fill="#F5C518"/>
+        <path d="M50 30 Q60 26 70 34 Q60 40 50 38Z" fill="#2E5FD0"/>
+        <path d="M46 66 Q58 62 70 68 Q58 74 46 68Z" fill="#2E5FD0"/>
+        <path d="M18 50 Q30 24 58 30 Q80 38 76 52 Q78 66 56 72 Q28 76 18 50Z" fill="#2F6BE0"/>
+        <path d="M40 34 Q54 50 44 68" fill="none" stroke="#1b2f4a" stroke-width="4"/>
+        <circle cx="30" cy="46" r="4" fill="#fff" stroke="none"/>
+        <circle cx="29" cy="46" r="2" fill="#1b2f4a" stroke="none"/>
+      </g>
+    </symbol>
+    <symbol id="rf2" viewBox="0 0 100 100">
+      <g fill="none" stroke-linecap="round">
+        <path d="M42 22 C 24 24, 30 46, 46 50 C 62 54, 44 76, 40 84" stroke="#4a2a55" stroke-width="19"/>
+        <path d="M40 84 C 37 93, 51 93, 51 83 C 51 77, 44 77, 43 82" stroke="#4a2a55" stroke-width="12"/>
+        <path d="M42 22 Q30 19 23 24" stroke="#4a2a55" stroke-width="12"/>
+        <path d="M42 22 C 24 24, 30 46, 46 50 C 62 54, 44 76, 40 84" stroke="#A05BC0" stroke-width="14"/>
+        <path d="M40 84 C 37 93, 51 93, 51 83 C 51 77, 44 77, 43 82" stroke="#A05BC0" stroke-width="7"/>
+        <path d="M42 22 Q30 19 23 24" stroke="#A05BC0" stroke-width="7"/>
+      </g>
+      <path d="M42 14 q4 -6 9 -3 M48 12 q5 -3 9 0" stroke="#8B49AB" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <path d="M57 38 q7 3 5 9 M56 50 q7 3 5 9" stroke="#C88BE0" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <circle cx="38" cy="25" r="3.6" fill="#3a1f47"/>
+      <circle cx="39.2" cy="24" r="1.3" fill="#fff"/>
+    </symbol>
+    <symbol id="rf3" viewBox="0 0 100 100">
+      <g stroke="#7a2418" stroke-width="3.2" stroke-linejoin="round">
+        <path d="M50 12 L62 40 L92 44 L68 62 L76 92 L50 74 L24 92 L32 62 L8 44 L38 40 Z" fill="#E8543A"/>
+        <circle cx="50" cy="52" r="4" fill="#F7B4A6" stroke="none"/>
+        <circle cx="50" cy="34" r="2.4" fill="#F7B4A6" stroke="none"/>
+        <circle cx="63" cy="55" r="2.4" fill="#F7B4A6" stroke="none"/>
+        <circle cx="37" cy="55" r="2.4" fill="#F7B4A6" stroke="none"/>
+      </g>
+    </symbol>
+    <symbol id="rf4" viewBox="0 0 100 100">
+      <g stroke="#5c6a1e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M50 8 L54 20 L46 20Z M78 18 L74 30 L66 24Z M92 50 L80 54 L80 46Z M78 82 L66 76 L74 70Z M50 92 L46 80 L54 80Z M22 82 L26 70 L34 76Z M8 50 L20 46 L20 54Z M22 18 L34 24 L26 30Z" fill="#C6D45A"/>
+        <circle cx="50" cy="50" r="30" fill="#D2DE72"/>
+        <circle cx="40" cy="46" r="4.5" fill="#fff" stroke="none"/><circle cx="41" cy="46" r="2.3" fill="#243b33" stroke="none"/>
+        <circle cx="60" cy="46" r="4.5" fill="#fff" stroke="none"/><circle cx="59" cy="46" r="2.3" fill="#243b33" stroke="none"/>
+        <path d="M42 62 Q50 68 58 62" fill="none" stroke="#5c6a1e" stroke-width="3"/>
+      </g>
+    </symbol>
+    <symbol id="rf5" viewBox="0 0 100 100">
+      <g stroke="#7a2c6a" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M20 46 Q20 18 50 18 Q80 18 80 46 Q80 52 74 52 L26 52 Q20 52 20 46Z" fill="#EB5FC0"/>
+        <path d="M30 52 Q28 70 34 86 M42 52 Q41 74 39 90 M50 52 Q50 76 50 92 M58 52 Q59 74 61 90 M70 52 Q72 70 66 86" fill="none" stroke="#EB5FC0" stroke-width="4"/>
+        <ellipse cx="38" cy="38" rx="6" ry="8" fill="#fbd0ee" stroke="none"/>
+        <ellipse cx="58" cy="40" rx="5" ry="6" fill="#fbd0ee" stroke="none"/>
+      </g>
+    </symbol>
+    <symbol id="md0" viewBox="0 0 100 100">
+      <g stroke="#3f6a2a" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 52 Q50 74 50 92" fill="none" stroke="#3f6a2a" stroke-width="4"/>
+        <path d="M50 70 Q40 64 34 70 Q44 74 50 72Z" fill="#5a8a3a" stroke-width="2.4"/>
+      </g>
+      <g stroke="#8f1d15" stroke-width="3" stroke-linejoin="round">
+        <path d="M50 46 Q30 40 30 26 Q30 14 42 16 Q40 6 50 8 Q60 6 58 16 Q70 14 70 26 Q70 40 50 46Z" fill="#E23B2E"/>
+        <circle cx="50" cy="34" r="8" fill="#2b2b2b" stroke="none"/>
+        <circle cx="50" cy="34" r="3" fill="#6b5a1e" stroke="none"/>
+      </g>
+    </symbol>
+    <symbol id="md1" viewBox="0 0 100 100">
+      <path d="M50 50 Q50 74 50 92" fill="none" stroke="#3f6a2a" stroke-width="4" stroke-linecap="round"/>
+      <path d="M50 68 Q62 62 68 68 Q58 74 50 70Z" fill="#5a8a3a" stroke="#3f6a2a" stroke-width="2.4"/>
+      <g fill="#ffffff" stroke="#d7c98f" stroke-width="1.6">
+        <ellipse cx="50" cy="19" rx="5.2" ry="11" transform="rotate(0 50 34)"/>
+        <ellipse cx="50" cy="19" rx="5.2" ry="11" transform="rotate(36 50 34)"/>
+        <ellipse cx="50" cy="19" rx="5.2" ry="11" transform="rotate(72 50 34)"/>
+        <ellipse cx="50" cy="19" rx="5.2" ry="11" transform="rotate(108 50 34)"/>
+        <ellipse cx="50" cy="19" rx="5.2" ry="11" transform="rotate(144 50 34)"/>
+        <ellipse cx="50" cy="19" rx="5.2" ry="11" transform="rotate(180 50 34)"/>
+        <ellipse cx="50" cy="19" rx="5.2" ry="11" transform="rotate(216 50 34)"/>
+        <ellipse cx="50" cy="19" rx="5.2" ry="11" transform="rotate(252 50 34)"/>
+        <ellipse cx="50" cy="19" rx="5.2" ry="11" transform="rotate(288 50 34)"/>
+        <ellipse cx="50" cy="19" rx="5.2" ry="11" transform="rotate(324 50 34)"/>
+      </g>
+      <circle cx="50" cy="34" r="9" fill="#F5B800" stroke="#c98a12" stroke-width="2"/>
+    </symbol>
+    <symbol id="md2" viewBox="0 0 100 100">
+      <path d="M50 48 L50 94" fill="none" stroke="#3f6a2a" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M50 72 Q64 64 72 72 Q60 80 50 74Z" fill="#5a8a3a" stroke="#3f6a2a" stroke-width="2.4"/>
+      <path d="M50 66 Q36 60 30 66 Q42 74 50 70Z" fill="#5a8a3a" stroke="#3f6a2a" stroke-width="2.4"/>
+      <g fill="#FAB803" stroke="#c98a12" stroke-width="1.4">
+        <path d="M50 6 L54 22 L46 22Z M69 12 L60 26 L54 20Z M83 28 L67 32 L66 24Z M84 44 L69 40 L72 33 M76 60 L63 48 L69 43 M58 66 L52 50 L44 52 M42 66 L48 50 L40 48 M30 60 L43 48 L37 43 M22 44 L37 40 L34 47 M20 28 L36 32 L33 39 M35 12 L44 26 L38 32"/>
+      </g>
+      <circle cx="50" cy="36" r="13" fill="#7a4a1e" stroke="#4d2e12" stroke-width="2.4"/>
+    </symbol>
+    <symbol id="md3" viewBox="0 0 100 100">
+      <path d="M50 44 L50 94" fill="none" stroke="#3f6a2a" stroke-width="4" stroke-linecap="round"/>
+      <path d="M50 74 Q38 70 32 76 Q44 80 50 76Z" fill="#5a8a3a" stroke="#3f6a2a" stroke-width="2.4"/>
+      <g stroke="#4a2377" stroke-width="2.6" stroke-linejoin="round" fill="#7A3FC0">
+        <ellipse cx="50" cy="16" rx="9" ry="7"/>
+        <ellipse cx="41" cy="26" rx="8" ry="6"/><ellipse cx="59" cy="26" rx="8" ry="6"/>
+        <ellipse cx="46" cy="36" rx="8" ry="6"/><ellipse cx="56" cy="36" rx="8" ry="6"/>
+        <ellipse cx="50" cy="46" rx="9" ry="6.5"/>
+      </g>
+    </symbol>
+    <symbol id="md4" viewBox="0 0 100 100">
+      <g stroke="#2b2b2b" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+        <ellipse cx="60" cy="60" rx="16" ry="30" fill="#f2f2f2" transform="rotate(28 60 60)"/>
+        <ellipse cx="30" cy="42" rx="16" ry="30" fill="#f2f2f2" transform="rotate(-28 30 42)"/>
+        <ellipse cx="48" cy="54" rx="30" ry="21" fill="#F5C518"/>
+        <path d="M40 36 Q46 54 40 72 M54 34 Q62 54 56 74 M28 44 Q30 54 30 62" stroke="#2b2b2b" stroke-width="5" fill="none"/>
+        <path d="M74 44 Q84 48 82 58 Q78 56 74 56Z" fill="#2b2b2b" stroke="none"/>
+        <circle cx="76" cy="46" r="4.2" fill="#2b2b2b" stroke="none"/>
+        <circle cx="77" cy="45" r="1.5" fill="#fff" stroke="none"/>
+        <path d="M79 40 Q84 32 82 28 M83 42 Q90 38 92 34" stroke="#2b2b2b" stroke-width="2.4" fill="none"/>
+      </g>
+    </symbol>
+    <symbol id="md5" viewBox="0 0 100 100">
+      <g stroke="#3a2a10" stroke-width="2.8" stroke-linejoin="round">
+        <path d="M48 50 Q18 20 16 40 Q14 58 48 54Z" fill="#20B2AA"/>
+        <path d="M48 50 Q18 84 20 62 Q22 48 48 52Z" fill="#1E9E97"/>
+        <path d="M52 50 Q82 20 84 40 Q86 58 52 54Z" fill="#20B2AA"/>
+        <path d="M52 50 Q82 84 80 62 Q78 48 52 52Z" fill="#1E9E97"/>
+        <circle cx="30" cy="38" r="4" fill="#F5C518" stroke="none"/>
+        <circle cx="70" cy="38" r="4" fill="#F5C518" stroke="none"/>
+        <circle cx="32" cy="64" r="3" fill="#F5C518" stroke="none"/>
+        <circle cx="68" cy="64" r="3" fill="#F5C518" stroke="none"/>
+        <path d="M50 40 L50 66" stroke="#3a2a10" stroke-width="5" stroke-linecap="round"/>
+        <path d="M50 40 Q46 30 42 28 M50 40 Q54 30 58 28" fill="none" stroke="#3a2a10" stroke-width="2.4"/>
+      </g>
+    </symbol>
+  </defs></svg>
+  <div class="slide-inner two-col">
+    <div class="col-text">
+      <div class="eyebrow">4.4 · What Shapes Biodiversity?</div>
+      <h2 class="heading">Richness Isn't the Whole Story</h2>
+      <p class="lead">Two communities can have the same number of species (equal <strong>richness</strong>) but very different <strong>evenness</strong> — how balanced the population sizes are. Here every tile is one <em>individual organism</em>. Drag the slider to reshape both communities.</p>
+      <div class="even-defs">
+        <div class="even-def" id="def2-low">
+          <div class="pair-head">Low Evenness</div>
+          <div class="pair-desc">One or two species dominate while the rest are rare — less balanced and less stable.</div>
+        </div>
+        <div class="even-def" id="def2-high">
+          <div class="pair-head">High Evenness</div>
+          <div class="pair-desc">Species occur in similar abundances — more balanced, productive, and resilient.</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-interactive">
+      <div class="even-pics">
+        <div class="even-pic">
+          <div class="pic-chip">🐠 Community A · Reef</div>
+          <svg class="mosaic2" id="ev2-mos-a" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="abar" id="ev2-bar-a"></div>
+        </div>
+        <div class="even-pic">
+          <div class="pic-chip">🌼 Community B · Meadow</div>
+          <svg class="mosaic2" id="ev2-mos-b" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="abar" id="ev2-bar-b"></div>
+        </div>
+      </div>
+      <div class="even-control">
+        <input type="range" min="0" max="100" value="22" id="ev2-slider" class="even-slider"
+               aria-label="Evenness from low to high">
+        <div class="slider-ends"><span>◀ Low evenness</span><span>High evenness ▶</span></div>
+      </div>
+      <div class="even-readout">
+        <div class="ro state"><span class="ro-num" id="ev2-state">Low evenness</span></div>
+        <div class="ro"><span class="ro-label">Evenness (J)</span><span class="ro-num" id="ev2-jval">0.00</span></div>
+        <div class="ro"><span class="ro-label">Dominant species</span><span class="ro-num" id="ev2-dom">0%</span></div>
+        <div class="ro"><span class="ro-label">Richness</span><span class="ro-num">6 species</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+  <script>
+  (function(){
+    var S=6, N=100, SIDE=10, CELL=100, PAD=6, SVGNS='http://www.w3.org/2000/svg';
+    var barA=['#F5771F','#2F6BE0','#A05BC0','#E8543A','#B9CC3E','#EB5FC0'];
+    var barB=['#E23B2E','#E9C84A','#E59400','#7A3FC0','#F5C518','#20B2AA'];
+    function shuffle(n,seed){var a=[];for(var i=0;i<n;i++)a.push(i);var s=seed;
+      for(var i=n-1;i>0;i--){s=(s*9301+49297)%233280;var j=Math.floor(s/233280*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+    var posA=shuffle(N,7), posB=shuffle(N,99);
+    function build(id,pref){var svg=document.getElementById(id),u=[];
+      for(var r=0;r<SIDE;r++)for(var c=0;c<SIDE;c++){var e=document.createElementNS(SVGNS,'use');
+        e.setAttribute('x',c*CELL+PAD); e.setAttribute('y',r*CELL+PAD);
+        e.setAttribute('width',CELL-2*PAD); e.setAttribute('height',CELL-2*PAD);
+        e.setAttribute('href','#'+pref+'0'); svg.appendChild(e); u.push(e);}return u;}
+    var usesA=build('ev2-mos-a','rf'), usesB=build('ev2-mos-b','md');
+    function abund(t){var r=0.16+0.84*t,w=[],sum=0;for(var i=0;i<S;i++){w.push(Math.pow(r,i));sum+=w[i];}return w.map(function(x){return x/sum;});}
+    function counts(p){var fl=[],used=0;for(var i=0;i<S;i++){fl.push(Math.floor(p[i]*N));used+=fl[i];}
+      var rem=[];for(var i=0;i<S;i++)rem.push({i:i,f:p[i]*N-fl[i]});rem.sort(function(a,b){return b.f-a.f;});
+      var k=0;while(used<N){fl[rem[k%S].i]++;used++;k++;}return fl;}
+    function evenness(p){var H=0;for(var i=0;i<S;i++){if(p[i]>0)H-=p[i]*Math.log(p[i]);}return H/Math.log(S);}
+    function paint(uses,pos,cnt,pref){var ids=[];for(var sp=0;sp<S;sp++){for(var i=0;i<cnt[sp];i++)ids.push(sp);}
+      for(var k=0;k<N;k++){uses[pos[k]].setAttribute('href','#'+pref+ids[k]);}}
+    function bar(id,cnt,pal){var el=document.getElementById(id);el.innerHTML='';for(var sp=0;sp<S;sp++){if(cnt[sp]<=0)continue;var s=document.createElement('span');s.style.width=cnt[sp]+'%';s.style.background=pal[sp];el.appendChild(s);}}
+    function update(){
+      var t=+document.getElementById('ev2-slider').value/100;
+      var p=abund(t), cnt=counts(p), J=evenness(p);
+      paint(usesA,posA,cnt,'rf'); paint(usesB,posB,cnt,'md');
+      bar('ev2-bar-a',cnt,barA); bar('ev2-bar-b',cnt,barB);
+      document.getElementById('ev2-jval').textContent=J.toFixed(2);
+      var dom=0;for(var i=0;i<S;i++)dom=Math.max(dom,cnt[i]);
+      document.getElementById('ev2-dom').textContent=dom+'%';
+      var state = J<0.55?'Low':(J<0.82?'Moderate':'High');
+      var col = J<0.55?'#C0392B':(J<0.82?'#B8860B':'#2D6A4F');
+      var st=document.getElementById('ev2-state'); st.textContent=state+' evenness'; st.style.color=col;
+      document.getElementById('def2-low').classList.toggle('on',state==='Low');
+      document.getElementById('def2-high').classList.toggle('on',state==='High');
+    }
+    document.getElementById('ev2-slider').addEventListener('input',update);
+    update();
+  })();
+  </script>
+</section>
+<section class="slide" data-type="content" style="--accent:#BC8A2E">
+  <div class="stack-grid">
+    <div class="stack-top">
+      <div class="stack-head">
+<div class="eyebrow">4.4 · Biogeography — Why Species Live Where They Do</div>
+<h2 class="heading">Geography Shapes Life</h2>
+      </div>
+      <div class="stack-body">
+<ul class="bullets"><li>Biogeography studies the geographic distribution of species across the planet.</li><li>Tropical regions have greater species richness than other regions, a pattern called a latitudinal gradient.</li><li>Barriers like oceans, mountains, and deserts block gene flow and promote independent evolution.</li><li><strong>Island biogeography:</strong> islands have fewer species than equivalent mainland areas, but high endemism — species found nowhere else.</li></ul>
+      </div>
+    </div>
+    <div class="stack-media contain"><img src="media/image16.jpg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="content" style="--accent:#BC8A2E">
+  <div class="stack-grid">
+    <div class="stack-top">
+      <div class="stack-head">
+<div class="eyebrow">4.4 · Ecosystem Diversity and Biomes</div>
+<h2 class="heading">Climate Shapes the Biome</h2>
+      </div>
+      <div class="stack-body">
+<div class="pairs"><div class="pair"><div class="pair-head">Tropical Rainforest</div><div class="pair-desc">Warm and wet year-round; the greatest species richness on Earth.</div></div><div class="pair"><div class="pair-head">Temperate Forest</div><div class="pair-desc">Four seasons, moderate rainfall; deciduous trees and high productivity.</div></div><div class="pair"><div class="pair-head">Grassland / Savanna</div><div class="pair-desc">Seasonal drought limits trees; grazers and predators dominate.</div></div><div class="pair"><div class="pair-head">Desert</div><div class="pair-desc">Very low precipitation; organisms specially adapted to conserve water.</div></div></div>
+<p class="note"><strong>Important:</strong> Global warming can decrease ecosystem productivity by altering species distributions and stressing organisms.</p>
+      </div>
+    </div>
+    <div class="stack-media contain"><img src="media/biomes-whittaker.svg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="grid" style="--accent:#B5651D">
+  <div class="slide-inner col">
+    <div class="eyebrow">4.5 · How Do Communities of Organisms Interact?</div>
+    <h2 class="heading">Three Fundamental Interactions</h2>
+    
+    <div class="grid cols-3"><div class="gcard"><div class="gcard-head">Competition</div><div class="gcard-desc">Organisms vie for limited resources — interspecific (between species) or intraspecific (within a species). Losers may be excluded from a habitat. A negative–negative interaction.</div></div><div class="gcard"><div class="gcard-head">Predation</div><div class="gcard-desc">One organism (predator) feeds on another (prey). Top predators can trigger trophic cascades that reshape entire ecosystems indirectly.</div></div><div class="gcard"><div class="gcard-head">Symbiosis</div><div class="gcard-desc">A long-term close association: mutualism (+/+), commensalism (+/0), or parasitism (+/−). Often shaped by coevolution.</div></div></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="content" style="--accent:#B5651D">
+  <div class="bleed-grid">
+    <div class="bleed-text">
+<div class="eyebrow">4.5 · Predation and Trophic Cascades — Yellowstone Wolves</div>
+<h2 class="heading">How Top Predators Reshape Landscapes</h2>
+<p class="lead">Removing wolves from Yellowstone in 1926 caused a <strong>trophic cascade</strong>: the elk population increased and the aspen tree population dramatically decreased.</p>
+<div class="stat-row"><div class="stat-box"><div class="stat-num">1926</div><div class="stat-lbl">wolves removed</div></div><div class="stat-box"><div class="stat-num">1995</div><div class="stat-lbl">wolves reintroduced</div></div></div>
+<p class="lead" style="margin:.1rem 0 .7rem">When wolves were reintroduced in 1995, the following happened:</p><ul class="bullets"><li>Wolves reduced elk numbers and changed elk behavior, keeping them out of vulnerable valleys.</li><li>Freed from overgrazing, willows and aspens recovered — stabilizing stream banks.</li><li>Beavers returned and built dams, creating wetlands; river channels narrowed and deepened.</li></ul>
+    </div>
+    <div class="bleed-media contain"><img src="media/image18.jpg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide ix-slide" data-type="content" style="--accent:#B5651D">
+  <div class="slide-inner col ix-inner">
+    <div class="eyebrow">4.5 · Yellowstone Wolves and Trophic Cascades</div>
+    <h2 class="heading ix-head">The Cascade by the Numbers</h2>
+    <p class="lead" style="margin-top:.2rem">Counts from Yellowstone's northern range put numbers on every link in the chain: predator, herbivore, plants, and the ecosystem engineer that followed.</p>
+
+    <div class="yd-grid">
+      <!-- ── WOLVES ── -->
+      <div class="yd-card">
+        <div class="yd-name">Wolves in the park</div>
+        <div class="yd-sub">number of wolves</div>
+        <svg class="yd-chart" viewBox="0 0 300 215" xmlns="http://www.w3.org/2000/svg" aria-label="Wolf numbers: 31 released 1995 to 1996, peak 174 in 2003, about 100 in 2022.">
+          <g stroke="#dfe9e4" stroke-width="1.5" fill="none">
+            <path d="M40 145 H290 M40 115 H290 M40 85 H290 M40 55 H290 M40 25 H290"/>
+          </g>
+          <path d="M40 20 V175 H290" stroke="#33453d" stroke-width="2.5" fill="none"/>
+          <g stroke="#7a4a18" stroke-width="2">
+            <rect x="58" y="149.2" width="52" height="25.8" rx="4" fill="#B5651D" opacity=".5"/>
+            <rect x="133" y="30" width="52" height="145" rx="4" fill="#B5651D"/>
+            <rect x="208" y="85" width="52" height="90" rx="4" fill="#B5651D" opacity=".78"/>
+          </g>
+          <g font-size="15" font-weight="700" fill="#5C3A12" text-anchor="middle">
+            <text x="84" y="142">31</text><text x="159" y="23">174</text><text x="234" y="78">~100</text>
+          </g>
+          <g font-size="12.5" fill="#4C5C53" text-anchor="middle">
+            <text x="84" y="193">1995–96</text><text x="84" y="208">released</text>
+            <text x="159" y="193">2003</text><text x="159" y="208">peak</text>
+            <text x="234" y="193">2022</text>
+          </g>
+        </svg>
+        <div class="yd-take">31 wolves were released in 1995 and 1996. The population peaked in 2003, then settled as wolves filled the available territory.</div>
+      </div>
+
+      <!-- ── ELK ── -->
+      <div class="yd-card">
+        <div class="yd-name">Northern-range elk</div>
+        <div class="yd-sub">animals counted</div>
+        <svg class="yd-chart" viewBox="0 0 300 215" xmlns="http://www.w3.org/2000/svg" aria-label="Northern range elk: about 19,000 in 1994 falling to about 6,000 in 2013.">
+          <g stroke="#dfe9e4" stroke-width="1.5" fill="none">
+            <path d="M40 145 H290 M40 115 H290 M40 85 H290 M40 55 H290 M40 25 H290"/>
+          </g>
+          <path d="M40 20 V175 H290" stroke="#33453d" stroke-width="2.5" fill="none"/>
+          <g stroke="#5c4a12" stroke-width="2">
+            <rect x="72" y="32.5" width="66" height="142.5" rx="4" fill="#C9A227"/>
+            <rect x="182" y="130" width="66" height="45" rx="4" fill="#C9A227" opacity=".72"/>
+          </g>
+          <path d="M150 60 L172 118" stroke="#A4373A" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M172 118 l-9 -3 l2 9 Z" fill="#A4373A"/>
+          <g font-size="15" font-weight="700" fill="#4A3B08" text-anchor="middle">
+            <text x="105" y="25">~19,000</text><text x="215" y="123">~6,000</text>
+          </g>
+          <g font-size="12.5" fill="#4C5C53" text-anchor="middle">
+            <text x="105" y="193">1994</text><text x="215" y="193">2013</text>
+          </g>
+        </svg>
+        <div class="yd-take">Elk fell by roughly two-thirds. Recent counts hold near 5,000 to 6,000, but wolves were only one of several causes.</div>
+      </div>
+
+      <!-- ── ASPEN ── -->
+      <div class="yd-card">
+        <div class="yd-name">Aspen recruitment</div>
+        <div class="yd-sub">stands with aspen over 200 cm</div>
+        <svg class="yd-chart" viewBox="0 0 300 215" xmlns="http://www.w3.org/2000/svg" aria-label="Stands with young aspen taller than 200 cm: none in 1998, 65 percent in the east sector in 2012.">
+          <g stroke="#dfe9e4" stroke-width="1.5" fill="none">
+            <path d="M40 145 H290 M40 115 H290 M40 85 H290 M40 55 H290 M40 25 H290"/>
+          </g>
+          <path d="M40 20 V175 H290" stroke="#33453d" stroke-width="2.5" fill="none"/>
+          <g stroke="#4a6b1e" stroke-width="2">
+            <rect x="72" y="171" width="66" height="4" rx="2" fill="#7FA83C" opacity=".55"/>
+            <rect x="182" y="77.5" width="66" height="97.5" rx="4" fill="#7FA83C"/>
+          </g>
+          <path d="M150 140 L172 96" stroke="#4a6b1e" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M172 96 l-2 9 l9 -3 Z" fill="#4a6b1e"/>
+          <g font-size="15" font-weight="700" fill="#33450F" text-anchor="middle">
+            <text x="105" y="164">0%</text><text x="215" y="70">65%</text>
+          </g>
+          <g font-size="12.5" fill="#4C5C53" text-anchor="middle">
+            <text x="105" y="193">1998</text>
+            <text x="215" y="193">2012</text><text x="215" y="208">east sector</text>
+          </g>
+        </svg>
+        <div class="yd-take">At 200 cm a young aspen is tall enough to escape elk browsing. In 1998 not one stand had reached it. Recovery was uneven: browsing fell to 37% in the east but stayed near 63% in the west.</div>
+      </div>
+
+      <!-- ── BEAVER ── -->
+      <div class="yd-card">
+        <div class="yd-name">Beaver colonies</div>
+        <div class="yd-sub">colonies on the northern range</div>
+        <svg class="yd-chart" viewBox="0 0 300 215" xmlns="http://www.w3.org/2000/svg" aria-label="Beaver colonies on the northern range: 1 in 1996 rising to 9 by 2009.">
+          <g stroke="#dfe9e4" stroke-width="1.5" fill="none">
+            <path d="M40 145 H290 M40 115 H290 M40 85 H290 M40 55 H290 M40 25 H290"/>
+          </g>
+          <path d="M40 20 V175 H290" stroke="#33453d" stroke-width="2.5" fill="none"/>
+          <g stroke="#1b4630" stroke-width="2">
+            <rect x="72" y="160" width="66" height="15" rx="4" fill="#2D6A4F" opacity=".55"/>
+            <rect x="182" y="40" width="66" height="135" rx="4" fill="#2D6A4F"/>
+          </g>
+          <path d="M150 130 L172 62" stroke="#2D6A4F" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M172 62 l-2 9 l9 -3 Z" fill="#2D6A4F"/>
+          <g font-size="15" font-weight="700" fill="#1B3D1C" text-anchor="middle">
+            <text x="105" y="153">1</text><text x="215" y="33">9</text>
+          </g>
+          <g font-size="12.5" fill="#4C5C53" text-anchor="middle">
+            <text x="105" y="193">1996</text><text x="215" y="193">2009</text>
+          </g>
+        </svg>
+        <div class="yd-take">With willows recovering along the streams, beaver returned, rebuilding dams, wetlands, and narrower, deeper channels.</div>
+      </div>
+    </div>
+
+    <div class="yd-note"><strong>Read the numbers carefully.</strong> Wolves are one driver among several. Drought, bears and cougars, and elk hunting outside the park all pushed in the same direction, and ecologists still debate how much of the willow, aspen, and beaver recovery the wolves themselves caused. A correlation this striking is a starting point for investigation, not proof of a single cause.</div>
+
+    <div class="yd-src">Elk counts: Northern Yellowstone Cooperative Wildlife Working Group annual winter counts. Wolf numbers: NPS Yellowstone Wolf Project annual reports. Aspen: Painter, Beschta, Larsen &amp; Ripple, <em>Ecology</em> 96(1):252–263 (2015), 87 stands resampled in 2012 against a 1997–98 baseline. Beaver colonies: Smith &amp; Tyers, Yellowstone beaver surveys (2012). Debate: Ripple &amp; Beschta, <em>Biological Conservation</em> (2012); Marris, <em>Nature</em> (2014). Values are approximate.</div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="content" style="--accent:#B5651D">
+  <div class="bleed-grid">
+    <div class="bleed-text">
+<div class="eyebrow">4.5 · Coevolution and Symbiotic Interactions</div>
+<h2 class="heading">When Species Interact</h2>
+<p class="lead">The sword-billed hummingbird and the long-tubed flowers it feeds from coevolved — each shaping the other's form over generations.</p>
+<ul class="bullets"><li><strong>Coevolution:</strong> two or more species evolve in response to one another over time.</li><li><strong>Mutualism (+/+):</strong> both benefit — pollinators and flowers, corals and algae.</li><li><strong>Commensalism (+/0):</strong> one benefits, the other is unaffected.</li><li><strong>Parasitism (+/−):</strong> one benefits at the other's expense.</li></ul>
+    </div>
+    <div class="bleed-media cover"><img src="media/image20.jpg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="content" style="--accent:#52796F">
+  <div class="stack-grid">
+    <div class="stack-top">
+      <div class="stack-head">
+<div class="eyebrow">4.6 · What Controls Population Size?</div>
+<h2 class="heading">Growth, Limits, and Reproductive Strategies</h2>
+      </div>
+      <div class="stack-body">
+<ul class="bullets"><li>Populations grow when births + immigration exceed deaths + emigration.</li><li><strong>Carrying capacity (K):</strong> the maximum population an environment can sustainably support — growth follows a logistic (S-curve) pattern as it nears K.</li><li>Density-dependent limits (disease, competition, predation) intensify as populations grow.</li><li><strong>r-strategists:</strong> many offspring, little care (insects, fish).</li><li><strong>K-strategists:</strong> few offspring, high investment (elephants, humans).</li></ul>
+      </div>
+    </div>
+    <div class="stack-media contain"><img src="media/image21.jpg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="grid" style="--accent:#52796F">
+  <div class="slide-inner col">
+    <div class="eyebrow">4.6 · What Controls Population Size?</div>
+    <h2 class="heading">Patterns of Population Growth</h2>
+    <div class="grid cols-3"><div class="gcard img"><img src="media/image22.jpg" alt=""><div class="gcard-head">Exponential</div><div class="gcard-desc">When conditions for growth are ideal, populations can increase very quickly over time — known as exponential growth.</div></div><div class="gcard img"><img src="media/image24.jpg" alt=""><div class="gcard-head">Logistic</div><div class="gcard-desc">More realistic: growth slows as the population approaches carrying capacity, tracing an S-shaped logistic curve.</div></div><div class="gcard img"><img src="media/image23.jpg" alt=""><div class="gcard-head">Population Crash (Boom–Bust)</div><div class="gcard-desc">St. Matthew Island reindeer: introduced in 1944, they grew exponentially to 6,000 — then crashed to 42 when they exhausted their food.</div></div></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide sim" data-type="sim" style="--accent:#52796F">
+  <div class="sim-bar">
+    <div class="sim-bar-text">
+      <span class="eyebrow light">4.6 · Population &nbsp;·&nbsp; Interactive App</span>
+      <h2 class="sim-title">Population Growth Simulation</h2>
+      <div class="sim-q">How do exponential growth and logistic growth differ? &nbsp;·&nbsp; What is the carrying capacity?</div>
+    </div>
+    </div>
+  
+  <div class="sim-frame-wrap">
+    <iframe class="sim-frame" data-src="biodiversity-explorer/index.html?embed=1#population" title="Population Growth Simulation interactive simulation"></iframe>
+  </div>
+</section>
+<section class="slide" data-type="content" style="--accent:#A4373A">
+  <div class="bleed-grid">
+    <div class="bleed-text">
+<div class="eyebrow">4.7 · What Can Cause Loss of Biodiversity?</div>
+<h2 class="heading">Extinction, Keystone Species, and Vital Areas</h2>
+<p class="lead">Sea stars are a keystone species: when removed from intertidal habitats, mussels and barnacles outcompete other species — and biodiversity drops.</p>
+<ul class="bullets"><li>A human-driven sixth mass extinction is underway — the passenger pigeon went from the most abundant US bird to extinct.</li><li>Keystone species have an outsized influence on ecosystem structure relative to their abundance.</li><li><strong>Biodiversity hotspots:</strong> areas with high endemism and severe threat — priorities for protection.</li><li><strong>Main drivers:</strong> habitat destruction, overexploitation, invasive species, and climate change.</li></ul>
+    </div>
+    <div class="bleed-media contain"><img src="media/image26.jpg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="content" style="--accent:#40916C">
+  <div class="bleed-grid">
+    <div class="bleed-text">
+<div class="eyebrow">4.8 · What Can I Do?</div>
+<h2 class="heading">Supporting Biodiversity</h2>
+<ul class="bullets"><li>Create wildlife-friendly habitat where you live. The National Wildlife Federation's certification program shows how.</li><li><strong>Plant native species:</strong> they support native insects and birds that exotic plants cannot.</li><li>Reduce your negative impact on wildlife (reduce light pollution, keep track of your pets).</li><li>Learn your local biodiversity, reduce your footprint, and encourage others to do the same.</li></ul>
+    </div>
+    <div class="bleed-media contain"><img src="media/image27.jpg" alt=""></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide" data-type="grid" style="--accent:#2D6A4F">
+  <div class="slide-inner col">
+    <div class="eyebrow">Chapter 4 · Key Concepts</div>
+    <h2 class="heading">Life: What Shapes Biodiversity?</h2>
+    
+    <div class="grid cols-4"><div class="gcard"><div class="gcard-head">Natural Selection</div><div class="gcard-desc">Traits improving survival/reproduction spread through a population over generations.</div></div><div class="gcard"><div class="gcard-head">Adaptive Radiation</div><div class="gcard-desc">One ancestral species diversifies into many niche-adapted species.</div></div><div class="gcard"><div class="gcard-head">Genetic Drift</div><div class="gcard-desc">Random, chance-based change in trait frequency, strongest in small populations.</div></div><div class="gcard"><div class="gcard-head">Species Richness</div><div class="gcard-desc">The number of different species in an area; highest in the tropics.</div></div><div class="gcard"><div class="gcard-head">Species Evenness</div><div class="gcard-desc">How balanced the population sizes are across species in a community.</div></div><div class="gcard"><div class="gcard-head">Trophic Cascade</div><div class="gcard-desc">Indirect effects rippling through a food web from a top predator.</div></div><div class="gcard"><div class="gcard-head">Keystone Species</div><div class="gcard-desc">A species with outsized influence on ecosystem structure.</div></div><div class="gcard"><div class="gcard-head">Carrying Capacity</div><div class="gcard-desc">The maximum population an environment can sustainably support.</div></div></div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+</div>
+
+<button class="nav-btn prev" onclick="prev()" aria-label="Previous slide">&#8249;</button>
+<button class="nav-btn next" onclick="next()" aria-label="Next slide">&#8250;</button>
+
+<div class="hud">
+  <button onclick="prev()" title="Previous (left arrow)">&#8249;</button>
+  <span class="counter" id="counter">1 / 27</span>
+  <button onclick="next()" title="Next (right arrow)">&#8250;</button>
+  <button onclick="toggleMenu()" title="Slide menu (O)">&#9776;</button>
+  <button onclick="toggleFs()" title="Fullscreen (F)">&#9974;</button>
+</div>
+
+<div class="menu" id="menu">
+  <button class="menu-close" onclick="toggleMenu(false)" aria-label="Close menu">&times;</button>
+  <h3>Chapter 4 &mdash; Jump to a slide</h3>
+  <div class="menu-grid"><button class="menu-item" data-go="0"><span class="menu-num">1</span>Title</button><button class="menu-item" data-go="1"><span class="menu-num">2</span>Outline</button><button class="menu-item" data-go="2"><span class="menu-num">3</span>Announcements</button><button class="menu-item" data-go="3"><span class="menu-num">4</span>Introduction</button><button class="menu-item" data-go="4"><span class="menu-num">5</span>4.1 Scales of Life</button><button class="menu-item" data-go="5"><span class="menu-num">6</span>4.1 Earth's Spheres</button><button class="menu-item" data-go="6"><span class="menu-num">7</span>4.2 Darwin &amp; Natural Selection</button><button class="menu-item" data-go="7"><span class="menu-num">8</span>4.2 Tree of Life</button><button class="menu-item" data-go="8"><span class="menu-num">9</span>4.2 Genes &amp; Mutation</button><button class="menu-item" data-go="9"><span class="menu-num">10</span>4.2 ▶ Natural Selection Sim</button><button class="menu-item" data-go="10"><span class="menu-num">11</span>4.3 Speciation &amp; Drift</button><button class="menu-item" data-go="11"><span class="menu-num">12</span>4.4 Counting Life</button><button class="menu-item" data-go="12"><span class="menu-num">13</span>4.4 ▶ Speciation Sim</button><button class="menu-item" data-go="13"><span class="menu-num">14</span>4.4 Richness vs. Evenness</button><button class="menu-item" data-go="14"><span class="menu-num">15</span>4.4 Richness vs. Evenness (Species View)</button><button class="menu-item" data-go="15"><span class="menu-num">16</span>4.4 Biogeography</button><button class="menu-item" data-go="16"><span class="menu-num">17</span>4.4 Biomes</button><button class="menu-item" data-go="17"><span class="menu-num">18</span>4.5 Three Interactions</button><button class="menu-item" data-go="18"><span class="menu-num">19</span>4.5 Yellowstone Wolves</button><button class="menu-item" data-go="19"><span class="menu-num">20</span>4.5 ▶ Cascade by the Numbers</button><button class="menu-item" data-go="20"><span class="menu-num">21</span>4.5 Coevolution</button><button class="menu-item" data-go="21"><span class="menu-num">22</span>4.6 Population Size</button><button class="menu-item" data-go="22"><span class="menu-num">23</span>4.6 Growth Patterns</button><button class="menu-item" data-go="23"><span class="menu-num">24</span>4.6 ▶ Population Sim</button><button class="menu-item" data-go="24"><span class="menu-num">25</span>4.7 Loss of Biodiversity</button><button class="menu-item" data-go="25"><span class="menu-num">26</span>4.8 What Can I Do?</button><button class="menu-item" data-go="26"><span class="menu-num">27</span>Key Concepts</button></div>
+</div>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+let cur = 0;
+const progress = document.getElementById('progress');
+const counter  = document.getElementById('counter');
+const menu = document.getElementById('menu');
+
+function show(i){
+  i = Math.max(0, Math.min(slides.length-1, i));
+  slides[cur].classList.remove('active');
+  cur = i;
+  const s = slides[cur];
+  s.classList.add('active');
+  const f = s.querySelector('iframe[data-src]');
+  if(f && !f.src){ f.src = f.getAttribute('data-src'); }
+  progress.style.width = ((cur+1)/slides.length*100)+'%';
+  var ac = (getComputedStyle(s).getPropertyValue('--accent') || '').trim();
+  progress.style.background = ac || 'var(--green-light)';
+  counter.textContent = (cur+1)+' / '+slides.length;
+  location.hash = 'slide-'+(cur+1);
+}
+function next(){ show(cur+1); }
+function prev(){ show(cur-1); }
+
+document.addEventListener('keydown', e=>{
+  if(menu.classList.contains('open')){ if(e.key==='Escape') toggleMenu(false); return; }
+  switch(e.key){
+    case 'ArrowRight': case 'PageDown': case ' ': e.preventDefault(); next(); break;
+    case 'ArrowLeft':  case 'PageUp': e.preventDefault(); prev(); break;
+    case 'Home': show(0); break;
+    case 'End': show(slides.length-1); break;
+    case 'f': case 'F': toggleFs(); break;
+    case 'o': case 'O': toggleMenu(); break;
+  }
+});
+function toggleFs(){ if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); } else { document.exitFullscreen?.(); } }
+function toggleMenu(force){ const open = force===undefined ? !menu.classList.contains('open') : force; menu.classList.toggle('open', open); }
+document.querySelectorAll('.menu-item').forEach(b=> b.addEventListener('click', ()=>{ show(+b.dataset.go); toggleMenu(false); }));
+
+const m = (location.hash||'').match(/slide-(\d+)/);
+const start = m ? (+m[1]-1) : 0;
+slides.forEach(s=>s.classList.remove('active'));
+show(start);
+</script>
+
+</body>
+</html>
