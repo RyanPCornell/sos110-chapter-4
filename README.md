@@ -7,12 +7,16 @@ A click-through web version of Chapter 4, **"Life: What Shapes Biodiversity?"**
 ## What's in the deck
 - **Announcements board** (slide 3) with upcoming assignments and editable due dates
 - **Earth's Four Spheres** (slide 6) — hand-drawn cross-section from space to Earth's interior
-- **Three live simulations** embedding the interactive **Biodiversity Explorer**:
-  natural selection (9), speciation and genetic drift (12), and population growth (23)
+- **Evolve: Build an Organism** (slide 14) — a live multiplayer game. Every student
+  founds a population of 26, before anyone knows what the world looks like; then a
+  random ecosystem is drawn and the class population runs for 8–12 generations, a
+  barrier drops, and the two halves are compared. Needs `firebase-config.js`.
+- **Four live simulations** embedding the interactive **Biodiversity Explorer**:
+  natural selection (9), speciation (12), genetic drift (13) and population growth (24)
 - **Richness vs. evenness** — two versions of an interactive evenness explorer
-  (13 = colored mosaic, 14 = hand-drawn species)
-- **Whittaker climate graph** (16) plotting biomes by mean annual temperature and precipitation
-- **"The Cascade by the Numbers"** (19) — Yellowstone wolf, elk, aspen and beaver
+  (15 = colored mosaic, 16 = hand-drawn species)
+- **Whittaker climate graph** (18) plotting biomes by mean annual temperature and precipitation
+- **"The Cascade by the Numbers"** (21) — Yellowstone wolf, elk, aspen and beaver
   data with sources cited on the slide
 
 This folder is **self-contained** — everything it needs is inside it
@@ -22,6 +26,8 @@ This folder is **self-contained** — everything it needs is inside it
 - `index.html` — the slideshow (open this)
 - `media/` — slide images and the hand-drawn SVG figures
 - `biodiversity-explorer/` — the embedded interactive app
+- `firebase-config.js` — Firebase project for the live games (not secret; the
+  Firestore rules are what control access)
 - `.nojekyll` — tells GitHub Pages to serve all files as-is
 
 ## Controls

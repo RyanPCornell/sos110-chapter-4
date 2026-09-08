@@ -563,6 +563,30 @@
   /* Embed mode: host page provides its own header */
   body.embed header { display: none !important; }
   body.embed main { padding-top: 1.25rem; }
+
+  /* a control that does not apply to the current model */
+  .ctrl-off { opacity: .4; }
+  .ctrl-off input, .ctrl-off label { cursor: not-allowed !important; }
+
+  /* ── focus mode ─────────────────────────────────────────────────────────
+     ?focus=<block> shows ONE interactive and drops the surrounding chrome,
+     so a slide can embed a single sim with no scrolling. Without the param
+     nothing changes, so the standalone app and any plain ?embed=1 embed are
+     completely unaffected. */
+  /* show ONLY the focused interactive — everything else in the panel goes, so a
+     tab does not need each extra block enumerated to stay off a slide */
+  body.focus-mode .tab-panel > * { display: none !important; }
+  body.focus-mode .tab-panel > [data-block].focus-on { display: flex !important; }
+  body.focus-mode main { padding: .85rem 1rem 1rem !important; max-width: none; }
+  body.focus-mode .sim-wrap { margin: 0 !important; }
+  body.focus-mode .sim-wrap > p { margin-bottom: .7rem !important; }
+  /* fill the frame top-to-bottom so nothing scrolls */
+  html:has(body.focus-mode), body.focus-mode { height: 100%; overflow: hidden; }
+  body.focus-mode main { height: 100%; display: flex; flex-direction: column; }
+  body.focus-mode .tab-panel.active { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+  body.focus-mode [data-block].focus-on { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+  body.focus-mode [data-block].focus-on canvas { flex: 1 1 0; min-height: 120px; height: auto; }
+  body.focus-mode .controls-grid { flex: 0 0 auto; }
 </style>
 </head>
 <body>
@@ -600,7 +624,7 @@
   </div>
 
   <!-- Natural selection simulation — TOP -->
-  <div class="sim-wrap mb-15">
+  <div class="sim-wrap mb-15" data-block="natural-selection">
     <div class="sim-title">Natural Selection Simulator <span class="badge">Live Sim</span></div>
     <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;">A population of organisms varies in color (a heritable trait). Set the environment's background and selection pressure, then watch which variants survive and reproduce across generations.<sup class="fn">1,2</sup></p>
 
@@ -706,30 +730,6 @@
     </div>
   </div>
 
-  <div class="grid-2">
-    <div class="card">
-      <h3>The Three Conditions for Natural Selection<sup class="fn">1,2</sup></h3>
-      <p style="margin-top:.5rem;font-size:.84rem;color:var(--ink);line-height:1.7;">
-        <strong style="color:var(--forest)">1. Variation</strong> — Individuals in a population differ in their traits.<br>
-        <strong style="color:var(--forest)">2. Heritability</strong> — Traits are passed from parent to offspring through genes.<br>
-        <strong style="color:var(--forest)">3. Differential survival</strong> — Some trait variants confer a survival or reproductive advantage in the current environment.
-      </p>
-      <div style="margin-top:.9rem;padding:.7rem .9rem;background:rgba(28,58,43,.06);border-radius:7px;font-size:.8rem;color:var(--muted);line-height:1.55;">
-        <em>"Survival of the fittest" refers to <strong>reproductive success</strong> — passing genes to more offspring — not physical strength.</em>
-      </div>
-    </div>
-    <div class="card">
-      <h3>Five Misconceptions About Evolution<sup class="fn">1</sup></h3>
-      <ul style="margin-top:.4rem;font-size:.83rem;color:var(--ink);line-height:1.8;padding-left:1.1rem;">
-        <li><strong style="color:var(--rust)">Myth:</strong> Evolution has a goal or direction. <strong style="color:var(--forest)">Fact:</strong> It is random variation filtered by environment.</li>
-        <li><strong style="color:var(--rust)">Myth:</strong> Individuals evolve. <strong style="color:var(--forest)">Fact:</strong> Populations evolve over generations.</li>
-        <li><strong style="color:var(--rust)">Myth:</strong> "Fittest" means strongest. <strong style="color:var(--forest)">Fact:</strong> It means leaving the most offspring.</li>
-        <li><strong style="color:var(--rust)">Myth:</strong> Organisms choose to adapt. <strong style="color:var(--forest)">Fact:</strong> Selection favors pre-existing variation.</li>
-        <li><strong style="color:var(--rust)">Myth:</strong> Humans are exempt. <strong style="color:var(--forest)">Fact:</strong> We are a major <em>driver</em> of evolution now.</li>
-      </ul>
-    </div>
-  </div>
-
   <div class="references">
     <h4>References</h4>
     <ol>
@@ -759,7 +759,7 @@
   </div>
 
   <!-- Speciation visualization — TOP -->
-  <div class="sim-wrap mb-15">
+  <div class="sim-wrap mb-15" data-block="speciation">
     <div class="sim-title">Geographic Isolation &amp; Speciation <span class="badge">Interactive</span></div>
     <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;">Two populations are separated by a barrier. <strong style="color:var(--forest)">Population A</strong> lives on a dark forest floor — dark organisms blend in and survive. <strong style="color:var(--accent)">Population B</strong> lives in a sandy desert — light organisms blend in and survive. Watch the two populations evolve in opposite directions over time.<sup class="fn">1,2</sup></p>
     <div class="controls-grid">
@@ -814,7 +814,7 @@
   </div>
 
   <!-- Genetic drift chart -->
-  <div class="sim-wrap">
+  <div class="sim-wrap" data-block="drift">
     <div class="sim-title">Genetic Drift — Allele Frequency Over Time <span class="badge">Chart</span></div>
     <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;">Trace the fate of a single allele (starting at 50% frequency) across multiple independent populations. In small populations, chance dominates — alleles go to fixation (100%) or extinction (0%) much faster.<sup class="fn">3</sup></p>
     <div class="controls-grid">
@@ -887,7 +887,7 @@
     <div class="stat-card"><div class="number">r</div><div class="label">Intrinsic growth rate of a population</div></div>
   </div>
 
-  <div class="sim-wrap mb-15">
+  <div class="sim-wrap mb-15" data-block="population">
     <div class="sim-title">Interactive Population Growth Simulator <span class="badge">Live Chart</span><sup class="fn" style="margin-left:.5rem">1,2</sup></div>
     <div class="controls-grid">
       <div class="ctrl-group">
@@ -897,7 +897,7 @@
           <span class="val-badge" id="pg-r-val">0.40</span>
         </div>
       </div>
-      <div class="ctrl-group">
+      <div class="ctrl-group" id="pg-k-group">
         <label>Carrying Capacity (K)</label>
         <div class="val-row">
           <input type="range" id="pg-k" min="100" max="2000" step="50" value="800">
@@ -929,11 +929,11 @@
 
     <div style="margin-bottom:.9rem;display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;">
       <div class="pill-toggle" id="model-toggle">
-        <button class="active" data-model="logistic">Logistic (S-curve)</button>
-        <button data-model="exponential">Exponential (J-curve)</button>
+        <button class="active" data-model="exponential">Exponential (J-curve)</button>
+        <button data-model="logistic">Logistic (S-curve)</button>
         <button data-model="boom-bust">Boom-Bust</button>
       </div>
-      <label style="font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:.35rem;cursor:pointer;">
+      <label id="show-k-label" style="font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:.35rem;cursor:pointer;">
         <input type="checkbox" id="show-k-line" checked style="accent-color:var(--leaf)"> Show K line
       </label>
     </div>
@@ -1023,6 +1023,22 @@ window.addEventListener('DOMContentLoaded', () => {
   openTabFromHash();
 });
 window.addEventListener('hashchange', openTabFromHash);
+
+/* ═══════════════════════════════════════
+   FOCUS MODE  (?focus=<data-block value>)
+═══════════════════════════════════════ */
+(function () {
+  var want = new URLSearchParams(location.search).get('focus');
+  if (!want) return;
+  function apply() {
+    document.body.classList.add('focus-mode');
+    var hit = document.querySelectorAll('[data-block="' + want + '"]');
+    for (var i = 0; i < hit.length; i++) hit[i].classList.add('focus-on');
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', apply);
+  } else { apply(); }
+})();
 
 /* ═══════════════════════════════════════
    EVOLUTION SIMULATION
@@ -1165,7 +1181,7 @@ window.addEventListener('hashchange', openTabFromHash);
 
   function resize() {
     canvas.width = canvas.offsetWidth;
-    canvas.height = 300;
+    canvas.height = canvas.offsetHeight || 300;   // flexes in focus mode
     if (organisms.length) drawFrame([]);
   }
 
@@ -1517,7 +1533,7 @@ window.addEventListener('hashchange', openTabFromHash);
 
   function resize() {
     canvas.width = canvas.offsetWidth;
-    canvas.height = 360;
+    canvas.height = canvas.offsetHeight || 360;   // flexes in focus mode
     if (popA.length) drawSpec();
     else init();
   }
@@ -1767,12 +1783,31 @@ function initPopChart() {
     btn.addEventListener('click', () => {
       document.querySelectorAll('#model-toggle button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      syncCarryingCapacity();
       updatePopChart();
     });
   });
 
   document.getElementById('show-k-line').addEventListener('change', updatePopChart);
+  syncCarryingCapacity();
   updatePopChart();
+}
+
+/* Exponential growth has no carrying capacity, so K is switched off (and shown
+   greyed) whenever that model is selected. The maths already ignores K there;
+   this just stops the control implying otherwise. */
+function syncCarryingCapacity() {
+  const active = document.querySelector('#model-toggle button.active');
+  const off = !!active && active.dataset.model === 'exponential';
+  const k = document.getElementById('pg-k');
+  const kGroup = document.getElementById('pg-k-group');
+  const kLine = document.getElementById('show-k-line');
+  const kLabel = document.getElementById('show-k-label');
+  if (k) k.disabled = off;
+  if (kLine) kLine.disabled = off;
+  if (kGroup) kGroup.classList.toggle('ctrl-off', off);
+  if (kLabel) kLabel.classList.toggle('ctrl-off', off);
+  if (kGroup) kGroup.title = off ? 'Not applicable: exponential growth is unlimited by carrying capacity' : '';
 }
 
 function updatePopChart() {
@@ -1852,25 +1887,30 @@ function updatePopChart() {
   let step = 0;
   const steps = document.querySelectorAll('.cascade-step');
   const status = document.getElementById('cascade-status');
+  const nextBtn = document.getElementById('cascade-next');
+  const resetBtn = document.getElementById('cascade-reset');
+  // The trophic-cascade UI is no longer on the page; without this guard the
+  // listeners below threw an uncaught TypeError on every load of the app.
+  if (!steps.length || !status || !nextBtn || !resetBtn) return;
 
-  document.getElementById('cascade-next').addEventListener('click', () => {
+  nextBtn.addEventListener('click', () => {
     if (step < steps.length - 1) {
       step++;
       steps[step].classList.add('revealed');
       status.textContent = `Step ${step} of ${steps.length - 1}`;
       if (step === steps.length - 1) {
-        document.getElementById('cascade-next').textContent = 'Complete ✓';
-        document.getElementById('cascade-next').disabled = true;
+        nextBtn.textContent = 'Complete ✓';
+        nextBtn.disabled = true;
         status.textContent = 'The entire landscape changed — one predator restored.';
       }
     }
   });
 
-  document.getElementById('cascade-reset').addEventListener('click', () => {
+  resetBtn.addEventListener('click', () => {
     step = 0;
     steps.forEach((s, i) => { if (i > 0) s.classList.remove('revealed'); });
-    document.getElementById('cascade-next').textContent = 'Next Step →';
-    document.getElementById('cascade-next').disabled = false;
+    nextBtn.textContent = 'Next Step →';
+    nextBtn.disabled = false;
     status.textContent = '';
   });
 })();
@@ -1925,6 +1965,9 @@ function initExtinctionBars() {
 
   const btnContainer = document.getElementById('biome-buttons');
   const detail = document.getElementById('biome-detail');
+  // The biome-explorer UI is no longer on the page; without this guard the loop
+  // below threw an uncaught TypeError on every load of the app.
+  if (!btnContainer || !detail) return;
 
   biomes.forEach((b, i) => {
     const btn = document.createElement('button');
