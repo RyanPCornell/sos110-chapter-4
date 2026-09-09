@@ -860,6 +860,15 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 .ev-divname{font-family:'Merriweather',serif; font-weight:900; color:#3b3222;
   font-size:clamp(.86rem,1.5vw,1.12rem); margin-top:.22rem; line-height:1.15;}
 .ev-divname.sm{font-size:clamp(.76rem,1.25vw,.94rem);}
+/* one row per species, so the verdict always says what it is about */
+.ev-svrow{display:flex; align-items:center; gap:.45rem; padding:.2rem 0;
+  border-bottom:1px solid rgba(120,100,60,.14);}
+.ev-svrow:last-of-type{border-bottom:0;}
+.ev-svname{flex:0 0 5.6rem; font-size:clamp(.64rem,1vw,.75rem); font-weight:700; color:#3b3222;}
+.ev-divbar.sm{flex:1 1 auto; height:8px; margin:0;}
+.ev-svverdict{flex:0 0 auto; font-size:clamp(.6rem,.95vw,.7rem); color:#5e5340; text-align:right;
+  min-width:6.4rem;}
+.ev-svverdict.two{color:var(--accent); font-weight:800;}
 .ev-sumline{font-size:clamp(.68rem,1.06vw,.8rem); color:#4a4436; line-height:1.45;}
 .ev-sumline b{font-family:'Merriweather',serif; color:#3b3222;}
 .fm-row{stroke:rgba(120,100,60,.2); stroke-width:1; fill:none;}
@@ -3347,29 +3356,18 @@ function drawBands(svg, W, H){
    pooled, on side A and on side B, and how far the two halves have moved. The
    two animals are drawn in the colours those halves actually reached. ══ */
 function speciesSplitRows(){
-  /* ⚠️ Two students who both picked Stonecoil never interbreed: nothing in the
-     model moves individuals or traits between lineages, so a "species" here is
-     a body plan, not a reproductive unit. Pooling everyone who picked one and
-     asking whether THAT would interbreed was therefore asking a question the
-     model does not answer.
-
-     So each player's own population is judged on its own — which is the verdict
-     that means something — and the row reports how many of them came apart. */
-  var G=gens(), i=splitIdx()||G, ds=designs();
+  /* Everyone who picked a species interbreeds with the rest of it, so on each
+     side of the barrier a species IS one population — and one population gets
+     one verdict. Counting how many individual players' lineages came apart was
+     the right question back when lineages never interbred; gene flow made it
+     the wrong one, and "2 of 4 split" was the symptom of asking it anyway. */
+  var G=gens(), i=splitIdx()||G, ds=designs(), counts={};
+  Object.keys(ds).forEach(function(k){ counts[ds[k].sp]=(counts[ds[k].sp]||0)+1; });
   var sa=snapAt(1,i), sb=snapAt(2,i);
   return SPECIES.map(function(sp){
-    var members=Object.keys(ds).filter(function(k){ return ds[k].sp===sp.k; });
-    var two=0, lost=0, judged=0, Dsum=0;
-    members.forEach(function(k){
-      var A=lineMean(sa,k), B=lineMean(sb,k);
-      if(!A||!B){ lost++; return; }
-      var dv=divergence(A,B);
-      judged++; Dsum+=dv.D;
-      if(dv.D>=0.45) two++;
-    });
-    return {sp:sp, n:members.length, two:two, lost:lost, judged:judged,
-            D:(judged? Dsum/judged : 0),
-            A:speciesMean(sa,sp.k), B:speciesMean(sb,sp.k)};
+    var A=speciesMean(sa,sp.k), B=speciesMean(sb,sp.k);
+    return {sp:sp, n:counts[sp.k]||0, A:A, B:B,
+            dv:(counts[sp.k] ? divergence(A,B) : null)};
   }).filter(function(r){ return r.n>0; });
 }
 function drawSpeciesSplit(svg, W, H){
@@ -3411,22 +3409,15 @@ function drawSpeciesSplit(svg, W, H){
       s+='<g transform="translate('+(cx-50*sc).toFixed(1)+','+(cy-45*sc-4).toFixed(1)+') scale('+sc+')">'
         + critter(r.sp.k, Math.round(m.hue), 'solid', CRIT_SAT, CRIT_LIT) +'</g>';
     });
-    var D=r.D;
-    /* "1 of 2 split" was doing too much work in three words. Say what split
-       means and what the denominator is. */
-    var verdict = r.judged===0 ? 'every one lost a side'
-                : r.two===0 ? 'none became two species'
-                : r.two+' of '+r.judged+' became two species';
+    var D=r.dv? r.dv.D : 0, verdict = r.dv? r.dv.name : '—';
     s+='<rect class="ss-track" x="'+xBar+'" y="'+(cy-7).toFixed(1)+'" width="'+barW+'" height="14" rx="7"/>'
       +'<rect class="ss-fill" x="'+xBar+'" y="'+(cy-7).toFixed(1)+'" width="'
       +Math.max(4,barW*Math.min(1,D)).toFixed(1)+'" height="14" rx="7"/>'
-      +'<text class="ss-verdict'+(r.two&&r.two===r.judged?' two':'')+'" x="'+(xBar+barW+12)+'" y="'+(cy+5).toFixed(1)+'">'
+      +'<text class="ss-verdict'+(D>=0.45?' two':'')+'" x="'+(xBar+barW+12)+'" y="'+(cy+5).toFixed(1)+'">'
       +verdict+'</text>';
-    if(r.lost) s+='<text class="ss-sub" x="'+(xBar+barW+12)+'" y="'+(cy+19).toFixed(1)+'">'
-      +'the other '+r.lost+' lost a side entirely</text>';
   });
-  s+='<text class="bd-leg" x="46" y="'+(H-14)+'">The bar is how far that species&#8217; two halves moved apart on '
-    +'average. A population &#8220;becomes two species&#8221; when its halves would no longer interbreed if reunited.</text>';
+  s+='<text class="bd-leg" x="46" y="'+(H-14)+'">The bar is how far that species&#8217; two halves moved apart. '
+    +'They are &#8220;two species&#8221; once they would no longer interbreed if the barrier came down.</text>';
   svg.innerHTML=s;
   return true;
 }
@@ -3903,20 +3894,48 @@ function renderReadout(){
 
 /* two worlds, side by side, and the one number that says whether the class has
    made two species out of one */
+/* ⚠️ This panel used to pool the WHOLE CLASS with popMean and print one
+   verdict, which on the projector read as "a species is diverging" without
+   ever saying which — because it was not a species at all, it was five of them
+   averaged together, and they cannot interbreed with each other. Divergence is
+   only meaningful within one interbreeding population, so the panel now names
+   what it is measuring: every species for the room, the viewer's own for a
+   student. */
+function speciesVerdictBlock(){
+  var rows=speciesSplitRows();
+  if(!rows.length) return '';
+  var h='<div class="ev-blk"><div class="ev-bh">Have they become two species?</div>';
+  rows.forEach(function(r){
+    var D=r.dv? r.dv.D : 0;
+    h+='<div class="ev-svrow"><span class="ev-svname">'+r.sp.n+'</span>'
+      +'<span class="ev-divbar sm"><i style="width:'+(D*100).toFixed(0)+'%"></i>'
+      +'<b style="left:30%"></b><b style="left:45%"></b></span>'
+      +'<span class="ev-svverdict'+(D>=0.45?' two':'')+'">'+(r.dv? r.dv.name : '—')+'</span></div>';
+  });
+  return h+'<div class="ev-hint">Each species is one gene pool on each side of the barrier, '
+    +'so each gets its own answer.</div></div>';
+}
+function oneVerdictBlock(mA, mB, who){
+  var dv=divergence(mA,mB);
+  if(!dv) return '';
+  return '<div class="ev-blk"><div class="ev-bh">Has '+who+' become two species?</div>'
+    +'<div class="ev-divbar"><i style="width:'+(dv.D*100).toFixed(0)+'%"></i>'
+    +'<b style="left:30%"></b><b style="left:45%"></b></div>'
+    +'<div class="ev-divname">'+dv.name+'</div>'
+    +'<div class="ev-divtext">'+dv.text+'</div></div>';
+}
 function renderSplitReadout(box){
   var i=splitIdx()||gens();
   var eA=world(1), eB=world(2), sA=snapAt(1,i), sB=snapAt(2,i);
-  var mA=popMean(sA), mB=popMean(sB), dv=divergence(mA,mB);
+  var d=myDesign(), mine=(!HOST && d);
+  /* a student is shown their own species; the room is shown all of them */
+  var mA = mine ? speciesMean(sA, d.sp) : popMean(sA);
+  var mB = mine ? speciesMean(sB, d.sp) : popMean(sB);
   var h='<div class="ev-blk gen"><div class="ev-bh">The two halves</div>'
     +'<div class="ev-genrow"><div><div class="ev-big">'+(sA?num(sA.tot):0)+'</div><div class="ev-sub">side A</div></div>'
     +'<div><div class="ev-big">'+(sB?num(sB.tot):0)+'</div><div class="ev-sub">side B</div></div></div></div>';
-  if(dv){
-    h+='<div class="ev-blk"><div class="ev-bh">Have they become two species?</div>'
-      +'<div class="ev-divbar"><i style="width:'+(dv.D*100).toFixed(0)+'%"></i>'
-      +'<b style="left:30%"></b><b style="left:45%"></b></div>'
-      +'<div class="ev-divname">'+dv.name+'</div>'
-      +'<div class="ev-divtext">'+dv.text+'</div></div>';
-  }
+  h += mine ? oneVerdictBlock(mA, mB, 'your '+SPBY[d.sp].n)
+            : speciesVerdictBlock();
   if(!mA||!mB){
     h+='<div class="ev-blk"><div class="ev-bh">What each side is becoming</div>'
       +'<div class="ev-hint">'+(mA?'Side B is empty — there is nothing left there to compare.'
@@ -4031,10 +4050,16 @@ function renderFinal(box){
     +'</div></div>';
 
   if(didSplit()){
-    var i=splitIdx()||G, dv=divergence(popMean(snapAt(1,i)),popMean(snapAt(2,i)));
-    if(dv) h+='<div class="ev-blk">'+bhead('V','Divergence')
-      +'<div class="ev-divname sm">'+dv.name+'</div>'
-      +'<div class="ev-hint">'+dv.text+'</div></div>';
+    var d5=myDesign();
+    if(!HOST && d5){
+      var i5=splitIdx()||G;
+      var dv=divergence(speciesMean(snapAt(1,i5), d5.sp), speciesMean(snapAt(2,i5), d5.sp));
+      if(dv) h+='<div class="ev-blk">'+bhead('V','Your '+SPBY[d5.sp].n)
+        +'<div class="ev-divname sm">'+dv.name+'</div>'
+        +'<div class="ev-hint">'+dv.text+'</div></div>';
+    } else {
+      h+=speciesVerdictBlock();
+    }
   }
   box.innerHTML=h;
 }
