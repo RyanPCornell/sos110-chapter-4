@@ -4616,12 +4616,12 @@ function demoRun(){
     if(s){ full.push(s); return; }
     if(full.length && full[full.length-1][2].indexOf('The run begins')>-1){
       for(var g=2; g<=10; g++) (function(gg){
-        full.push([3100, function(){ doc({genIdx:gg}); },
+        full.push([4000, function(){ doc({genIdx:gg}); },
           'Generation '+gg+' of 10. Watch the colors: a mix persists for several generations before one takes over.']);
       })(g);
     } else {
       for(var k=2; k<=10; k++) (function(kk){
-        full.push([2500, function(){ doc({splitIdx:kk}); },
+        full.push([3200, function(){ doc({splitIdx:kk}); },
           'Generation '+kk+' since the barrier. The two halves are drifting apart.']);
       })(k);
     }
@@ -6599,10 +6599,14 @@ show(start);
         [5200, ()=>{ const b=bar.querySelector('[data-cmreplay]'); if(b) b.hidden=false; },
          'Nobody cheated. Every individual choice was the rational one — that is what makes it a tragedy.']
       ];
+      /* one dial for the whole walkthrough: the beats are all "watch this
+         happen", so they slow together and the captions get read */
+      const PACE=1.35;
       function play(){
         if(step>=script.length) return;
         const s=script[step++];
-        tid=setTimeout(function(){ txt.textContent=s[2]; try{ s[1](); }catch(e){} play(); }, s[0]);
+        tid=setTimeout(function(){ txt.textContent=s[2]; try{ s[1](); }catch(e){} play(); },
+                       Math.round(s[0]*PACE));
       }
       const FR=CMQ.has('freeze') ? parseInt(CMQ.get('freeze'),10) : -1;
       if(FR>=0){
