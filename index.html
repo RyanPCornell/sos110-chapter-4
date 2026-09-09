@@ -4584,7 +4584,7 @@ function demoRun(){
         doc({players:pl});
       }, N+' students tap Join — you are one of them. Nobody is told anything about the world yet.'],
     [2600, function(){ doc({phase:'design', deadline:Date.now()+9000}); },
-        'Design opens. Each student builds one organism: species, colour, pattern, four trait points, and how it raises its young.'],
+        'Design opens. Each student founds a population of 26, before anyone knows the world.'],
     [1500, function(){ var d={}; for(var i=0;i<9;i++) d['d'+i]=mkDesign(i); doc({designs:d}); },
         'Designs start landing. The projected copy fills with specimens as they lock in.'],
     [2200, function(){ var d={}; for(var i=9;i<20;i++) d['d'+i]=mkDesign(i); doc({designs:d}); },
@@ -4600,15 +4600,15 @@ function demoRun(){
         'The run begins. Nobody can touch their organism from here — selection does the editing.'],
     null,  /* generations get filled in below */
     [1200, function(){ doc({phase:'discuss'}); },
-        'End of the run. Each student gets their own family tree — one row per generation, every line that split off, kept going, or died out.'],
+        'End of the run. Each student sees their own population, one bar per generation.'],
     [5200, function(){ famSel=null; doc({phase:'split', splitIdx:1}); },
         'Then a barrier drops. Side A keeps the original world; side B differs in a few conditions.'],
     null,  /* barrier generations */
     [1400, function(){ doc({phase:'final'}); },
-        'The barrier figure: the class as one population at the top, and the two halves it became, each ribbon coloured by its own generations.'],
+        'Their own population at the top, and the two halves the barrier made of it.'],
     [6000, function(){
         var b=bar.querySelector('[data-demoreplay]'); if(b) b.hidden=false;
-      }, 'Same founders, no gene flow, two environments \u2014 and two populations that no longer match.']
+      }, 'Same founders, cut in two. They interbred until the barrier; now they cannot.']
   ];
   /* expand the two run phases into per-generation ticks */
   var full=[];
@@ -4626,10 +4626,27 @@ function demoRun(){
       })(k);
     }
   });
+  /* Same rule as the commons walkthrough: a caption holds for at least as long
+     as it takes to read, with the scripted delay as the floor under that. The
+     per-generation lines differ only in their number, so they count as one
+     sentence ticking over and do not restart the reading clock. */
+  var WPM=190, lastCap='';
+  function readMs(t){
+    var w=String(t||'').trim().split(/\s+/).length;
+    return Math.round(750 + w*(60000/WPM));
+  }
+  function sameIdea(a,b){
+    return String(a).replace(/\d+/g,'#') === String(b).replace(/\d+/g,'#');
+  }
   function play(){
     if(step>=full.length) return;
     var s=full[step++];
-    tid=setTimeout(function(){ say(s[2]); try{ s[1](); }catch(e){} play(); }, s[0]);
+    var floor = (lastCap && !sameIdea(lastCap, s[2])) ? readMs(lastCap) : 0;
+    tid=setTimeout(function(){
+      say(s[2]); lastCap=s[2];
+      try{ s[1](); }catch(e){}
+      play();
+    }, Math.max(s[0], floor));
   }
   if(FREEZE>=0){
     bar.hidden=true;
@@ -6566,12 +6583,12 @@ show(start);
       const script=[
         [200, ()=>backend.setDoc('polls', id, {v:2, phase:'lobby', scen:'fishing', rounds:ROUNDS,
               round:0, health:1, gameId:Date.now(), collapsed:false, players:{}, choices:{}, hist:{}}),
-         'The instructor picks a scenario and opens the lobby. Every student has the deck open on their own device.'],
+         'The instructor picks a scenario and opens the lobby.'],
         [2400, ()=>{ const pl={}; for(let i=0;i<N;i++) pl['b'+i]=Date.now()+i;
               pl[pk]=Date.now()+N; doc({players:pl}); },
          (N+1)+' fishers join the village — you are one of them. Nobody types a name; everyone is Student N by join order.'],
         [2600, ()=>doc({phase:'open', round:1}),
-         'Round one opens. Everyone secretly chooses a harvest, and three live payoff examples spell out the dilemma before you lock in.'],
+         'Round one. Everyone secretly chooses a harvest; three payoff examples spell out the dilemma.'],
         [2600, ()=>choices(1,AVG[1]),
          'Choices are locked in and stay hidden. Most people take a modest share this first season.'],
         [2400, ()=>endRound(1),
@@ -6599,14 +6616,31 @@ show(start);
         [5200, ()=>{ const b=bar.querySelector('[data-cmreplay]'); if(b) b.hidden=false; },
          'Nobody cheated. Every individual choice was the rational one — that is what makes it a tragedy.']
       ];
-      /* one dial for the whole walkthrough: the beats are all "watch this
-         happen", so they slow together and the captions get read */
-      const PACE=1.35;
+      /* A caption has to stay up long enough to READ, and they run from seven to
+         twenty-one words while the beats are all about the same length — so
+         scaling the whole script never fixed it, it just made the short ones
+         idle. Each caption now holds for at least its own reading time at a
+         projector-friendly pace, and the scripted delay is the floor under
+         that. A caption that differs from the last one only in its numbers is
+         the same sentence ticking over, so it does not restart the clock. */
+      const PACE=1.15, WPM=190;
+      function readMs(t){
+        const w=String(t||'').trim().split(/\s+/).length;
+        return Math.round(750 + w*(60000/WPM));
+      }
+      function sameIdea(a,b){
+        return String(a).replace(/\d+/g,'#') === String(b).replace(/\d+/g,'#');
+      }
+      let lastCap='';
       function play(){
         if(step>=script.length) return;
         const s=script[step++];
-        tid=setTimeout(function(){ txt.textContent=s[2]; try{ s[1](); }catch(e){} play(); },
-                       Math.round(s[0]*PACE));
+        const floor = (lastCap && !sameIdea(lastCap, s[2])) ? readMs(lastCap) : 0;
+        tid=setTimeout(function(){
+          txt.textContent=s[2]; lastCap=s[2];
+          try{ s[1](); }catch(e){}
+          play();
+        }, Math.max(Math.round(s[0]*PACE), floor));
       }
       const FR=CMQ.has('freeze') ? parseInt(CMQ.get('freeze'),10) : -1;
       if(FR>=0){
