@@ -1215,6 +1215,44 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
 .at-close{margin-top:1rem; font-family:inherit; font-weight:700; color:var(--muted); background:#fff;
   border:1.5px solid var(--line); border-radius:11px; padding:.5rem 1.2rem; cursor:pointer;}
 .at-close:hover{border-color:var(--accent); color:var(--accent);}
+
+
+/* media step-through: one slide, several videos/stills, clicker-advanced */
+.slide[data-type="msteps"]{background:linear-gradient(160deg,#f7f9fb,#eceff3);}
+.ms-root{position:absolute; inset:0; display:flex; flex-direction:column;
+  padding:clamp(.9rem,2.3vh,1.5rem) clamp(1.4rem,3.2vw,3rem) clamp(.7rem,1.8vh,1.2rem);}
+.ms-head{margin-bottom:clamp(.35rem,1vh,.7rem);}
+.ms-head .heading{margin-bottom:.25rem;}
+.ms-sub{font-size:clamp(.8rem,1.28vw,.97rem); color:var(--muted); max-width:92ch; line-height:1.45;}
+.ms-stage{flex:1; min-height:0; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; position:relative;}
+.ms-item{width:100%; height:100%; display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:.5rem; min-height:0;}
+.ms-item[hidden]{display:none;}
+.ms-media{max-width:100%; max-height:100%; min-height:0; width:auto; height:auto;
+  border-radius:12px; border:1px solid var(--line); background:#fff;
+  box-shadow:0 8px 26px rgba(20,40,30,.16); animation:ms-in .32s ease;}
+@keyframes ms-in{from{opacity:0; transform:translateY(6px) scale(.995);}}
+.ms-cap{flex:none; font-size:clamp(.82rem,1.32vw,1.02rem); color:#33453d; text-align:center;
+  max-width:80ch; line-height:1.4;}
+.ms-cap strong{color:var(--forest);}
+.ms-foot{flex:none; display:flex; align-items:center; gap:.9rem;
+  margin-top:clamp(.4rem,1.1vh,.7rem);}
+.ms-dots{display:flex; gap:.4rem;}
+.ms-dot{width:1.75rem; height:1.75rem; border-radius:50%; cursor:pointer;
+  border:1.5px solid var(--line); background:#fff; color:var(--muted);
+  font-family:inherit; font-weight:800; font-size:.78rem; line-height:1;
+  display:flex; align-items:center; justify-content:center; padding:0;
+  transition:background .18s, color .18s, border-color .18s, transform .18s;}
+.ms-dot:hover{border-color:var(--accent); color:var(--accent);}
+.ms-dot.on{background:var(--accent); border-color:var(--accent); color:#fff; transform:scale(1.1);}
+.ms-hint{font-size:clamp(.72rem,1.12vw,.85rem); color:var(--muted); font-style:italic;}
+.ms-hint b{font-style:normal; font-family:'Merriweather',serif; color:var(--forest);
+  font-variant-numeric:tabular-nums;}
+@media (max-width:820px){
+  .ms-stage{min-height:34vh;}
+  .ms-foot{flex-wrap:wrap;}
+}
 </style>
 </head>
 <body>
@@ -1250,6 +1288,88 @@ img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     <div class="an-att" data-at-bar hidden><button class="an-att-btn" type="button" data-at-open>Attendance</button><select class="an-att-sel" data-at-section aria-label="Class section"><option value="MWF0905">MWF 9:05 am</option><option value="MWF1220">MWF 12:20 pm</option><option value="TTH1200">TTh 12:00 pm</option></select><button class="an-att-btn go" type="button" data-at-finalize hidden>Submit Attendance</button><button class="an-att-cancel" type="button" data-at-cancel hidden>Cancel</button><button class="an-att-cancel" type="button" data-at-clear hidden>Clear last roll call</button><span class="an-att-status" data-at-status></span></div>
   </div>
   <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+</section>
+<section class="slide mediasteps" data-type="msteps" id="ms1" style="--accent:#2D6A4F">
+  <div class="ms-root">
+    <div class="ms-head">
+      <div class="eyebrow">Announcements  ·  Getting Started</div>
+      <h2 class="heading">How to find and take the Module 2: Biomimicry Quiz</h2>
+      <p class="ms-sub">5 multiple-choice questions  ·  30 minutes  ·  one sitting</p>
+    </div>
+    <div class="ms-stage"><figure class="ms-item" data-ms-item="0"><img class="ms-media" src="media/bq-step1.png" alt="Canvas Modules page for Module 2, with blue arrows pointing to the reading materials under Learning Materials and a red arrow pointing to the Module 2: Biomimicry quiz under Quiz"><figcaption class="ms-cap">In <strong>Canvas</strong>, open <strong>Modules</strong> and scroll to <strong>Module 2</strong>. The reading sits under <strong>Learning Materials</strong> (blue), and <strong>Module 2: Biomimicry</strong> sits at the bottom of <strong>Quiz</strong> (red). Do the reading first — the timer keeps running once you start.</figcaption></figure><figure class="ms-item" data-ms-item="1" hidden><img class="ms-media" src="media/bq-step2.png" alt="The Module 2 Readings and Viewings page on the Required Readings tab, with a blue arrow pointing to the Biomimicry Resource Handbook link"><figcaption class="ms-cap">Open <strong>Module 2 Readings and Viewings</strong>, stay on <strong>Required Readings</strong>, and open <strong>Baumeister et al. (2014), Biomimicry Resource Handbook: Life's Principles, and Biomimicry Spirals</strong>. That is what the quiz covers. You may be prompted to log in with your <strong>ASU credentials</strong>.</figcaption></figure></div>
+    <div class="ms-foot">
+      <div class="ms-dots"><button class="ms-dot on" type="button" data-ms-dot="0" aria-label="Step 1 of 2"><span>1</span></button><button class="ms-dot" type="button" data-ms-dot="1" aria-label="Step 2 of 2"><span>2</span></button></div>
+      <span class="ms-hint">Click to advance <b data-ms-count>1 / 2</b></span>
+    </div>
+  </div>
+  <div class="footer">© 2023 W. W. Norton &amp; Company, Inc.</div>
+  <script>
+  (function(){
+    var sec = document.getElementById("ms1");
+    if(!sec) return;
+    var N = 2;
+    var items = sec.querySelectorAll("[data-ms-item]");
+    var dots  = sec.querySelectorAll("[data-ms-dot]");
+    var count = sec.querySelector("[data-ms-count]");
+    var step = 0, backwards = false;
+
+    var FWD  = ["ArrowRight","PageDown"," ","Spacebar"];
+    var BACK = ["ArrowLeft","PageUp"];
+
+    function show(i){
+      step = Math.max(0, Math.min(N-1, i));
+      for(var k=0;k<items.length;k++){
+        var on = (k===step);
+        items[k].hidden = !on;
+        dots[k].classList.toggle("on", on);
+        var v = items[k].querySelector("[data-ms-video]");
+        if(v){
+          if(on){ try{ v.currentTime = 0;
+            // play() rejects if the browser power-pauses or we pause straight
+            // after; harmless, but it litters the console if left unhandled
+            var pr = v.play(); if(pr && pr.catch) pr.catch(function(){});
+          }catch(e){} }
+          else  { try{ v.pause(); }catch(e){} }
+        }
+      }
+      count.textContent = (step+1) + " / " + N;
+    }
+    function pauseAll(){
+      sec.querySelectorAll("[data-ms-video]").forEach(function(v){ try{ v.pause(); }catch(e){} });
+    }
+
+    for(var d=0; d<dots.length; d++){
+      (function(i){ dots[i].addEventListener("click", function(){ show(i); }); })(d);
+    }
+    // tapping the picture also advances, for presenting without a clicker
+    sec.querySelector(".ms-stage").addEventListener("click", function(e){
+      if(e.target.closest("[data-ms-video]")) return;   // let video controls work
+      if(step < N-1) show(step+1);
+    });
+
+    // Capture phase on document: this runs BEFORE the deck's own bubble-phase key
+    // handler, so we can swallow the keypress while there are steps left and let
+    // it through to change slides once we run out.
+    document.addEventListener("keydown", function(e){
+      if(FWD.indexOf(e.key) > -1) backwards = false;
+      else if(BACK.indexOf(e.key) > -1) backwards = true;
+      if(!sec.classList.contains("active")) return;
+      if(FWD.indexOf(e.key) > -1 && step < N-1){
+        e.preventDefault(); e.stopPropagation(); show(step+1);
+      } else if(BACK.indexOf(e.key) > -1 && step > 0){
+        e.preventDefault(); e.stopPropagation(); show(step-1);
+      }
+    }, true);
+
+    // reset when the slide is shown; entering from the right lands on the last step
+    new MutationObserver(function(){
+      if(sec.classList.contains("active")) show(backwards ? N-1 : 0);
+      else pauseAll();
+    }).observe(sec, {attributes:true, attributeFilter:["class"]});
+
+    if(sec.classList.contains("active")) show(0);
+  })();
+  </script>
 </section>
 <section class="slide" data-type="quote" style="--accent:#2D6A4F">
   <div class="bleed-grid">
@@ -5219,7 +5339,7 @@ window.__deckLiveReady.then(function(live){
 
 <div class="hud">
   <button onclick="prev()" title="Previous (left arrow)">&#8249;</button>
-  <span class="counter" id="counter">1 / 27</span>
+  <span class="counter" id="counter">1 / 28</span>
   <button onclick="next()" title="Next (right arrow)">&#8250;</button>
   <button onclick="toggleMenu()" title="Slide menu (O)">&#9776;</button>
   <button onclick="toggleFs()" title="Fullscreen (F)">&#9974;</button>
@@ -5228,7 +5348,7 @@ window.__deckLiveReady.then(function(live){
 <div class="menu" id="menu">
   <button class="menu-close" onclick="toggleMenu(false)" aria-label="Close menu">&times;</button>
   <h3>Chapter 4 &mdash; Jump to a slide</h3>
-  <div class="menu-grid"><button class="menu-item" data-go="0"><span class="menu-num">1</span>Title</button><button class="menu-item" data-go="1"><span class="menu-num">2</span>Outline</button><button class="menu-item" data-go="2"><span class="menu-num">3</span>Announcements</button><button class="menu-item" data-go="3"><span class="menu-num">4</span>Introduction</button><button class="menu-item" data-go="4"><span class="menu-num">5</span>4.1 Scales of Life</button><button class="menu-item" data-go="5"><span class="menu-num">6</span>4.1 Earth's Spheres</button><button class="menu-item" data-go="6"><span class="menu-num">7</span>4.2 Darwin &amp; Natural Selection</button><button class="menu-item" data-go="7"><span class="menu-num">8</span>4.2 Tree of Life</button><button class="menu-item" data-go="8"><span class="menu-num">9</span>4.2 ▶ Natural Selection Sim</button><button class="menu-item" data-go="9"><span class="menu-num">10</span>4.3 Speciation &amp; Drift</button><button class="menu-item" data-go="10"><span class="menu-num">11</span>4.4 Counting Life</button><button class="menu-item" data-go="11"><span class="menu-num">12</span>4.4 ▶ Speciation Sim</button><button class="menu-item" data-go="12"><span class="menu-num">13</span>4.4 ▶ Genetic Drift</button><button class="menu-item" data-go="13"><span class="menu-num">14</span>4.3 ▶ Evolve</button><button class="menu-item" data-go="14"><span class="menu-num">15</span>4.4 Richness vs. Evenness</button><button class="menu-item" data-go="15"><span class="menu-num">16</span>4.4 Richness vs. Evenness (Species View)</button><button class="menu-item" data-go="16"><span class="menu-num">17</span>4.4 Biogeography</button><button class="menu-item" data-go="17"><span class="menu-num">18</span>4.4 Biomes</button><button class="menu-item" data-go="18"><span class="menu-num">19</span>4.5 Three Interactions</button><button class="menu-item" data-go="19"><span class="menu-num">20</span>4.5 Yellowstone Wolves</button><button class="menu-item" data-go="20"><span class="menu-num">21</span>4.5 ▶ Cascade by the Numbers</button><button class="menu-item" data-go="21"><span class="menu-num">22</span>4.6 Population Size</button><button class="menu-item" data-go="22"><span class="menu-num">23</span>4.6 Growth Patterns</button><button class="menu-item" data-go="23"><span class="menu-num">24</span>4.6 ▶ Population Sim</button><button class="menu-item" data-go="24"><span class="menu-num">25</span>4.7 Loss of Biodiversity</button><button class="menu-item" data-go="25"><span class="menu-num">26</span>4.8 What Can I Do?</button><button class="menu-item" data-go="26"><span class="menu-num">27</span>Key Concepts</button></div>
+  <div class="menu-grid"><button class="menu-item" data-go="0"><span class="menu-num">1</span>Title</button><button class="menu-item" data-go="1"><span class="menu-num">2</span>Outline</button><button class="menu-item" data-go="2"><span class="menu-num">3</span>Announcements</button><button class="menu-item" data-go="3"><span class="menu-num">4</span>How to take the Biomimicry Quiz</button><button class="menu-item" data-go="4"><span class="menu-num">5</span>Introduction</button><button class="menu-item" data-go="5"><span class="menu-num">6</span>4.1 Scales of Life</button><button class="menu-item" data-go="6"><span class="menu-num">7</span>4.1 Earth's Spheres</button><button class="menu-item" data-go="7"><span class="menu-num">8</span>4.2 Darwin &amp; Natural Selection</button><button class="menu-item" data-go="8"><span class="menu-num">9</span>4.2 Tree of Life</button><button class="menu-item" data-go="9"><span class="menu-num">10</span>4.2 ▶ Natural Selection Sim</button><button class="menu-item" data-go="10"><span class="menu-num">11</span>4.3 Speciation &amp; Drift</button><button class="menu-item" data-go="11"><span class="menu-num">12</span>4.4 Counting Life</button><button class="menu-item" data-go="12"><span class="menu-num">13</span>4.4 ▶ Speciation Sim</button><button class="menu-item" data-go="13"><span class="menu-num">14</span>4.4 ▶ Genetic Drift</button><button class="menu-item" data-go="14"><span class="menu-num">15</span>4.3 ▶ Evolve</button><button class="menu-item" data-go="15"><span class="menu-num">16</span>4.4 Richness vs. Evenness</button><button class="menu-item" data-go="16"><span class="menu-num">17</span>4.4 Richness vs. Evenness (Species View)</button><button class="menu-item" data-go="17"><span class="menu-num">18</span>4.4 Biogeography</button><button class="menu-item" data-go="18"><span class="menu-num">19</span>4.4 Biomes</button><button class="menu-item" data-go="19"><span class="menu-num">20</span>4.5 Three Interactions</button><button class="menu-item" data-go="20"><span class="menu-num">21</span>4.5 Yellowstone Wolves</button><button class="menu-item" data-go="21"><span class="menu-num">22</span>4.5 ▶ Cascade by the Numbers</button><button class="menu-item" data-go="22"><span class="menu-num">23</span>4.6 Population Size</button><button class="menu-item" data-go="23"><span class="menu-num">24</span>4.6 Growth Patterns</button><button class="menu-item" data-go="24"><span class="menu-num">25</span>4.6 ▶ Population Sim</button><button class="menu-item" data-go="25"><span class="menu-num">26</span>4.7 Loss of Biodiversity</button><button class="menu-item" data-go="26"><span class="menu-num">27</span>4.8 What Can I Do?</button><button class="menu-item" data-go="27"><span class="menu-num">28</span>Key Concepts</button></div>
 </div>
 
 <script>
@@ -6596,25 +6716,25 @@ show(start);
         [3400, ()=>doc({phase:'open', round:2}),
          'Round two. The board is public now, and taking more is visibly what paid best.'],
         [2200, ()=>choices(2,AVG[2]),
-         'The take climbs. Nobody has done anything against the rules.'],
+         'Here the take climbs. Nobody has broken a rule.'],
         [2400, ()=>endRound(2),
          'Over the threshold. Everyone’s payout multiplier falls — including the people who held back.'],
         [3600, ()=>doc({phase:'open', round:3}),
-         'Round three. Holding back now costs you and barely helps the stock, so almost nobody does.'],
+         'Round three. Holding back now costs you and barely helps the stock.'],
         [2200, ()=>choices(3,AVG[3]),
-         'Nearly the whole class fishes near the maximum.'],
+         'In this run, nearly everyone fishes near the maximum.'],
         [2400, ()=>endRound(3),
          'Past capacity. The round pays nothing at all, and the fish population crashes.'],
         [3800, ()=>doc({phase:'open', round:4}),
          'Round four, on a wrecked resource. Capacity is a third of what it was in round one.'],
         [2200, ()=>choices(4,AVG[4]),
-         'This time the class pulls right back.'],
+         'This class pulls right back. Another might not.'],
         [2400, ()=>endRound(4),
          'Sustainable again — but the ceiling they are living under is the one they broke.'],
         [3200, ()=>doc({phase:'final'}),
          'The closing summary: what the class took each round against the sustainable share, and what that cost.'],
         [5200, ()=>{ const b=bar.querySelector('[data-cmreplay]'); if(b) b.hidden=false; },
-         'Nobody cheated. Every individual choice was the rational one — that is what makes it a tragedy.']
+         'Nobody cheated. Each choice made sense on its own — which is the trap.']
       ];
       /* A caption has to stay up long enough to READ, and they run from seven to
          twenty-one words while the beats are all about the same length — so
@@ -6648,7 +6768,8 @@ show(start);
         for(let i=0;i<=Math.min(FR,script.length-1);i++){ try{ script[i][1](); }catch(e){} }
         return;
       }
-      txt.textContent='Tragedy of the Commons — a self-running walkthrough. No second device needed.';
+      txt.textContent='Tragedy of the Commons — one hypothetical class, played out. A real one varies.';
+      lastCap=txt.textContent;   /* so the opening line gets read, not flashed */
       play();
     }
     if(CMQ.has('demo') && !HOST) setTimeout(cmDemo, 400);
