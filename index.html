@@ -2441,13 +2441,13 @@ function drawHidden(svg, ph, force){
   svg.setAttribute('preserveAspectRatio','xMidYMid meet');
   var bg='<rect width="1000" height="560" fill="#faf7ef"/>'
     +'<rect x="14" y="14" width="972" height="532" fill="none" stroke="#d9cdb4" stroke-width="2" rx="6"/>';
-  /* DESIGN, projected: a specimen board that fills in as the room locks in.
+  /* DESIGN, projected: a board of organisms that fills in as the room locks in.
      The instructor can see progress at a glance and the class can see the
      variation it is collectively producing — which is the raw material
      selection is about to act on. */
   if(ph==='design' && HOST){
     var dz=designs(), ks=Object.keys(dz);
-    var s=bg+'<text x="32" y="46" font-family="Merriweather,serif" font-size="25" fill="#3c5248">Specimens locked in</text>'
+    var s=bg+'<text x="32" y="46" font-family="Merriweather,serif" font-size="25" fill="#3c5248">Organisms locked in</text>'
       +'<text x="968" y="46" text-anchor="end" font-family="Inter,sans-serif" font-size="21" fill="#7a8c84">'
       +num(ks.length)+' of '+num(Object.keys(players()).length)+'</text>';
     if(!ks.length){
@@ -4706,7 +4706,7 @@ function demoRun(){
     [2600, function(){ doc({phase:'design', deadline:Date.now()+9000}); },
         'Design opens. Each student founds a population of 26, before anyone knows the world.'],
     [1500, function(){ var d={}; for(var i=0;i<9;i++) d['d'+i]=mkDesign(i); doc({designs:d}); },
-        'Designs start landing. The projected copy fills with specimens as they lock in.'],
+        'Designs start landing. The projected copy fills with organisms as they lock in.'],
     [2200, function(){ var d={}; for(var i=9;i<20;i++) d['d'+i]=mkDesign(i); doc({designs:d}); },
         'Nobody can see the ecosystem while they design, so nobody can design to the answer.'],
     [2200, function(){
